@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 
-SRC		=	./src/main.c ./src/structure/*.c
+SRC		=	./src/*.c
 
 CC		=	gcc
 
@@ -23,7 +23,9 @@ RDLIB	=	-lreadline
 LIB_DIR =	./library/libft/
 LIBFT	=	./library/libft/libft.a
 
-BUILD_PRINT = @echo "\e[1;34mminishell created successfully \e[0m"
+BUILD_PRINT = @echo "minishell created successfully"
+# colour trouble on mac here
+# BUILD_PRINT = @echo "\e[1;34mminishell created successfully \e[0m"
 
 
 

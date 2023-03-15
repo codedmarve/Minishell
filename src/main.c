@@ -11,24 +11,34 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <string.h>
 
-int main(int argc, char *argv[], char *env[])
+
+// void init_data(t_data *data, char **envp)
+// {
+// 	data->envp = copy_envp(data, envp);
+// }
+
+
+int main(int ac, char **av, char **envp)
 {
 	t_data	*data;
+	char	*input;
 
-	welcome(argc, argv);
+	welcome(ac, av); // which check was added there??
 		
 	data = malloc(sizeof(t_data));
-	get_prompt(env, data);
-
-
+	if (!data)
+	{
+		printf("Error: malloc failure (main)");
+		exit(1);
+	}
+	// init_data(data, envp);
 	while (1)
-		ft_readline(data);
+	{
+		input = get_prompt();
+	}
+	free (input);
+	free (data);
 
-	free(data->prompt);
-	free(data);
-
-	
-	return 0;
+	return (0);
 }
