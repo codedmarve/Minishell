@@ -13,12 +13,10 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
 # include <sys/wait.h>
-
 
 typedef struct s_data
 {
@@ -33,12 +31,9 @@ typedef struct s_data
 	char	**env;
 }	t_data;
 
-
-
 void	welcome(int argc, char **argv);
 int		ft_readline(t_data *data);
 int		get_prompt(char **env, t_data *data);
 void	init_null(t_data *data, char *pwd);
-
 
 #endif
