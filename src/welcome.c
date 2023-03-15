@@ -4,7 +4,7 @@ void	welcome(int argc, char **argv)
 {
 	if (argc > 1 || argv[1])
 		exit(printf("Error: programme can't take argument(s)\n") - 39);
-
+.
 
 	printf("%s   ****************************************\n",
 		"\033[0;32m");

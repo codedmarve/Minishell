@@ -3,12 +3,12 @@
 /*
 parsing creates splitted command
 */
-
-typedef struct s_command
+// how to figure out t_data structure?????
+typedef struct s_data
 {
-	char **splitted_command;
+	char **splitted_cmd;
 	char *command_path;
-} t_command;
+} t_data;
 
 /*
 create linked list for tokens 
@@ -27,6 +27,8 @@ export  - no options
 unset  - no options
 env - no options or arguments
 exit - no options
+
+cd, export, unset - cannot be run in a child
 */
 
 
@@ -48,6 +50,7 @@ int	is_builtin(t_data *data)
 		return (1);
 	return (0);
 }
+
 
 /*
 there are different types of builtins

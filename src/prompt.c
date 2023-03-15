@@ -5,11 +5,12 @@ char	*get_prompt(void)
 	char	*prompt;
 	char	*input;
 
-	prompt = "minishell:~$ ";
+	prompt = "minishell$ ";
 	input = readline(prompt);
 	if (ft_strlen(input) > 0)
 	{
-		printf("%s\n", input); // addhistory(input)
+		printf("%s\n", input); 
+		// addhistory(input) create history, as a linked list (double?)
 	}
 	return (input);
 }
