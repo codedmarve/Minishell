@@ -73,7 +73,7 @@ int	get_prompt(char **env, t_data *data)
 	char	**cmd_linux;
 
     pipe(fd);
-	init_null(data, pwd);
+	ft_bzero(pwd, 1000);
 	cmd_mac = ft_split("/bin/pwd", ' ');
 	cmd_linux = ft_split("/usr/bin/pwd", ' ');
 	if (fork() == 0)
@@ -87,7 +87,6 @@ int	get_prompt(char **env, t_data *data)
 			return (ft_printf("-"), 0);
 	}
 	get_prompt2(env, data, pwd, fd);
-	int i = 0;
 	free(cmd_linux[0]);
 	free(cmd_mac[0]);
 	free(cmd_linux);
