@@ -217,19 +217,39 @@ execute command but this time use a relative path
 ls ../
 
 ********* env path ******************
+execute commands w/o path
+(ls, wc, awk ...)
+
+like in pipex - check access, execve...
+
+unset PATH
+set path to multiple dir value (dir1:dir2), they should be checked inorder from left to right
+(how do i ensure it?)
 
 
+********* redirection ******************
 
+execute commands with redirections < and/or > - we should be able to do multiple redirections at one time
+<< - w/o unpdating history
 
+********* pipes ******************
+mix pipes and redirections
 
+*********
 
+bash-5.2$ cat^C
+bash-5.2$ 
 
+bash-5.2$ qwuztqiwueztziqtwe
+bash: qwuztqiwueztziqtwe: command not found
 
+********* env variables ******************
+bash-5.2$ echo $USER $PWD
+dasha_dsh /Users/dasha_dsh
 
-
-
-
-
+$ interpreted as env variable
+"" interpolate $
+echo "$USER"
 
 
 ◦ echo with option -n
