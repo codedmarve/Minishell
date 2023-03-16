@@ -1,0 +1,12 @@
+total 128
+-rw-r--r--  1 dasha_dsh  staff    739 16 Mar 00:03 READ_allowed.txt
+-rw-r--r--  1 dasha_dsh  staff    311 16 Mar 00:04 READ_ex.txt
+-rw-r--r--  1 dasha_dsh  staff    362 16 Mar 00:18 READ_experiment.txt
+-rw-r--r--  1 dasha_dsh  staff   1815 16 Mar 00:02 READ_lexer.txt
+-rw-r--r--  1 dasha_dsh  staff   4823 16 Mar 12:35 READ_requirements.txt
+drwxr-xr-x  3 dasha_dsh  staff     96 15 Mar 17:43 includes
+drwxr-xr-x  3 dasha_dsh  staff     96 15 Mar 17:43 library
+-rw-r--r--  1 dasha_dsh  staff   1492 15 Mar 22:48 makefile
+-rwxr-xr-x  1 dasha_dsh  staff  33958 16 Mar 10:21 minishell
+drwxr-xr-x  9 dasha_dsh  staff    288 15 Mar 23:14 src
+-rw-r--r--  1 dasha_dsh  staff      0 16 Mar 12:35 testfile

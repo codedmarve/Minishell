@@ -21,7 +21,7 @@ char	**envp_copy(t_data *data, char **envp)
 	int	i;
 	char **envp_copy;
 	
-	envp_copy = ft_calloc(envp_size(envp));
+	envp_copy = ft_calloc(envp_size(envp), sizeof(char));
 	if (!envp_copy)
 	{
 		printf("Error: ft_calloc (copy_env)\n");
