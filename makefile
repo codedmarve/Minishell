@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 
-SRC		=	./src/*.c
+SRC		=	./src/main.c ./src/start/*.c
 
 CC		=	gcc
 
@@ -32,7 +32,7 @@ BUILD_PRINT = @echo "minishell created successfully"
 all:	$(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
-	@$(CC)  $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
+	$(CC)  $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
 	$(BUILD_PRINT)
 
 

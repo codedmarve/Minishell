@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 # include <readline/readline.h>
-// # include <readline/history.h>
+# include <readline/history.h>
 # include "../library/libft/libft.h"
 // # include <sys/wait.h>
 // # include <string.h>
@@ -57,8 +57,5 @@ char	**envp_copy(t_data *data, char **envp);
 
 // ./builtins
 
-
-
-void	init_null(t_data *data, char *pwd);
 
 #endif

@@ -24,14 +24,10 @@ int main(int ac, char **av, char **envp)
 	t_data	*data;
 	char	*input;
 
-	welcome(ac, av); // which check was added there??
-		
+	welcome(ac, av);
 	data = malloc(sizeof(t_data));
 	if (!data)
-	{
-		printf("Error: malloc failure (main)");
-		exit(1);
-	}
+		return (printf("Error: malloc failure (main)"), 1);
 	// init_data(data, envp);
 	while (1)
 	{
