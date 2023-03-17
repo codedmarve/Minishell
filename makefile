@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 
-SRC		=	./src/main.c ./src/structure/*.c
+SRC		=	./src/main.c ./src/start/*.c
 
 CC		=	gcc
 
@@ -23,16 +23,14 @@ RDLIB	=	-lreadline
 LIB_DIR =	./library/libft/
 LIBFT	=	./library/libft/libft.a
 
-BUILD_PRINT = @echo "\e[1;34mminishell created successfully \e[0m"
 
 
 
 all:	$(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
-	@$(CC) $(CFLAGS) $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
-	$(BUILD_PRINT)
-
+	@$(CC)  $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
+	@echo "minishell created successfully"
 
 $(LIBFT):
 	make -C $(LIB_DIR)

@@ -1,0 +1,260 @@
+
+1. PROMPT
+simple "minishell$ " is imitating bash behavior and would be enough
+
+2. HISTORY
+when using readline, we should use function add_history, in order to keep
+all the commands since minishell launched
+
+3. Search and launch the right executable(based on the PATH variable or using a relative or an absolute path).
+We should use execve for that? check pipex regarding absolute path!
+
+4. Not use more than one global variable. Think about it. You will have to explain its purpose.
+Why do we need it??
+
+5. Not interpret unclosed quotes or special characters which are not required by the subject 
+such as \ (backslash) or ; (semicolon).
+??? should we ignore unclosed quotes?? how do i understand that?
+"message -> throw error?
+\ or ; as a token (other special chars)-> throw error
+we should handle:
+| < >> << > 
+
+6. Handle ’ (single quote) which should prevent the shell from interpreting the meta- characters in the quoted sequence.
+| is a pipe, "|" is a string
+metacharacters https://www.ibm.com/docs/en/informix-servers/14.10?topic=matching-metacharacters
+
+7. Handle " (double quote) which should prevent the shell from interpreting the meta- characters 
+in the quoted sequence except for $ (dollar sign).
+
+echo $PATH ->path
+echo "$PATH" ->path (the same)
+echo '$PATH'-> prints $PATH
+
+'' - makes everything to a string
+"" - execute everything inside
+
+echo "$PATH"
+echo '$PATH'
+echo '"$PATH"'
+echo "'$PATH'"
+
+what makes $ (see 10. 11.)
+ - echo envp variables
+ - $?
+
+8. REDIRECTIONS
+◦ < should redirect input.
+◦ > should redirect output.
+◦ << should be given a delimiter, then read the input until a line containing the delimiter is seen. 
+However, it doesn’t have to update the history!
+◦ >> should redirect output in append mode.
+??? input redirection - read from a file (by default we read from STDIN)
+
+9. PIPES (| character). The output of each command in the pipeline is
+connected to the input of the next command via a pipe.
+??? multiple pipes
+
+10. Handle environment variables ($ followed by a sequence of characters) which should expand to their values.
+??? echo $PATH etc.?
+
+11. Handle $? which should expand to the exit status of the most recently executed foreground pipeline.
+???
+
+12. Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
+there are signals
+
+13. In interactive mode:
+◦ ctrl-C displays a new prompt on a new line. ◦ ctrl-D exits the shell.
+◦ ctrl-\ does nothing.
+??? what does interactive mode means??
+https://www.geeksforgeeks.org/shell-scripting-interactive-and-non-interactive-shell/
+A shell that runs a script is always considered a non-interactive shell.
+The type of shell being used can be detected (BASH only). 
+We can determine if we are using an interactive or non-interactive shell by,
+
+[[ $- == *i* ]] && echo ‘Interactive’ || echo ‘not-interactive’
+
+14. Your shell must implement the following builtins:
+◦ echo with option -n
+◦ cd with only a relative or absolute path ◦ pwd with no options
+◦ export with no options
+◦ unset with no options
+◦ env with no options or arguments
+◦ exit with no options
+
+---------
+EVAL SHEET  - different between arguments and flags (options?)
+https://unix.stackexchange.com/questions/285575/whats-the-difference-between-a-flag-an-option-and-an-argument
+
+*********** ECHO *********** 
+echo $PATH (argument)
+-n (flag)
+echo -> empty line
+echo -n -> no newline
+test: echo -n $PATH
+
+*********** EXIT *********** 
+exit with arguments - which arguments???
+
+RETURN VALUE OF PROCESS
+echo $? after execve
+lol
+zsh: command not found: lol
+dasha_dsh@Darias-MacBook-Pro 42 % echo $?
+127
+If some form of wrong syntax gets detected, 
+Invalid Syntax at token is printed and the error value $? is set to 258
+If there was an invalid command used, 
+command not found is printed and the error value $? is set to 127
+
+expr $? + $?
+zsh: command not found: 127+127
+
+??? should we make expr work ???
+
+*********** SIGNALS *********** 
+ctrl D  -> quit minishell 
+blocking commands (cat, grep...)
+dasha_dsh@Darias-MacBook-Pro 42 % cat
+^C
+dasha_dsh@Darias-MacBook-Pro 42 % cat
+^\zsh: quit       cat
+dasha_dsh@Darias-MacBook-Pro 42 % cat
+dasha_dsh@Darias-MacBook-Pro 42 % 
+
+*********** DOUBLE QUOTES *********** 
+no spaces in double quotes!
+"ls" works
+"ls " -> zsh: command not found:  ls 
+" ls " -> zsh: command not found:  ls 
+"ls > testfile"
+zsh: command not found: ls > testfile
+we can use echo to display this string
+command alone in "" should work
+
+"ls -l" (with flags wouldn't work)
+zsh: command not found: ls -l
+
+"ls" -l works
+"ls" "-l" works
+
+??? except $ -> because 
+echo " $PATH" will be still working
+
+echo "$PATH'$PATH'" - exec 2 times
+
+" $PATH " -> with space + error message
+"$PATH" + error message
+"   $PATH   " $PATH "" -> once
+"$PATH"$PATH"" -> twice
+
+*********** SINGLE QUOTES *********** 
+cat "testfile" & cat 'testfile' work as 
+cat testfile
+
+'ls' > 'testfile'
+bash-5.2$ 'ls -l' > 'testfile'
+bash: ls -l: command not found
+
+ls' ' -l' > 'testfile' -> doesnt work
+ls' '-l' > 'testfile' -> works
+
+'ls' '-l' '>' 'testfile'
+ls: >: No such file or directory (executed ls -l testfile, no redirect)
+-rw-r--r--  1 dasha_dsh  staff  706 16 Mar 12:35 testfile
+
+environment variables, whitespaces, pipes, 
+redirect in single quotes
+
+nothing should be interpreted 
+
+
+lexer->interpreter->parser....
+
+********* env ******************
+no options, no args
+getenv? execve
+
+********* export ******************
+with no options
+with arguments
+
+export HELLO=WORLD (add value to the key) - it creates and replaces
+unset HELLO
+
+which env
+/usr/bin/env
+which export
+export: shell reserved word
+
+export, env - same result but export adds declare -x and quotations
+export in in alphabetical order
+
+********* unset ******************  FLAGS/OPT ARG 
+unset with no options
+set the path after unset path
+w/o argument doesnt do anything
+
+********* cd ******************
+cd with only a relative or absolute path
+use chdir 
+https://www.geeksforgeeks.org/chdir-in-c-language-with-examples/
+
+then use export to update_wds: export PWD, export OLDPWD
+
+. ..
+chdir("..");
+
+********* pwd ******************
+print value of PWD= from envp
+
+********* relative path ******************
+A relative path describes the location of a file relative to the current (working) directory
+An absolute path describes the location from the root directory
+
+execute command but this time use a relative path
+ls ../
+
+********* env path ******************
+execute commands w/o path
+(ls, wc, awk ...)
+
+like in pipex - check access, execve...
+
+unset PATH
+set path to multiple dir value (dir1:dir2), they should be checked inorder from left to right
+(how do i ensure it?)
+
+
+********* redirection ******************
+
+execute commands with redirections < and/or > - we should be able to do multiple redirections at one time
+<< - w/o unpdating history
+
+********* pipes ******************
+mix pipes and redirections
+
+*********
+
+bash-5.2$ cat^C
+bash-5.2$ 
+
+bash-5.2$ qwuztqiwueztziqtwe
+bash: qwuztqiwueztziqtwe: command not found
+
+********* env variables ******************
+bash-5.2$ echo $USER $PWD
+dasha_dsh /Users/dasha_dsh
+
+$ interpreted as env variable
+"" interpolate $
+echo "$USER"
+
+
+◦ echo with option -n
+◦ cd with only a relative or absolute path ◦ pwd with no options
+◦ export with no options
+◦ unset with no options
+◦ env with no options or arguments
+◦ exit with no options
