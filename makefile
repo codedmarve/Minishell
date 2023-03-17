@@ -30,7 +30,7 @@ BUILD_PRINT = @echo "\e[1;34mminishell created successfully \e[0m"
 all:	$(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
-	@$(CC)  $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
 	$(BUILD_PRINT)
 
 

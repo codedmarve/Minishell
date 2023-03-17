@@ -46,6 +46,7 @@ int	get_prompt2(char **env, t_data *data, char *pwd, int *fd)
 	char 	*tmp2;
 
 	i = 0;
+	tmp = NULL;
 	read(fd[0], pwd, 1000);
 	pwd[ft_strlen(pwd) - 1] = '\0';
 	while(env[i])
@@ -91,4 +92,5 @@ int	get_prompt(char **env, t_data *data)
 	free(cmd_mac[0]);
 	free(cmd_linux);
 	free(cmd_mac);
+	return 1;
 }
