@@ -20,7 +20,7 @@ arg: char **envp  - arr of strings containing an environmental variable
 return: t_env * -  first element of the new envp list
 */
 
-t_envp	*create_envp_ll(char **envp)
+t_envp	*init_envp_ll(char **envp)
 {
 	t_envp	*envp_ll;
 	char	**key_value_pair;

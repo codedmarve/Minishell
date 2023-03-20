@@ -19,6 +19,9 @@
 // # include <sys/wait.h>
 // # include <string.h>
 
+// PATH_MAX -  Maximum number of bytes in a pathname, 
+// including the terminating null character. 
+
 
 typedef struct s_envp
 {
@@ -29,8 +32,9 @@ typedef struct s_envp
 
 typedef struct s_data
 {
-	char	**envp;
+
 	t_envp  *envp_ll;
+	char	**envp_arr;
 
 	// int		i;
 	// int		pid;
@@ -53,8 +57,11 @@ typedef struct s_token
 // envp - saving envp as a linked list
 t_envp	*ft_envp_last(t_envp *lst);
 void	ft_envp_add_back(t_envp **lst, t_envp *new);
-t_envp	*create_envp_ll(char **envp);
+t_envp	*init_envp_ll(char **envp);
 t_envp	*create_envp_node(char **data);
+
+int	init_envp_arr(t_data *data, char **envp);
+int	envp_variable_counter(char **envp);
 
 
 // main.c
