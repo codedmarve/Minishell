@@ -19,9 +19,18 @@
 // # include <sys/wait.h>
 // # include <string.h>
 
+
+typedef struct s_envp
+{
+	char			*envp_key;
+	char			*envp_value;
+	struct s_envp	*next;
+}					t_envp;
+
 typedef struct s_data
 {
 	char	**envp;
+	t_envp  *envp_ll;
 
 	// int		i;
 	// int		pid;
@@ -40,6 +49,13 @@ typedef struct s_token
 	int				type;
 	struct s_token	*next;
 }	t_token;
+
+
+t_envp	*ft_envp_last(t_envp *lst);
+void	ft_envp_add_back(t_envp **lst, t_envp *new);
+t_envp	*create_envp_ll(char **envp);
+t_envp	*create_envp_node(char **data);
+
 
 // main.c
 int		main(int ac, char **av, char **envp);
