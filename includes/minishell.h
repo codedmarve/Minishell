@@ -50,7 +50,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-
+// envp - saving envp as a linked list
 t_envp	*ft_envp_last(t_envp *lst);
 void	ft_envp_add_back(t_envp **lst, t_envp *new);
 t_envp	*create_envp_ll(char **envp);
@@ -63,9 +63,6 @@ int		main(int ac, char **av, char **envp);
 void	welcome(int argc, char **argv);
 // prompt.c
 char	*get_prompt(void);
-// envp.c
-int		envp_size(char **envp);
-char	**envp_copy(t_data *data, char **envp);
 
 // ./lexer
 
