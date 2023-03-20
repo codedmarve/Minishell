@@ -17,12 +17,12 @@ void init_data(t_data *data, char **envp)
 {
 	// data->envp = copy_envp(data, envp);
 	data->envp_ll = create_envp_ll(envp);
-	while (data->envp_ll)
-	{
-		printf("key: %s\n", data->envp_ll->envp_key);
-		printf("value: %s\n", data->envp_ll->envp_value);
-		data->envp_ll = data->envp_ll->next;
-	}
+	// while (data->envp_ll)
+	// {
+	// 	printf("key: %s\n", data->envp_ll->envp_key);
+	// 	printf("value: %s\n", data->envp_ll->envp_value);
+	// 	data->envp_ll = data->envp_ll->next;
+	// }
 }
 
 
