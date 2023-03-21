@@ -13,15 +13,15 @@ functions we can use:
 rl_clear_history
 */
 
-char	*get_prompt(void)
-{
-	char	*input;
+// char	*get_prompt(void)
+// {
+// 	char	*input;
 
-	input = readline("minishell$ ");
-	if (ft_strlen(input) > 0)
-	{
-		// printf("%s\n", input); 
-		add_history(input); // create history
-	}
-	return (input);
-}
+// 	input = readline("minishell$ ");
+// 	if (ft_strlen(input) > 0)
+// 	{
+// 		// printf("%s\n", input); 
+// 		add_history(input); // create history
+// 	}
+// 	return (input);
+// }

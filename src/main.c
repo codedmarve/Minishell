@@ -32,6 +32,19 @@ void init_data(t_data *data, char **envp)
 }
 
 
+// char	*get_prompt(void)
+// {
+// 	char	*input;
+
+// 	input = readline("minishell$ ");
+// 	if (ft_strlen(input) > 0)
+// 	{
+// 		// printf("%s\n", input); 
+// 		add_history(input); // create history
+// 	}
+// 	return (input);
+// }
+
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
@@ -45,7 +58,9 @@ int	main(int ac, char **av, char **envp)
 	init_data(data, envp);
 	while (1)
 	{
-		input = get_prompt();
+		// input = get_prompt();
+		input = readline(PROMPT);
+		add_history(input);
 	}
 	free (input);
 	free (data);

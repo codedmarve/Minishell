@@ -22,6 +22,16 @@
 // PATH_MAX -  Maximum number of bytes in a pathname, 
 // including the terminating null character. 
 
+# define PROMPT "minishell$ "
+# define PIPE '|'
+# define S_QUOTE '\''
+# define D_QUOTE '\"'
+# define IN '<'
+# define OUT '>'
+# define APP ">>"
+// here-document 
+// askubuntu.com/questions/678915/whats-the-difference-between-and-in-bash
+# define HERE_D "<<"
 
 typedef struct s_envp
 {
@@ -32,9 +42,9 @@ typedef struct s_envp
 
 typedef struct s_data
 {
-
 	t_envp  *envp_ll;
 	char	**envp_arr;
+	int last_exit_code;
 
 	// int		i;
 	// int		pid;
@@ -55,13 +65,13 @@ typedef struct s_token
 }	t_token;
 
 // envp - saving envp as a linked list
-t_envp	*ft_envp_last(t_envp *lst);
-void	ft_envp_add_back(t_envp **lst, t_envp *new);
 t_envp	*init_envp_ll(char **envp);
 t_envp	*create_envp_node(char **data);
+t_envp	*ft_envp_last(t_envp *lst);
+void	ft_envp_add_back(t_envp **lst, t_envp *new);
 
-int	init_envp_arr(t_data *data, char **envp);
-int	envp_variable_counter(char **envp);
+int		init_envp_arr(t_data *data, char **envp);
+int		envp_variable_counter(char **envp);
 
 
 // main.c

@@ -1,12 +1,11 @@
 
-#include "../../includes/minishell.h"
 
-/* ERROR HANDLING:
+ERROR HANDLING:
 bash: syntax error near unexpected token `&'
-*/
 
 
-/* 
+
+
 Minishell does not support \, ;, &&, ||, or wildcards.
 
 we need to implement:
@@ -17,6 +16,12 @@ we need to implement:
 " " double quotes prevent from interpreting special chars except $
 (echo "$PATH" equal to echo $PATH)
 if " ls " - command not found
+
+EMPTY QUOTES
+bash-5.2$ ""
+bash: : command not found
+bash-5.2$ ''
+bash: : command not found
 
 QUOTES + SPACES
 ' ls '
@@ -29,8 +34,19 @@ REDIRECTIONS > >> < <<
 do not need
 
 $?
-*/
 
-/* OPTIONAL
+
+OPTIONAL
 !
-#*/
+#
+
+
+------------------------------------------------
+PARSING(t_data *data, char *input)
+(parsing struct inside of data struct)
+
+initialize_parsing_structure (data, input)
+input
+copy data there
+
+
