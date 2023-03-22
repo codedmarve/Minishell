@@ -32,8 +32,9 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = get_prompt();
+
+		free(input);
 	}
-	free (input);
 	free (data);
 
 	return (0);
