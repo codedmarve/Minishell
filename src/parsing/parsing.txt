@@ -1,6 +1,10 @@
 
 
+
+
+
 ERROR HANDLING:
+
 bash: syntax error near unexpected token `&'
 
 

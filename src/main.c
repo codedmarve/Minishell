@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-
-void init_data(t_data *data, char **envp)
+void	init_data(t_data *data, char **envp)
 {
+	// data->raw_input = NULL;
 	data->envp_ll = init_envp_ll(envp);
 	// while (data->envp_ll)
 	// {
@@ -31,24 +31,10 @@ void init_data(t_data *data, char **envp)
 	// }
 }
 
-
-// char	*get_prompt(void)
-// {
-// 	char	*input;
-
-// 	input = readline("minishell$ ");
-// 	if (ft_strlen(input) > 0)
-// 	{
-// 		// printf("%s\n", input); 
-// 		add_history(input); // create history
-// 	}
-// 	return (input);
-// }
-
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
-	char	*input;
+	char *input;
 
 	welcome(ac, av);
 	data = ft_calloc(1, sizeof(t_data)); //ft_calloc, malloc?
@@ -59,8 +45,11 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		input = readline(PROMPT);
-		add_history(input);
-		free(input);
+		// data->raw_input = readline(PROMPT);
+		// add_history(data->raw_input); // if (ft_strlen(data->raw_input) > 0)
+		add_history(input); 
+		input_handler(input);
+		free(input); //needed??
 	}
 	free (data);
 	return (0);
