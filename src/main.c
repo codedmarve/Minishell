@@ -14,7 +14,7 @@
 
 void	init_data(t_data *data, char **envp)
 {
-	// data->raw_input = NULL;
+	data->input = NULL;
 	data->envp_ll = init_envp_ll(envp);
 	// while (data->envp_ll)
 	// {
@@ -34,7 +34,6 @@ void	init_data(t_data *data, char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
-	char *input;
 
 	welcome(ac, av);
 	data = ft_calloc(1, sizeof(t_data)); //ft_calloc, malloc?
@@ -44,12 +43,9 @@ int	main(int ac, char **av, char **envp)
 	init_data(data, envp);
 	while (1)
 	{
-		input = readline(PROMPT);
-		// data->raw_input = readline(PROMPT);
-		// add_history(data->raw_input); // if (ft_strlen(data->raw_input) > 0)
-		add_history(input); 
-		input_handler(input);
-		free(input); //needed??
+		data->input = readline(PROMPT);
+		add_history(data->input); // if (ft_strlen(data->raw_input) > 0)
+		input_handler(data, data->input);
 	}
 	free (data);
 	return (0);
