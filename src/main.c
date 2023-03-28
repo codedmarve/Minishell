@@ -14,21 +14,14 @@
 
 void	init_data(t_data *data, char **envp)
 {
-	data->input = NULL;
 	data->envp_ll = init_envp_ll(envp);
-	// while (data->envp_ll)
-	// {
-	// 	printf("key: %s\n", data->envp_ll->envp_key);
-	// 	printf("value: %s\n", data->envp_ll->envp_value);
-	// 	data->envp_ll = data->envp_ll->next;
-	// }
-	init_envp_arr(data, envp);
-	// int i = 0;
-	// while (data->envp_arr[i])
-	// {
-	// 	printf("envp index %i: %s\n", i, data->envp_arr[i]);
-	// 	i++;
-	// }
+	while (data->envp_ll)
+	{
+		printf("%s", data->envp_ll->envp_key);
+		printf("=");
+		printf("%s\n", data->envp_ll->envp_value);
+		data->envp_ll = data->envp_ll->next;
+	}
 }
 
 int	main(int ac, char **av, char **envp)
@@ -36,8 +29,7 @@ int	main(int ac, char **av, char **envp)
 	t_data	*data;
 
 	welcome(ac, av);
-	data = ft_calloc(1, sizeof(t_data)); //ft_calloc, malloc?
-	// data = malloc(sizeof(t_data));
+	data = malloc(sizeof(t_data)); 
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
 	init_data(data, envp);

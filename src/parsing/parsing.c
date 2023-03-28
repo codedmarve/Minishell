@@ -1,19 +1,11 @@
 
 #include "../../includes/minishell.h"
 
+#define QUOTES_ERR
+
 bool	is_whitespace_char(char c)
 {
 	return (ft_strchr(" \f\n\t\r\v", c));
-}
-
-bool is_pipe_char(char c)
-{
-	return (c == '|');
-}
-
-bool is_redirection_char(char c)
-{
-	return(ft_strchr("><", c));
 }
 
 bool	is_quotation_char(char c)
@@ -21,15 +13,63 @@ bool	is_quotation_char(char c)
 	return (c == '\"' || c == '\'');
 }
 
-bool is_operator_char(char c)
+/*
+pipe operator:
+passes the output of one command as input to another
+
+redirection operators:
+token that performs a redirection function
+*/
+bool	is_operator_char(char c)
 {
 	return (ft_strchr("><|", c));
 }
 
+/*
+metachar: when unquoted, separates words. 
+A metacharacter is a space, tab, newline, 
+or one of the following characters: 
+‘|’, ‘&’, ‘;’, ‘(’, ‘)’, ‘<’, or ‘>’.
+*/
 bool	is_metachar(char c)
 {
 	return (is_whitespace_char(c) || is_operator_char(c));
 }
+
+// int	get_chartype(char c)
+// {
+// 	if (p->double_quoted || p->single_quoted)
+// 		return (word);
+// 	if (c == '|')
+// 		return (pipe_char);
+// 	if (is_whitespace(c))
+// 		return (whitespace);
+// 	if (is_operatorchar(c))
+// 		return (operator);
+// 	else
+// 		return (word);
+// }
+
+// typedef enum char_type
+// {
+// 	init_lex = 1,
+// 	word = 2,
+// 	whitespace = 4,
+// 	operator = 8,
+// 	pipe_char = 16,
+// }	t_chartype;
+
+// typedef enum token_type
+// {
+// 	init_tok = 1,
+// 	newcmd = 2,
+// 	input_redir,
+// 	output_redir_oper = 8,
+// 	input_redir_str = 16,
+// 	output_redir_str = 32,
+// 	pipe_oper = 64,
+// 	cmdstring = 128
+// }	t_toktype;
 
 /*********************************************************************************************/
 bool	open_quotes_found(char *s) //NORM FIX
@@ -74,7 +114,7 @@ bool newline_err(char *input)
 	return (false);
 }
 
-void remove_leading_whitespaces(char *input)
+void remove_surrounding_whitespaces(char *input)
 {
 	input = ft_strtrim(input, " \f\n\t\r\v"); //remove start/end spaces, do we neeed empty string check here?
 	// printf("START%sEND\n", data->input);
@@ -88,22 +128,25 @@ early error check:
 2. first char may not be a pipe -> minishell: syntax error near unexpected token `|'
 3. last char may not be an operator (since it' s not 100% bash, it also doesn't support PIPE
 as a last char)
+
+remaining syntax check is performed after tokenization, makes it easier
 */
 bool early_err(char *input)
 {
-	remove_leading_whitespaces(input);
+	remove_surrounding_whitespaces(input);
 	if (open_quotes_found(input))
 		return (printf("minishell: unsupported open quotes\n"), true);
 	if (opening_pipe_err(input))
 		return (printf("minishell: syntax error near unexpected token `|'\n"), true);
 	if (newline_err(input))
-		return (printf ("minishell: syntax error near unexpected token `newline'\n"), true);
+		return (printf("minishell: syntax error near unexpected token `newline'\n"), true);
 	return (false);
 }
 /*********************************************************************************************/
 
 int input_handler(t_data *data, char *input)
 {
-	early_err(input); // if
+	early_err(data->input); // if errror??
+	// lexer(data);
 	return (0);
 }
