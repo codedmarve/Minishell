@@ -16,7 +16,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../library/libft/libft.h"
-// # include <sys/wait.h>
+# include <sys/wait.h>
 // # include <string.h>
 
 // PATH_MAX -  Maximum number of bytes in a pathname, 
@@ -44,17 +44,19 @@ typedef struct s_data
 {
 	t_envp  *envp_ll;
 	char	**envp_arr;
-	int last_exit_code;
+	int		last_exit_code;
+	
+	int		i;
+	char	*path;
+	char	*input;
+	char	**env;
+	char	**cmd;
+	char	**prenv;
+	char	*tmp;
 
-	// int		i;
 	// int		pid;
-	// char	*tmp;
-	// char	*path;
 	// char	*line;
 	// char	*prompt;
-	// char	**cmd;
-	// char	**prenv;
-	// char	**env;
 }	t_data;
 
 typedef struct s_token
@@ -87,5 +89,16 @@ char	*get_prompt(void);
 
 // ./builtins
 
+
+// simple case
+int		is_simple(char *str);
+int		arrlen(char **arr);
+void	ft_clarr(char **str);
+void	init_null(t_data *data);
+int		simple_t(t_data *data);
+void	execute(t_data *data);
+int		get_path(t_data *data);
+void	add_path(t_data *data);
+void	ft_clear(t_data *data);
 
 #endif

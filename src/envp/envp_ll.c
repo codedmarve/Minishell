@@ -35,8 +35,10 @@ t_envp	*init_envp_ll(char **envp)
 		i++;
 		if (key_value_pair)
 		{
+			free(key_value_pair[0]);
+			if (key_value_pair[1])
+				free(key_value_pair[1]);
 			free(key_value_pair);
-			key_value_pair = NULL;
 		}
 	}
 	// update_shell_lvl(envp_ll) ??
