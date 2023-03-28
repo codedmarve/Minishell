@@ -29,11 +29,17 @@ Allowed functions for Minishell
 
 				wait(&status)
 
+		on success, returns the process ID of the terminated child; 
+		on failure, -1 is returned.
+
 
 ----> waitpid
 		can wait for a specific child process to finish execution. takes in 3 parameters
 
 				waitpid(pid, &status, flag);
+
+		on success, returns the process ID of the child whose state has changed;
+		On failure, -1 is returned.
 
 
 ----> wait3
@@ -56,6 +62,10 @@ Allowed functions for Minishell
 		that are sent to a program by the operating system or another program.
 
 				void (*signal(int sig, void (*func)(int)))(int)
+		
+		returns the previous value of the signal handler On
+        failure, it returns SIG_ERR, and errno is set to indicate the
+        error.
 
 
 ----> sigaddset

@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 
-SRC		=	./src/main.c ./src/start/*.c ./src/envp/*.c
+SRC		=	./src/main.c ./src/envp/*.c  ./src/parsing/*.c ./src/utils/*.c
 
 CC		=	gcc
 
@@ -25,11 +25,10 @@ LIBFT	=	./library/libft/libft.a
 
 
 
-
 all:	$(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
-	@$(CC)  $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
 	@echo "minishell created successfully"
 
 $(LIBFT):
