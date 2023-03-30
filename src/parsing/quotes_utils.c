@@ -14,9 +14,9 @@ int	quotes_are_closed(char c)
 		sq_open = 0;
 	else if (c == '\'' && !dq_open && !sq_open)
 		sq_open = 1;
-	else if (c == '\"' && !sq_open  && dq_open)
+	else if (c == '\"' && !sq_open && dq_open)
 		dq_open = 0;
-	else if (c == '\"' && !sq_open  && !dq_open)
+	else if (c == '\"' && !sq_open && !dq_open)
 		dq_open = 1;
 	if (!dq_open && !sq_open)
 		return (1);

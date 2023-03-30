@@ -7,12 +7,18 @@ static int	ft_isspace(char c)
 			|| c == '\r' || c == '\t' || c == '\v'));
 }
 
+
+/* 
+all IS_SPACE chars will become SPACE char
+
+then uses STRTRIM to cut leading and closing spaces
+*/
 void	unify_spaces(char **input)
 {
 	char	*new;
 	int		i;
 	int		j;
-	char	*tmp;
+	char	*tmp; // for a quick usage to use strtrim
 
 	i = -1;
 	j = 0;
@@ -35,12 +41,12 @@ void	unify_spaces(char **input)
 	free(tmp);
 }
 
+/* removes SPACES which occure more then 1 time in a row */
 void	remove_extra_spaces(char **input)
 {
 	char	*new;
 	int		i;
 	int		j;
-	char	*tmp;
 
 	i = -1;
 	j = 0;
@@ -54,16 +60,14 @@ void	remove_extra_spaces(char **input)
 	}
 	quotes_reset();
 	new[j] = '\0';
-	tmp = ft_strtrim(new, " ");
-	*input = ft_strdup(tmp);
+	*input = ft_strdup(new);
 	free(new);
-	free(tmp);
 }
 
 void manipulate_input(char **input)
 {
 	// printf("INPUT: START%sEND\n", *input);
-	// *input = ft_strtrim(*input, " \f\n\t\r\v");
+	//	// *input = ft_strtrim(*input, " \f\n\t\r\v");
 	unify_spaces(input);
 	remove_extra_spaces(input);
 	// printf("CLEANED INPUT2: START%sEND\n", *input);
