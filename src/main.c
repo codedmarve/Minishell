@@ -14,14 +14,16 @@
 
 void	init_data(t_data *data, char **envp)
 {
+	data->input = NULL;
 	data->envp_ll = init_envp_ll(envp);
-	while (data->envp_ll)
-	{
-		printf("%s", data->envp_ll->envp_key);
-		printf("=");
-		printf("%s\n", data->envp_ll->envp_value);
-		data->envp_ll = data->envp_ll->next;
-	}
+	data->token_ll = NULL;
+	// while (data->envp_ll)
+	// {
+	// 	printf("%s", data->envp_ll->envp_key);
+	// 	printf("=");
+	// 	printf("%s\n", data->envp_ll->envp_value);
+	// 	data->envp_ll = data->envp_ll->next;
+	// }
 }
 
 int	main(int ac, char **av, char **envp)
@@ -36,8 +38,8 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	{
 		data->input = readline(PROMPT);
-		add_history(data->input); // if (ft_strlen(data->raw_input) > 0)
-		input_handler(data, data->input);
+		add_history(data->input); // if (ft_strlen(data->input) > 0)
+		input_handler(data);
 	}
 	free (data);
 	return (0);

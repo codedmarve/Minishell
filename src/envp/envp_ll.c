@@ -3,8 +3,9 @@
 #include "../../includes/minishell.h"
 
 /*
-probably its possible to store envp as ll, 
-so it's easier to remove/add elements in case of export/unset
+stores envp as a linked list, 
+
+saves KEY = VALUE as 2 elements of a structure
 */
 
 // typedef struct s_envp
@@ -77,9 +78,6 @@ void	ft_envp_add_back(t_envp **lst, t_envp *new)
 		ft_envp_last(*lst)->next = new;
 }
 
-/* 
-returns pointer to the last element - NOT NEEDED, should we rewrite function?
-*/
 t_envp	*ft_envp_last(t_envp *lst)
 {
 	t_envp	*tmp;

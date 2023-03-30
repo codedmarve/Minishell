@@ -1,6 +1,7 @@
 
 
-
+bash-5.2$  <inputfile.txt cat  > | outfile 
+bash: syntax error near unexpected token `|'
 
 
 ERROR HANDLING:

@@ -17,11 +17,8 @@
 # include <readline/history.h>
 # include "../library/libft/libft.h"
 # include <stdbool.h>
-// # include <sys/wait.h>
-// # include <string.h>
 
-// PATH_MAX -  Maximum number of bytes in a pathname, 
-// including the terminating null character. 
+# include "parsing.h"
 
 # define PROMPT "minishell$ "
 
@@ -34,6 +31,10 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 
+/*
+structure is used to save KEY=VALUE data from ENVP as a linked list
+*/
+
 typedef struct s_envp
 {
 	char			*envp_key;
@@ -41,61 +42,82 @@ typedef struct s_envp
 	struct s_envp	*next;
 }					t_envp;
 
+typedef struct s_token
+{
+	char			*string;
+	int type;
+	struct s_token	*next;
+}					t_token;
+
 typedef struct s_data
 {
+	char    *input;
 	t_envp  *envp_ll;
-	char	**envp_arr;
-	char    *input; // SHOULD WE PLACE IT HERE OR SOMEWHERE ELSE???????
+	t_token *token_ll;
 
-	// int last_exit_code;
 
-	// int		i;
-	// int		pid;
-	// char	*tmp;
-	// char	*path;
-	// char	*line;
-	// char	*prompt;
-	// char	**cmd;
-	// char	**prenv;
-	// char	**env;
+
+
 }	t_data;
 
-// typedef struct s_token
+// global struct t_data
 // {
-// 	char			*str;
+// 	*raw_input
+// 	t_envp *envp_ll;
+// 	char **input_slitted;- 2d array (holds a 2d char array, all the commands, 
+// 	arguments,pipes...separated, empty spaces????)
 
-// 	int				type; // int we got in enum
-// 	struct s_token	*next;
-// }	t_token;
+// 	** paths: 2d char array that holds all the paths to the bin folders
+//  	* that are saved in the env variable PATH - may be stored inside of the PATH node
 
-// typedef struct s_cmd
+// 	amount_of_pipe_groups (pipes+1)
+// 	*pipe_groups
+// }
+
+
+// struct pipe_group contains:
+// info abt command,
+// arguments,
+// any input/output redirection or piping
+// first *word will be command itself
+
+// handles built-in commands 
+// and executable commands
+// with their respective 
+// paths.
+
+// struct pipe_group
 // {
-// 	char	*path_cmd;
-// 	char	**cmd_args;
-// }				t_cmd;
+// exit status (here?)
+// **words
+// *path
+// builtin (if builin == ECHO->run ft_echo)
 
-// envp - saving envp as a linked list
+// redirection_in
+// char *arr_inputfile
+
+// redirection_out
+// char *arr_outputfile
+
+// pipe_in
+// pipe_out
+// pipe_fd[2]
+
+// pid from executor
+
+// *t_data
+// }
+
+// ENVP
+// envp_ll.c
 t_envp	*init_envp_ll(char **envp);
 t_envp	*create_envp_node(char **data);
 t_envp	*ft_envp_last(t_envp *lst);
 void	ft_envp_add_back(t_envp **lst, t_envp *new);
 
-int		init_envp_arr(t_data *data, char **envp);
-int		envp_variable_counter(char **envp);
-
-
 // main.c
 int		main(int ac, char **av, char **envp);
 // welcome.c
 void	welcome(int argc, char **argv);
-
-// ./lexer
-
-// ./parsing
-
-// ./builtins
-
-
-int 	input_handler(t_data *data, char *input);
 
 #endif
