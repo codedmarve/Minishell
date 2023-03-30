@@ -13,7 +13,7 @@ int	opening_pipe_err(char *input)
 int	newline_err(char *input)
 {
 	if (input[ft_strlen(input) - 1] == '<'
-		|| input[ft_strlen(input) - 1] == '>'
+		|| input[ft_strlen(input) - 1] == '>' //)
 		|| input[ft_strlen(input) - 1] == '|') // not really bash - last PIPE is waiting for input) 
 		return (1);
 	return (0);
