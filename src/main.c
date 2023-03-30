@@ -15,15 +15,9 @@
 void	init_data(t_data *data, char **envp)
 {
 	data->input = NULL;
-	data->envp_ll = init_envp_ll(envp);
+	data->envp_ll = NULL;
+	// data->envp_ll = init_envp_ll(envp);
 	data->token_ll = NULL;
-	// while (data->envp_ll)
-	// {
-	// 	printf("%s", data->envp_ll->envp_key);
-	// 	printf("=");
-	// 	printf("%s\n", data->envp_ll->envp_value);
-	// 	data->envp_ll = data->envp_ll->next;
-	// }
 }
 
 int	main(int ac, char **av, char **envp)

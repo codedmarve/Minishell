@@ -15,7 +15,9 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+
 # include "../library/libft/libft.h"
+
 # include <stdbool.h>
 
 # include "parsing.h"
@@ -54,61 +56,8 @@ typedef struct s_data
 	char    *input;
 	t_envp  *envp_ll;
 	t_token *token_ll;
-
-
-
-
 }	t_data;
 
-// global struct t_data
-// {
-// 	*raw_input
-// 	t_envp *envp_ll;
-// 	char **input_slitted;- 2d array (holds a 2d char array, all the commands, 
-// 	arguments,pipes...separated, empty spaces????)
-
-// 	** paths: 2d char array that holds all the paths to the bin folders
-//  	* that are saved in the env variable PATH - may be stored inside of the PATH node
-
-// 	amount_of_pipe_groups (pipes+1)
-// 	*pipe_groups
-// }
-
-
-// struct pipe_group contains:
-// info abt command,
-// arguments,
-// any input/output redirection or piping
-// first *word will be command itself
-
-// handles built-in commands 
-// and executable commands
-// with their respective 
-// paths.
-
-// struct pipe_group
-// {
-// exit status (here?)
-// **words
-// *path
-// builtin (if builin == ECHO->run ft_echo)
-
-// redirection_in
-// char *arr_inputfile
-
-// redirection_out
-// char *arr_outputfile
-
-// pipe_in
-// pipe_out
-// pipe_fd[2]
-
-// pid from executor
-
-// *t_data
-// }
-
-// ENVP
 // envp_ll.c
 t_envp	*init_envp_ll(char **envp);
 t_envp	*create_envp_node(char **data);
@@ -117,6 +66,7 @@ void	ft_envp_add_back(t_envp **lst, t_envp *new);
 
 // main.c
 int		main(int ac, char **av, char **envp);
+
 // welcome.c
 void	welcome(int argc, char **argv);
 
