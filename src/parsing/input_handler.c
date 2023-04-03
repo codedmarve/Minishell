@@ -13,13 +13,11 @@ int input_handler(t_data *data)
 
 
 
-	printf("pipe groups: %d\n", str_counter(input, '|'));
-
-	data->input_pipe_groups = minishell_split(input, '|');
+	data->input_strings = shell_split_remove_spaces(input);
 	int i = 0;
-	while (data->input_pipe_groups[i])
+	while (data->input_strings[i])
 	{
-		printf("group nr %d: %s\n", i, data->input_pipe_groups[i]);
+		printf("string nr %d: %s\n", i, data->input_strings[i]);
 		i++;
 	}
 	return (0);
