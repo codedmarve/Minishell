@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-static int	ft_isspace(char c)
+int	ft_isspace(char c)
 {
 	return ((c == ' ' || c == '\f'
 			|| c == '\r' || c == '\t' || c == '\v'));

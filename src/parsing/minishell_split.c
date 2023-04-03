@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:49:57 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/04 01:00:34 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/04/04 01:03:48 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ char	**shell_split(char *input, char delimiter)
 	return (quotes_default(), splitted);
 }
 
-char **shell_split_remove_spaces(char *input)
+char	**shell_split_remove_spaces(char *input)
 {
-	char **splitted;
-	int i;
+	char	**splitted;
+	int		i;
 
 	splitted = shell_split(input, '|');
 	i = -1;
