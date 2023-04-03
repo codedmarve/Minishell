@@ -1,9 +1,11 @@
 
 
 #include "../../includes/minishell.h"
-// checker if currently quotes are open
-//Gets called in a loop
-//returns (0) if the quotes are not closed
+
+/* checker if currently quotes are open
+gets called in a loop
+returns (0) if the quotes are not closed
+*/
 
 int	quotes_are_closed(char c)
 {
@@ -23,8 +25,11 @@ int	quotes_are_closed(char c)
 	return (0);
 }
 
-//sets the static variables inside the functions to their default value: false
-void	quotes_reset(void)
+/*
+sets the static variables 
+inside the functions to their default val
+*/
+void	quotes_default(void)
 {
 	if (quotes_are_closed('\'') == 0)
 		quotes_are_closed('\'');

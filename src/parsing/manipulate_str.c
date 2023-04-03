@@ -7,9 +7,8 @@ static int	ft_isspace(char c)
 			|| c == '\r' || c == '\t' || c == '\v'));
 }
 
-
 /* 
-all IS_SPACE chars will become SPACE char
+all ISSPACE chars will become SPACE char
 
 then uses STRTRIM to cut leading and closing spaces
 */
@@ -33,7 +32,7 @@ void	unify_spaces(char **input)
 		}
 		new[j++] = (*input)[i];
 	}
-	quotes_reset(); // reset for using this check in next function
+	quotes_default(); // reset for using this check in next function
 	new[j] = '\0';
 	tmp = ft_strtrim(new, " "); //malloc, remove left, right spaces
 	*input = ft_strdup(tmp);
@@ -56,9 +55,9 @@ void	remove_extra_spaces(char **input)
 		if (quotes_are_closed((*input)[i]) && (*input)[i] == ' '
 			&& (*input)[i + 1] && (*input)[i + 1] == ' ')
 			continue ;
-		new[j++] =(*input)[i];
+		new[j++] = (*input)[i];
 	}
-	quotes_reset();
+	quotes_default();
 	new[j] = '\0';
 	*input = ft_strdup(new);
 	free(new);
@@ -66,9 +65,9 @@ void	remove_extra_spaces(char **input)
 
 void manipulate_input(char **input)
 {
-	// printf("INPUT: START%sEND\n", *input);
+	printf("INPUT: START%sEND\n", *input);
 	//	// *input = ft_strtrim(*input, " \f\n\t\r\v");
 	unify_spaces(input);
 	remove_extra_spaces(input);
-	// printf("CLEANED INPUT2: START%sEND\n", *input);
+	printf("CLEANED INPUT2: START%sEND\n", *input);
 }

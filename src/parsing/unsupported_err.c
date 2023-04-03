@@ -2,6 +2,10 @@
 #include "../../includes/minishell.h"
 // #include "../../includes/parsing.h"
 
+/*
+function checks if there are open quotes found,
+" ' " ' " will be treated as an error, " ' " ' " ' - not
+*/
 int	unsupported_quotes_err(char *s)
 {
 	int	dq_open;
@@ -28,7 +32,13 @@ int	unsupported_quotes_err(char *s)
 	return (0);
 }
 
+/*
+our minishell shouldn't support special chars as ; & \
+according to the subject,
+so we immideately take care of that
 
+(they are ofc allowed as part of a string in quotation)
+*/
 int	unsupported_char_err(char *input)
 {
 	int		i;
@@ -44,15 +54,20 @@ int	unsupported_char_err(char *input)
 		if (input[i] == ';' || input[i] == '&'
 			|| input[i] == '\\')
 		{
-			quotes_reset();
+			quotes_default();
 			return (1);
 		}
 		i++;
 	}
-	quotes_reset();
+	quotes_default();
 	return (0);
 }
 
+/*
+our minishell should support single pipes only
+(double pipes are ofc allowed as part of a string
+in quotation)
+*/
 int	unsupported_pipe_err(char *input)
 {
 	int		i;
@@ -67,15 +82,20 @@ int	unsupported_pipe_err(char *input)
 		}
 		if (input[i] == '|' && input[i + 1] == '|')
 		{
-			quotes_reset();
+			quotes_default();
 			return (1);
 		}
 		i++;
 	}
-	quotes_reset();
+	quotes_default();
 	return (0);
 }
 
+/*
+minishell supports only < >> << >
+
+other sombination are allowed as a part of quoted string
+*/
 int	unsupported_redir_err(char *input, char c)
 {
 	int		i;
@@ -88,12 +108,12 @@ int	unsupported_redir_err(char *input, char c)
 			i++;
 			continue ;
 		}
-		if (input[i] == c 
+		if (input[i] == c
 			&& input[i] == input[i + 1]
 			&& input[i] == input[i + 2])
 			return (1);
 		i++;
 	}
-	quotes_reset();
+	quotes_default();
 	return (0);
 }

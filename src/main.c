@@ -17,6 +17,7 @@ void	init_data(t_data *data, char **envp)
 	data->input = NULL;
 	data->envp_ll = NULL;
 	// data->envp_ll = init_envp_ll(envp);
+	data->input_pipe_groups = NULL;
 	data->token_ll = NULL;
 }
 
