@@ -10,8 +10,12 @@ int input_handler(t_data *data)
 
 	manipulate_input(&input);
 	early_err(data); // returns positive value if error found
+
+
+
 	printf("pipe groups: %d\n", str_counter(input, '|'));
-	data->input_pipe_groups = modified_split(input, '|');
+
+	data->input_pipe_groups = minishell_split(input, '|');
 	int i = 0;
 	while (data->input_pipe_groups[i])
 	{

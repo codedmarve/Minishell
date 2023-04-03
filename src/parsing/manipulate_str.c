@@ -65,9 +65,8 @@ void	remove_extra_spaces(char **input)
 
 void manipulate_input(char **input)
 {
-	printf("INPUT: START%sEND\n", *input);
-	//	// *input = ft_strtrim(*input, " \f\n\t\r\v");
+	// printf("INPUT: START%sEND\n", *input);
 	unify_spaces(input);
 	remove_extra_spaces(input);
-	printf("CLEANED INPUT2: START%sEND\n", *input);
+	// printf("CLEANED INPUT2: START%sEND\n", *input);
 }
