@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 22:49:57 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/04 01:03:48 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:59:52 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,19 @@ char	**shell_split(char *input, char delimiter)
 		if (!substr_idx || input[i - 1] == delimiter)
 		{
 			if (init_str(input + i, delimiter))
+			{
 				splitted[substr_idx++] = init_str(input + i, delimiter);
+				// printf("substr idx: %d, str: %s\n", substr_idx - 1,  splitted[substr_idx - 1]);
+			}
 		}
 	}
 	splitted[substr_idx] = NULL;
+	// i = 0;
+	// while (splitted[i])
+	// 	{
+	// 		printf("substr idx: %d, str: %s\n", i,  splitted[i]);
+	// 		i++;
+	// 	}
 	return (quotes_default(), splitted);
 }
 

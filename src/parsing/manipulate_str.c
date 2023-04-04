@@ -96,6 +96,7 @@ cat >outfile
 */
 
 //not disconnecting if there is quotation before or /  !!!!!
+
 void	add_space_before_redirect(char **input)
 {
 	char	*new;
