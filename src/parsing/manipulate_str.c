@@ -102,7 +102,7 @@ void	add_space_before_redirect(char **input)
 	int		i;
 	int		j;
 
-	new = malloc(sizeof(char) * (2 * ft_strlen(*input)));
+	new = malloc(sizeof(char) * (2 * ft_strlen(*input))); // malloc check
 	i = -1;
 	j = 0;
 	while ((*input)[++i])
