@@ -59,3 +59,5 @@ int	early_err(t_data *data)
 }
 
 //MAYBE ADD CHECK FOR EMTY STRING
+
+// add cases like >< or <| >|

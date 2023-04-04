@@ -17,12 +17,11 @@ void	unify_spaces(char **input)
 	char	*new;
 	int		i;
 	int		j;
-	char	*tmp; // for a quick usage to use strtrim
 
+
+	new = ft_strdup(*input);
 	i = -1;
 	j = 0;
-	new = ft_strdup(*input); //malloc and copy
-	// printf("new was created: %s\n", new);
 	while ((*input)[++i])
 	{
 		if (quotes_are_closed((*input)[i]) && ft_isspace((*input)[i]))
@@ -34,10 +33,9 @@ void	unify_spaces(char **input)
 	}
 	quotes_default(); // reset for using this check in next function
 	new[j] = '\0';
-	tmp = ft_strtrim(new, " "); //malloc, remove left, right spaces
-	*input = ft_strdup(tmp);
+	new = ft_strtrim(new, " "); //malloc, remove left, right spaces
+	*input = ft_strdup(new);
 	free(new);
-	free(tmp);
 }
 
 /* removes SPACES which occure more then 1 time in a row */
@@ -47,9 +45,9 @@ void	remove_extra_spaces(char **input)
 	int		i;
 	int		j;
 
+	new = ft_strdup(*input);
 	i = -1;
 	j = 0;
-	new = ft_strdup(*input);
 	while ((*input)[++i])
 	{
 		if (quotes_are_closed((*input)[i]) && (*input)[i] == ' '
@@ -63,10 +61,60 @@ void	remove_extra_spaces(char **input)
 	free(new);
 }
 
-void manipulate_input(char **input)
+
+/*
+it should be 
+cat >outfile
+*/
+void	attach_redirect(char **input)
 {
-	// printf("INPUT: START%sEND\n", *input);
-	unify_spaces(input);
-	remove_extra_spaces(input);
-	// printf("CLEANED INPUT2: START%sEND\n", *input);
+	char	*new;
+	int		i;
+	int		j;
+
+	new = ft_strdup(*input);
+	i = -1;
+	j = 0;
+	while ((*input)[++i])
+	{
+		if (quotes_are_closed((*input)[i])
+			&& ((*input)[i - 1] == '>' || (*input)[i - 1] == '<')
+			&& i && (*input)[i] == ' ')
+			continue ;
+		new[j++] = (*input)[i];
+	}
+	quotes_default();
+	new[j] = '\0';
+	new = ft_strtrim(new, " ");
+	*input = ft_strdup(new);
+	free(new);
+}
+
+/*
+it should be 
+cat >outfile
+*/
+
+//not disconnecting if there is quotation before or /  !!!!!
+void	add_space_before_redirect(char **input)
+{
+	char	*new;
+	int		i;
+	int		j;
+
+	new = malloc(sizeof(char) * (2 * ft_strlen(*input)));
+	i = -1;
+	j = 0;
+	while ((*input)[++i])
+	{
+		if ((quotes_are_closed((*input)[i])
+			&& (((*input)[i] == '>' || (*input)[i] == '<')
+			&& i && ft_isalnum((*input)[i - 1]))))
+			new[j++] = ' ';
+		new[j++] = (*input)[i];
+	}
+	quotes_default();
+	new[j] = '\0';
+	*input = ft_strdup(new);
+	free(new);
 }

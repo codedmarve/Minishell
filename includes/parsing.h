@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:37:16 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/04 01:05:06 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/04/04 11:15:00 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@ int		unsupported_pipe_err(char *input);
 int		unsupported_redir_err(char *input, char c);
 
 //input_handler.c
+void	manipulate_input(char **input);
+void	manipulate_input2(char **input);
 int		input_handler(t_data *data);
 
 //manipulate input
 int		ft_isspace(char c);
 void	unify_spaces(char **input);
 void	remove_extra_spaces(char **input);
-void	manipulate_input(char **input);
+void	attach_redirect(char **input);
+void	add_space_before_redirect(char **input);
+
 
 //quotes_utils
 int		quotes_are_closed(char c);

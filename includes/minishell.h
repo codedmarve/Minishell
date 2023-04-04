@@ -54,7 +54,7 @@ typedef struct s_token
 typedef struct s_data
 {
 	char    *input;
-	char **input_strings;
+	char	**input_strings;
 	t_envp  *envp_ll;
 	t_token *token_ll;
 }	t_data;
