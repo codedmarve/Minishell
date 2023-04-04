@@ -117,3 +117,24 @@ int	unsupported_redir_err(char *input, char c)
 	quotes_default();
 	return (0);
 }
+
+
+/*
+operators in minishell:
+< > << >> |
+allowed combos in bash:
+<<< (herestring, but not allowed in minishell subject)
+| <
+| >
+| >>
+| <<
+not allowed
+<		>		<<		>>		|
+______________________________________
+< <		> <		<< <	>> <	| |
+< >		> >		<< >	>> >
+< <<	> <<	<< <<	>> <<
+< >>	> >>	<< >>	>> >>
+< |		> |		<< |	>> |
+______________________________________
+*/
