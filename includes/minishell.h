@@ -38,12 +38,13 @@ typedef struct s_envp
 {
 	char			*envp_key;
 	char			*envp_value;
+	int				sorted;
 	struct s_envp	*next;
 }					t_envp;
 
 typedef struct s_data
 {
-	t_envp  *envp_ll;
+	t_envp  *henv;
 	char	**envp_arr;
 	char    *input; // SHOULD WE PLACE IT HERE OR SOMEWHERE ELSE???????
 
@@ -77,7 +78,7 @@ typedef struct s_data
 // }				t_cmd;
 
 // envp - saving envp as a linked list
-t_envp	*init_envp_ll(char **envp);
+void	envplist_handler(t_envp **head, char **envp);
 t_envp	*create_envp_node(char **data);
 t_envp	*ft_envp_last(t_envp *lst);
 void	ft_envp_add_back(t_envp **lst, t_envp *new);
@@ -111,5 +112,13 @@ void	execute(t_data *data);
 int		get_path(t_data *data);
 void	add_path(t_data *data);
 void	ft_clear(t_data *data);
+
+//Marve's functions
+void	print_env(t_data *data);
+void	export_print(t_data *data);
+void	export(t_data *data, char *var);
+char	*ft_strdup2(const char *str, int len);
+char	*ft_strdup1(const char *str);
+void	unset(t_data *data, char *key);
 
 #endif

@@ -1,0 +1,57 @@
+
+void	export(t_data *data, char *var)
+
+Takes a pointer to data and a string. Pointer to data gives access to the env list
+created. The string 'var' is the variable to be added to the environment variables.
+If it is string is NULL, the export just prints out the environment variables in its
+own format.
+
+For example:
+minishell$ export CODED=marvellous
+		export(data, CODED=marvellous);
+
+minishell$ export
+		export(data, NULL);
+
+Cases:
+
+	acceptable:
+		minishell$ export CODED=marvellous      --> CODED=marvellous  😎
+		minishell$ export CODED= marvellous     --> CODED=  😎
+		minishell$ export CODED=" marvellous"   --> CODED= marvellous   
+		minishell$ export "CODED=marvellous"	--> CODED=marvellous
+		minishell$ export 'CODED=marvellous'	--> CODED=marvellous
+		minishell$ export 'CODED'=marvellous	--> CODED=marvellous
+		minishell$ export CODED="marvellous"	--> CODED=marvellous
+		minishell$ export CODED="marve"ll"ous"	--> CODED=marvellous
+		minishell$ export CO"DE"D=marvellous	--> CODED=marvellous
+		minishell$ export CODED='marvellous'	--> CODED=marvellous
+		minishell$ export CODED=mar"vello"us	--> CODED=marvellous
+		minishell$ export CODED=mar'vell'ous	--> CODED=marvellous
+		minishell$ export CODED=mar\"vell\"ous	--> CODED=mar"vell"ous
+		minishell$ export CODED=mar\'vell\'ous	--> CODED=mar'vell'ous
+		minishell$ export CODED=mar\vell\ous	--> CODED=marvellous
+		minishell$ export CODED=mar\\vell\\ous	--> CODED=mar\vell\ous
+		minishell$ export CODED=marvellous\		--> CODED=marvellous (> prompt waits for 
+			last input)
+		minishell$ export $CODED=marve		--> marvellous=marve (if CODED exists as an env
+			variable and its value is "marvellous", if it does not exist, nothing is done)
+		minishell$ export COD$ED=marvellous		--> COD=marvellous (because $ED is not a variable)
+		minishell$ export CODED=marvellous$		--> CODED=marvellous$
+
+		echo $CODED
+		$?
+		
+		
+		CODED = llous
+
+		marve$CODED = marvellous
+
+
+	error cases:
+		minishell$ export "CODED "=marvellous	--> -bash: export: `=': not a valid identifier
+		minishell$ export "'CODED=marvellous'"	--> -bash: export: `'CODED=marvellous'': not a valid identifier
+
+
+
+

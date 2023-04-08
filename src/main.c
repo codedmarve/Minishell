@@ -12,17 +12,30 @@
 
 #include "../includes/minishell.h"
 
-void	init_data(t_data *data, char **envp)
+void	init_list(t_data *data, char **envp)
 {
-	data->envp_ll = init_envp_ll(envp);
-	while (data->envp_ll)
-	{
-		printf("%s", data->envp_ll->envp_key);
-		printf("=");
-		printf("%s\n", data->envp_ll->envp_value);
-		data->envp_ll = data->envp_ll->next;
-	}
+	data->henv = NULL;
+	envplist_handler(&data->henv, envp);
 
+
+	print_env(data);
+
+	printf("\n\n");
+
+	export(data, "CODED=marvellous");
+	print_env(data);
+	// export(data, "CODEDNAMmarvellous");
+
+	unset(data, "LS_COLORS");
+	unset(data, "LESSOPEN");
+	unset(data, "CODED");
+	unset(data, "PATH=");
+
+	printf("\n\n");
+	print_env(data);
+	// export_print(data);
+	// export_print(data);
+	
 }
 
 int	main(int ac, char **av, char **envp)
@@ -35,9 +48,9 @@ int	main(int ac, char **av, char **envp)
 	data = ft_calloc(1, sizeof(t_data)); //ft_calloc, malloc?
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
-	init_data(data, envp);
-	while (1)
-	// for (int i = 0; i < 3; i++)
+	init_list(data, envp);
+	// while (1)
+	for (int i = 0; i < 1; i++)
 	{
 		data->input = readline(PROMPT);
 		add_history(data->input); // if (ft_strlen(data->raw_input) > 0)
