@@ -19,21 +19,17 @@ void	init_list(t_data *data, char **envp)
 
 
 	print_env(data);
-
 	printf("\n\n");
 
 	export(data, "CODED=marvellous");
 	print_env(data);
-	// export(data, "CODEDNAMmarvellous");
+	printf("\n\n");
 
-	unset(data, "LS_COLORS");
-	unset(data, "LESSOPEN");
-	unset(data, "CODED");
+	// unset(data, "CODED");
 	unset(data, "PATH=");
 
 	printf("\n\n");
 	print_env(data);
-	// export_print(data);
 	// export_print(data);
 	
 }
