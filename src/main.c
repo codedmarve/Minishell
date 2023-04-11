@@ -12,13 +12,15 @@
 
 #include "../includes/minishell.h"
 
+int	exit_status = 0;
+
 void	init_data(t_data *data, char **envp)
 {
 	data->input = NULL;
 	data->envp_ll = NULL;
 	// data->envp_ll = init_envp_ll(envp);
 	data->input_strings = NULL;
-	data->token_ll = NULL;
+	// data->token_ll = NULL;
 }
 
 int	main(int ac, char **av, char **envp)

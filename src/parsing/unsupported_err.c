@@ -118,7 +118,6 @@ int	unsupported_redir_err(char *input, char c)
 	return (0);
 }
 
-
 /*
 operators in minishell:
 < > << >> |

@@ -33,6 +33,7 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 
+int	exit_status;
 /*
 structure is used to save KEY=VALUE data from ENVP as a linked list
 */
@@ -47,7 +48,7 @@ typedef struct s_envp
 typedef struct s_token
 {
 	char			*string;
-	int type;
+	int				type;
 	struct s_token	*next;
 }					t_token;
 
@@ -56,7 +57,6 @@ typedef struct s_data
 	char    *input;
 	char	**input_strings;
 	t_envp  *envp_ll;
-	t_token *token_ll;
 }	t_data;
 
 // envp_ll.c

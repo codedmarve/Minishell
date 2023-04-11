@@ -37,7 +37,7 @@ int	early_err(t_data *data)
 {
 	char *input = data->input;
 
-	// manipulate_input(&input);
+	manipulate_input(&input);
 	// if (input[0]) //only empty spaces
 	// 	return (1);
 	if (opening_pipe_err(input))
