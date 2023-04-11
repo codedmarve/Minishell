@@ -28,7 +28,7 @@ int	unsupported_quotes_err(char *s)
 		i++;
 	}
 	if (dq_open || sq_open)
-		return (1);
+		return (-1);
 	return (0);
 }
 

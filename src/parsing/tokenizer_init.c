@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-t_token	*init_quotes(char *s, int *i, char q)
+t_token	*init_in_quotes(char *s, int *i, char q)
 {
 	t_token	*token;
 	int		len;
@@ -42,7 +42,7 @@ t_token	*init_pipe_or_sep(char *s, int *i, char p_or_s)
 	return (token);
 }
 
-t_token	*init_single_red(char *s, int *i, char in_or_out)
+t_token	*init_single_redirection(char *s, int *i, char in_or_out)
 {
 	t_token	*token;
 	int		len;
@@ -66,7 +66,7 @@ t_token	*init_single_red(char *s, int *i, char in_or_out)
 	return (token);
 }
 
-t_token	*init_double_red(char *s, int *i, char in_or_out)
+t_token	*init_double_redirection(char *s, int *i, char in_or_out)
 {
 	t_token	*token;
 	int		len;

@@ -22,15 +22,16 @@ int	skip_quotes(char *str, char quote)
 	return (i + 1);
 }
 
-/**
- * @brief Take two strings and compare them. 
- * If, in the first str the occurence of char from second str
- * is found, return index of that occurence. Else, return 
- * the end of the string.
- * Useful for counting word length.
- * @param s string to search through
- * @param possible_sep string to compare from
- * @return int
+/*
+take two strings and compare them. 
+ifin the first str the occurence of char from second str
+is found,
+return index of that occurence. 
+
+Else, return the end of the string.
+Useful for counting word length.
+str -  string to search through
+possible_sep -  string to compare from
 */
 
 int	find_end(char *str, char *possible_sep)
@@ -39,7 +40,6 @@ int	find_end(char *str, char *possible_sep)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (str[i])
 	{
 		j = 0;

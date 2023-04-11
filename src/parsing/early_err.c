@@ -46,7 +46,7 @@ int	early_err(t_data *data)
 	if (newline_err(input))
 		return (printf
 			("minishell: syntax error near unexpected token `newline'\n"));
-	if (unsupported_quotes_err(input))
+	if (unsupported_quotes_err(input) == -1)
 		return (printf("minishell: unsupported open quotes\n"));
 	if (unsupported_pipe_err(input))
 		return (printf("minishell: unsupported double pipe\n"));

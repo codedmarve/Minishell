@@ -16,7 +16,7 @@ SRC		=	./src/main.c ./src/welcome/*.c ./src/envp/*.c  ./src/parsing/*.c
 
 CC		=	gcc
 
-CFLAGS	=	-Werror -Wextra -Wall
+CFLAGS	=	-g -Werror -Wextra -Wall
 
 RDLIB	=	-lreadline
 
