@@ -11,10 +11,15 @@ int parser(t_data *data)
 
 	t_token *tmp;
 	tmp = token_ll;
-	while (tmp)
+	if (tmp)
 	{
-		printf("string: %s type: %d\n", tmp->string, tmp->type);
+		printf("ENTIRE STRING: %s\n", tmp->string);
 		tmp = tmp->next;
+		while (tmp)
+		{
+			printf("TOKEN: %s TYPE: %d\n", tmp->string, tmp->type);
+			tmp = tmp->next;
+		}
 	}
 	return (0);
 }

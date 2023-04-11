@@ -22,27 +22,6 @@ t_token	*token_last(t_token *list)
 		tmp = tmp->next;
 	return (tmp);
 }
-// t_token	*token_last(t_token *list)
-// {
-// 	if (list == NULL)
-// 		return (NULL);
-// 	while (list->next)
-// 		list = list->next;
-// 	return (list);
-// }
-
-// void	token_add_back(t_token **list, t_token *new)
-// {
-// 	t_token	*last;
-
-// 	if (*list != NULL)
-// 	{
-// 		last = token_last(*list);
-// 		last->next = new;
-// 	}
-// 	else
-// 		*list = new;
-// }
 
 void	remove_quotes(char *s)
 {

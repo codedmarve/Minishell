@@ -55,11 +55,11 @@ typedef struct s_token
 typedef struct s_data
 {
 	char    *input;
-	char	**input_strings;
 	t_envp  *envp_ll;
 }	t_data;
 
 // envp_ll.c
+
 t_envp	*init_envp_ll(char **envp);
 t_envp	*create_envp_node(char **data);
 t_envp	*ft_envp_last(t_envp *lst);
@@ -74,8 +74,8 @@ void	welcome(int argc, char **argv);
 
 enum	e_token_types
 {
-	WORD, //0
-	SEP, // 1
+	SEP, //0
+	WORD, //1
 	PIPE, // 2
 	IN_RED, // 3
 	OUT_RED, // 4
@@ -84,40 +84,24 @@ enum	e_token_types
 };
 
 //early_err.c
-int		opening_pipe_err(char *input);
-int		newline_err(char *input);
 int		early_err(t_data *data);
 
-//unsupported_err.c
-int		unsupported_quotes_err(char *s);
-int		unsupported_char_err(char *input);
-int		unsupported_pipe_err(char *input);
-int		unsupported_redir_err(char *input, char c);
+int	pipes_err(char *input);
+int	spaces_err(char *input);
+int		quotes_err(char *s);
+int spec_char_err(char *input);
+int	redirection_err(char *input);
+int	redirection_err_s_in(char *s, int *i);
+int	redirection_err_s_out(char *s, int *i);
+int	redirection_err_d_in(char *s, int *i);
+int	redirection_err_d_out(char *s, int *i);
+
 
 //input_handler.c
-void	manipulate_input(char **input);
 int		input_handler(t_data *data);
 
-//manipulate input
-int		ft_isspace(char c);
-void	unify_spaces(char **input);
-void	remove_extra_spaces(char **input);
-void	attach_redirect(char **input);
-void	add_space_before_redirect(char **input);
-
-
-//quotes_utils
-int		quotes_are_closed(char c);
-void	quotes_default(void);
-
-// modified split
-char	**shell_split(char *input, char delimiter);
-int		str_counter(char *input, char delimiter);
-char	*init_str(char *input, char delimiter);
-char	**shell_split_remove_spaces(char *input);
 
 // parser.c
-
 void	tokenizer(t_token **token_ll, char *input);
 
 int parser(t_data *data);
