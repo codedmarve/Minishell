@@ -113,11 +113,10 @@ t_token	*init_single_redirection(char *s, int *i, char in_or_out);
 t_token	*init_double_redirection(char *s, int *i, char in_or_out);
 t_token	*init_word(char *s, int *i);
 
-t_token	*token_last(t_token *list);
-void	token_add_back(t_token **list, t_token *new);
-void	remove_quotes(char *s);
-void	remove_quotes_helper(char *s, char q, int *i, int *j);
-
+t_token	*token_last(t_token *lst);
+void	token_add_back(t_token **lst, t_token *new);
+void	remove_quotes(char *str);
+void	remove_quotes_helper(char *str, char quote, int *i, int *j);
 
 int	skip_spaces(char *str);
 int	skip_quotes(char *str, char quote);

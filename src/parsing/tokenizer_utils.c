@@ -1,29 +1,29 @@
 
 #include "../../includes/minishell.h"
 
-void	token_add_back(t_token **list, t_token *new)
+void	token_add_back(t_token **lst, t_token *new)
 {
-	if (!list || !new)
+	if (!lst || !new)
 		return ;
-	if (!*list)
-		*list = new;
+	if (!*lst)
+		*lst = new;
 	else
-		token_last(*list)->next = new;
+		token_last(*lst)->next = new;
 }
 
-t_token	*token_last(t_token *list)
+t_token	*token_last(t_token *lst)
 {
 	t_token	*tmp;
 
-	tmp = list;
-	if (!list)
+	tmp = lst;
+	if (!lst)
 		return (NULL);
 	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
 }
 
-void	remove_quotes(char *s)
+void	remove_quotes(char *str)
 {
 	int	i;
 	int	j;
@@ -31,32 +31,32 @@ void	remove_quotes(char *s)
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(s);
+	len = ft_strlen(str);
 	while (i < len)
 	{
-		if (s[i] == '\'')
+		if (str[i] == '\'')
 		{
+			remove_quotes_helper(str, str[i], &i, &j);
 			len -= 2;
-			remove_quotes_helper(s, s[i], &i, &j);
 		}
-		else if (s[i] == '"')
+		else if (str[i] == '"')
 		{
+			remove_quotes_helper(str, str[i], &i, &j);
 			len -= 2;
-			remove_quotes_helper(s, s[i], &i, &j);
 		}
-		s[j] = s[i];
+		str[j] = str[i];
 		j++;
 		i++;
 	}
-	s[j] = '\0';
+	str[j] = '\0';
 }
 
-void	remove_quotes_helper(char *s, char q, int *i, int *j)
+void	remove_quotes_helper(char *str, char quote, int *i, int *j)
 {
 	*i = *i + 1;
-	while (s[*i] != q)
+	while (str[*i] != quote)
 	{
-		s[*j] = s[*i];
+		str[*j] = str[*i];
 		*i = *i + 1;
 		*j = *j + 1;
 	}
