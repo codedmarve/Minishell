@@ -11,29 +11,28 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+int	exit_status = 0;
 
 void	welcome(int argc, char **argv)
 {
 	if (argc > 1 || argv[1])
-		exit(printf("Error: programme can't take argument(s)\n") - 39);
+		exit(printf("error: minishell can't take argument(s)\n") - 39);
 	printf("%s   ****************************************\n",
 		"\033[0;32m");
 	printf("   *        welcome to minishell          *\n");
-	// printf("   *                                      *\n");
 	printf("   *%s   created by marvellous and daria    %s*\n",
 		"\033[0;33m", "\033[0;32m");
 	printf("   ****************************************\n%s",
 		"\033[0m");
 }
 
-int	exit_status = 0;
+
 
 void	init_data(t_data *data, char **envp)
 {
 	data->input = NULL;
-	data->envp_ll = NULL;
-	// data->envp_ll = init_envp_ll(envp);
-	// data->input_strings = NULL;
+	data->env_ll = NULL;
+	// envplist_handler(&data->env_ll, envp);
 }
 
 int	main(int ac, char **av, char **envp)

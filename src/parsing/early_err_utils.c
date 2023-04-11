@@ -28,10 +28,10 @@ int	quotes_err(char *s)
 	{
 		if (s[i] == '\'' && !dq_open && !sq_open)
 			sq_open = 1;
-		else if (s[i] == '\'' && !dq_open && sq_open)
-			sq_open = 0;
 		else if (s[i] == '"' && !dq_open && !sq_open)
 			dq_open = 1;
+		else if (s[i] == '\'' && !dq_open && sq_open)
+			sq_open = 0;
 		else if (s[i] == '"' && dq_open && !sq_open)
 			dq_open = 0;
 		i++;

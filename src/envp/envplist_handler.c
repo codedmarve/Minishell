@@ -1,11 +1,9 @@
 
-
 #include "../../includes/minishell.h"
 
 /*
-stores envp as a linked list, 
-
-saves KEY = VALUE as 2 elements of a structure
+probably its possible to store envp as ll, 
+so it's easier to remove/add elements in case of export/unset
 */
 
 // typedef struct s_envp
@@ -21,27 +19,22 @@ arg: char **envp  - arr of strings containing an environmental variable
 return: t_env * -  first element of the new envp list
 */
 
-t_envp	*init_envp_ll(char **envp)
+void	envplist_handler(t_envp **head, char **envp)
 {
-	t_envp	*envp_ll;
-	char	**key_value_pair;
 	int		i;
+	char 	*ptr;
+	char	**envp_pair;
 
 	i = 0;
-	envp_ll = NULL;
 	while (envp[i] != NULL)
 	{
-		key_value_pair = ft_split(envp[i], '=');
-		ft_envp_add_back(&envp_ll, create_envp_node(key_value_pair));
+		ptr = ft_strchr(envp[i], '=');
+		envp_pair = ft_calloc(sizeof(char *), 3);
+		envp_pair[0] = ft_strdup2(envp[i], ptr - envp[i]);
+		envp_pair[1] = ft_strdup(ptr + 1);
+		ft_envp_add_back(head, create_envp_node(envp_pair));
 		i++;
-		if (key_value_pair)
-		{
-			free(key_value_pair);
-			key_value_pair = NULL;
-		}
 	}
-	// update_shell_lvl(envp_ll) ??
-	return (envp_ll);
 }
 
 /*
@@ -58,6 +51,7 @@ t_envp	*create_envp_node(char **data)
 	element = malloc(sizeof(t_envp));
 	if (!element)
 		return (NULL);
+	element->sorted = 0;
 	element->envp_key = data[0];
 	if (data[1] == NULL)
 		element->envp_value = NULL;
@@ -78,6 +72,9 @@ void	ft_envp_add_back(t_envp **lst, t_envp *new)
 		ft_envp_last(*lst)->next = new;
 }
 
+/* 
+returns pointer to the last element - NOT NEEDED, should we rewrite function?
+*/
 t_envp	*ft_envp_last(t_envp *lst)
 {
 	t_envp	*tmp;
@@ -89,4 +86,3 @@ t_envp	*ft_envp_last(t_envp *lst)
 		tmp = tmp->next;
 	return (tmp);
 }
-
