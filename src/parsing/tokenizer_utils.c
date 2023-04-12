@@ -23,46 +23,61 @@ t_token	*token_last(t_token *lst)
 	return (tmp);
 }
 
-void	remove_quotes(char *str)
+void remove_quotes(char *str) 
 {
-	int	i;
-	int	j;
-	int	len;
-
-	i = 0;
-	j = 0;
+    int	len;
+	
 	len = ft_strlen(str);
-	while (i < len)
-	{
-		if (str[i] == '\'')
+    if ((len >= 2 && str[0] == '"'
+		&& str[len-1] == '"') ||
+		(len >= 2 && str[0] == '\''
+		&& str[len-1] == '\'') )
 		{
-			remove_quotes_helper(str, str[i], &i, &j);
-			len -= 2;
-		}
-		else if (str[i] == '"')
-		{
-			remove_quotes_helper(str, str[i], &i, &j);
-			len -= 2;
-		}
-		str[j] = str[i];
-		j++;
-		i++;
-	}
-	str[j] = '\0';
+    	    ft_memmove(str, str + 1, len - 2);
+			str[len - 2] = '\0';
+   		 }
 }
 
-void	remove_quotes_helper(char *str, char quote, int *i, int *j)
-{
-	*i = *i + 1;
-	while (str[*i] != quote)
-	{
-		str[*j] = str[*i];
-		*i = *i + 1;
-		*j = *j + 1;
-	}
-	*i = *i + 2;
-	*j = *j + 1;
-}
+// void	remove_quotes(char *str)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	len;
+
+// 	i = 0;
+// 	j = 0;
+// 	len = ft_strlen(str);
+// 	while (i < len)
+// 	{
+// 		if (str[i] == '\'')
+// 		{
+// 			len -= 2;
+// 			remove_quotes_helper(str, str[i], &i, &j);
+// 		}
+// 		else if (str[i] == '"')
+// 		{
+// 			len -= 2;
+// 			remove_quotes_helper(str, str[i], &i, &j);
+// 		}
+// 		str[j] = str[i];
+// 		j++;
+// 		i++;
+// 	}
+// 	str[j] = '\0';
+// }
+
+// void	remove_quotes_helper(char *str, char quote, int *i, int *j)
+// {
+// 	*i = *i + 1;
+// 	while (str[*i] != quote)
+// 	{
+// 		str[*j] = str[*i];
+// 		*i = *i + 1;
+// 		*j = *j + 1;
+// 	}
+// 	*i = *i + 2;
+// 	*j = *j + 1;
+// }
 
 // void	token_add_back(t_token **lst, t_token *new)
 // {

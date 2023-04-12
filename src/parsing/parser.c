@@ -4,16 +4,22 @@
 
 int parser(t_data *data)
 {
-	tokenizer(&data->token_ll, data->input);
+	//expander
+	tokenizer(&data->token_lst, data->input);
 
 	t_token *tmp;
-	tmp = data->token_ll;
+	tmp = data->token_lst;
 	while (tmp)
 		{
 			printf("TOKEN: %s TYPE: %d\n", tmp->string, tmp->type);
 			tmp = tmp->next;
 		}
+	// if (tokenizer_err(data->token_lst) == -1)
+	// {
+	// 	return (-1);
+	// }
 	return (0);
+
 }
 
 // int parser(t_data *data)

@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-void	tokenizer(t_token **token_ll, char *input)
+void	tokenizer(t_token **token_lst, char *input)
 {
 	t_token	*token;
 	int		i;
@@ -21,6 +21,6 @@ void	tokenizer(t_token **token_ll, char *input)
 			token = init_double_redirection(input, &i, input[i]);
 		else
 			token = init_word(input, &i);
-		token_add_back(token_ll, token);
+		token_add_back(token_lst, token);
 	}
 }

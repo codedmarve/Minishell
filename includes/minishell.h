@@ -58,7 +58,7 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	t_token *token_ll;
+	t_token *token_lst;
 }	t_data;
 
 enum	e_token_types
@@ -98,7 +98,7 @@ int		input_handler(t_data *data);
 int		parser(t_data *data);
 
 // tokenizer.c
-void	tokenizer(t_token **token_ll, char *input);
+void	tokenizer(t_token **token_lst, char *input);
 
 // tokenizer_init.c
 t_token	*init_in_quotes(char *s, int *i, char q);

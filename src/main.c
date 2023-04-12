@@ -29,7 +29,7 @@ void	welcome(int argc, char **argv)
 void	init_data(t_data *data, char **envp)
 {
 	data->input = NULL;
-	data->token_ll = NULL;
+	data->token_lst = NULL;
 }
 
 int	main(int ac, char **av, char **envp)
