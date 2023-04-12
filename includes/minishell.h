@@ -77,8 +77,8 @@ int		parser(t_data *data);
 void	tokenizer(t_token **token_lst, char *input);
 
 // tokenizer_init.c
-t_token	*init_in_quotes(char *s, int *i, char q);
-t_token	*init_pipe_or_sep(char *s, int *i, char p_or_s);
+t_token	*init_in_quotes(char *s, int *i, char quote);
+t_token	*init_pipe_or_sep(char *s, int *i, char pipe_or_sep);
 t_token	*init_single_redirection(char *s, int *i, char in_or_out);
 t_token	*init_double_redirection(char *s, int *i, char in_or_out);
 t_token	*init_word(char *s, int *i);
