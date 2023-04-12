@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 23:46:58 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/04/12 23:46:58 by dgoremyk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -7,14 +18,15 @@
 
 # include "../library/libft/libft.h"
 
-int	exit_status;
+// int	g_exit_status;
 
-// typedef struct s_envp
-// {
-// 	char			*envp_key;
-// 	char			*envp_value;
-// 	struct s_envp	*next;
-// }					t_envp;
+typedef struct s_envp
+{
+	char			*envp_key;
+	char			*envp_value;
+	int				sorted;
+	struct s_envp	*next;
+}					t_envp;
 
 typedef struct s_token
 {
@@ -27,7 +39,8 @@ typedef struct s_token
 typedef struct s_data
 {
 	char	*input;
-	t_token *token_lst;
+	t_token	*token_lst;
+	t_envp	*env_lst;
 }	t_data;
 
 enum	e_quote_types
@@ -47,6 +60,17 @@ enum	e_token_types
 	HERE_DOC,
 	APP_RED,
 };
+
+// envplist_handler.c
+void	envplist_handler(t_envp **head, char **envp);
+t_envp	*create_envp_node(char **data);
+void	envp_add_back(t_envp **lst, t_envp *new);
+t_envp	*envp_last(t_envp *lst);
+
+// envplist_utils.c
+char	*ft_strdup2(const char *str, int len);
+char	*ft_strdup1(const char *str);
+void	print_env(t_data *data);
 
 // main.c
 int		main(int ac, char **av, char **envp);
@@ -86,11 +110,11 @@ t_token	*init_word(char *s, int *i);
 //tokenizer_utils.c
 t_token	*token_last(t_token *lst);
 void	token_add_back(t_token **lst, t_token *new);
-void	remove_quotes(char *str);
-void	remove_quotes_helper(char *str, char quote, int *i, int *j);
+void	remove_quotes(char *s);
 
 //utils.c
 int		skip_spaces(char *str);
 int		skip_quotes(char *str, char quote);
 int		find_end(char *str, char *possible_sep);
+
 #endif

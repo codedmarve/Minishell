@@ -1,7 +1,7 @@
 
 #include "../includes/minishell.h"
 
-int	exit_status = 0;
+// int	g_exit_status = 0;
 
 void	welcome(int argc, char **argv)
 {
@@ -18,8 +18,11 @@ void	welcome(int argc, char **argv)
 
 void	init_data(t_data *data, char **envp)
 {
-	data->input = NULL;
-	data->token_lst = NULL;
+	// data->input = NULL; // since ft_calloc
+	// data->token_lst = NULL; // since ft_calloc
+	// data->env_lst = NULL; // since ft_calloc
+	envplist_handler(&data->env_lst, envp);
+	print_env(data);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -27,7 +30,7 @@ int	main(int ac, char **av, char **envp)
 	t_data	*data;
 
 	welcome(ac, av);
-	data = malloc(sizeof(t_data));
+	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
 	init_data(data, envp);

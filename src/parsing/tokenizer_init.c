@@ -26,7 +26,7 @@ t_token	*init_pipe_or_sep(char *s, int *i, char pipe_or_sep)
 
 	token = ft_calloc(1, sizeof(t_token));
 // 	if (!token)
-	token->string = ft_calloc(1, sizeof(char));
+	token->string = ft_calloc(1, sizeof(char)); // not needed since ft_calloc ???!!!
 // if (!token->string)
 //	token->quote_type = NO_Q; // NOT NEEDED since ft_calloc
 	if (pipe_or_sep == ' ')
@@ -99,9 +99,9 @@ t_token	*init_word(char *s, int *i)
 	t_token	*token;
 	int		len;
 
-	len = find_end(&s[*i], " '\"<>|");
 	token = ft_calloc(1, sizeof(t_token));
 	// if (!token)
+	len = find_end(&s[*i], " '\"<>|");
 	token->string = ft_substr(s, *i, len);
 	token->type = WORD;
 	if (s[*i] == '\'')
