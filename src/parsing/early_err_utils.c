@@ -10,8 +10,7 @@ int	spaces_err(char *input)
 		i++;
 	if (input[i] == '\0')
 		return (-1);
-	else
-		return (0);
+	return (0);
 }
 
 int	quotes_err(char *s)
@@ -69,6 +68,10 @@ int	pipes_err(char *input)
 	return (0);
 }
 
+/*
+couldn't add # and ´
+*/
+
 int	spec_char_err(char *input)
 {
 	int	i;
@@ -86,7 +89,8 @@ int	spec_char_err(char *input)
 			|| input[i] == '(' || input[i] == ')'
 			|| input[i] == '[' || input[i] == ']'
 			|| input[i] == '{' || input[i] == '}'
-			|| input[i] == '#')
+			|| input[i] == '_' || input[i] == '^'
+			|| input[i] == '`')
 		{
 			return (printf("minishell: unsupported special char\n"), -1);
 		}
