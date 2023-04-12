@@ -1,16 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 13:25:47 by moduwole          #+#    #+#             */
-/*   Updated: 2023/03/09 13:25:47 by moduwole         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 int	exit_status = 0;
 
 void	welcome(int argc, char **argv)
@@ -43,7 +33,7 @@ int	main(int ac, char **av, char **envp)
 	init_data(data, envp);
 	while (1)
 	{
-		data->input = readline(PROMPT);
+		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
 		input_handler(data);

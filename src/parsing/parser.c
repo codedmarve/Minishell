@@ -8,9 +8,11 @@ int parser(t_data *data)
 
 	t_token *tmp;
 	tmp = data->token_lst;
+	int i = 0;
 	while (tmp)
 		{
-			printf("TOKEN: %s TYPE: %d Q: %d\n", tmp->string, tmp->type, tmp->quote_type);
+			printf("TOKEN nr %i: %s TOK_TYPE: %d QUOTATION: %d\n", i, tmp->string, tmp->type, tmp->quote_type);
+			i++;
 			tmp = tmp->next;
 		}
 	return (0);

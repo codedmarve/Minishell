@@ -1,5 +1,4 @@
 
-
 #include "../../includes/minishell.h"
 
 int	spaces_err(char *input)
