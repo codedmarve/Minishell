@@ -16,6 +16,10 @@ t_token	*init_in_quotes(char *s, int *i, char q)
 	token->string = ft_substr(s, 1, len - 2);
 	token->type = WORD;
 	token->next = NULL;
+	// if (s[0] == '\'')
+	// 	token->quotation_type = IN_S_QUOTE;
+	// else if (s[0] == '"')
+	// 	token->quotation_type = IN_D_QUOTE;
 	*i += len;
 	return (token);
 }
@@ -40,6 +44,7 @@ t_token	*init_pipe_or_sep(char *s, int *i, char p_or_s)
 		*i = *i + 1;
 		token->type = PIPE;
 	}
+	// token->quotation_type = WO_QUOTE;
 	return (token);
 }
 

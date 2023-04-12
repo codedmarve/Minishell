@@ -46,6 +46,7 @@ typedef struct s_token
 {
 	char			*string;
 	int				type;
+	// int				quotation_type;
 	struct s_token	*next;
 }					t_token;
 
@@ -54,6 +55,12 @@ typedef struct s_token
 	
 // }					t_command;
 
+// enum e_quotation_type
+// {	
+// 	WO_QUOTE,
+// 	IN_S_QUOTE,
+// 	IN_D_QUOTE,
+// } ;
 
 typedef struct s_data
 {

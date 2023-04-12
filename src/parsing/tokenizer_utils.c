@@ -23,15 +23,15 @@ t_token	*token_last(t_token *lst)
 	return (tmp);
 }
 
-void remove_quotes(char *str) 
+void	remove_quotes(char *str)
 {
-    int	len;
-	
+	int	len;
+
 	len = ft_strlen(str);
     if ((len >= 2 && str[0] == '"'
-		&& str[len-1] == '"') ||
-		(len >= 2 && str[0] == '\''
-		&& str[len-1] == '\'') )
+			&& str[len - 1] == '"')
+		|| (len >= 2 && str[0] == '\''
+			&& str[len - 1] == '\''))
 		{
     	    ft_memmove(str, str + 1, len - 2);
 			str[len - 2] = '\0';
