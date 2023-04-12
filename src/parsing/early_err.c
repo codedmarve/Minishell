@@ -3,9 +3,11 @@
 
 int	early_err(t_data *data)
 {
-	char *input = data->input;
-	
-	if (spaces_err(data->input) == -1)
+	char	*input;
+
+	input = data->input;
+
+	if (spaces_err(input) == -1)
 		return (-1);
 	if (quotes_err(input) == -1)
 		return (-1);

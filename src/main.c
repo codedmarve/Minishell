@@ -26,13 +26,10 @@ void	welcome(int argc, char **argv)
 		"\033[0m");
 }
 
-
-
 void	init_data(t_data *data, char **envp)
 {
 	data->input = NULL;
-	data->env_ll = NULL;
-	// envplist_handler(&data->env_ll, envp);
+	data->token_ll = NULL;
 }
 
 int	main(int ac, char **av, char **envp)

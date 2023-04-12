@@ -12,7 +12,7 @@
 
 NAME	=	minishell
 
-SRC		=	./src/main.c ./src/envp/*.c  ./src/parsing/*.c
+SRC		=	./src/main.c ./src/parsing/*.c
 
 CC		=	gcc
 

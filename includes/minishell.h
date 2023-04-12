@@ -35,13 +35,12 @@
 
 // int	exit_status;
 
-typedef struct s_envp
-{
-	char			*envp_key;
-	char			*envp_value;
-	int				sorted;
-	struct s_envp	*next;
-}					t_envp;
+// typedef struct s_envp
+// {
+// 	char			*envp_key;
+// 	char			*envp_value;
+// 	struct s_envp	*next;
+// }					t_envp;
 
 typedef struct s_token
 {
@@ -50,14 +49,16 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+// typedef struct s_command
+// {
+	
+// }					t_command;
+
+
 typedef struct s_data
 {
 	char	*input;
-	t_envp	*env_ll;
-
-
-
-
+	t_token *token_ll;
 }	t_data;
 
 enum	e_token_types
@@ -70,17 +71,6 @@ enum	e_token_types
 	HERE_DOC,
 	APPEND_RED,
 };
-
-// envp_ll.c
-void	envplist_handler(t_envp **head, char **envp);
-t_envp	*create_envp_node(char **data);
-void	ft_envp_add_back(t_envp **lst, t_envp *new);
-t_envp	*ft_envp_last(t_envp *lst);
-
-char	*ft_strdup2(const char *str, int len);
-char	*ft_strdup1(const char *str);
-void	print_env(t_data *data);
-
 
 // main.c
 int		main(int ac, char **av, char **envp);
