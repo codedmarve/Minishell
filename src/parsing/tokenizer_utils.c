@@ -1,21 +1,6 @@
 
 #include "../../includes/minishell.h"
 
-
-
-// void	token_add_back(t_token **lst, t_token *new)
-// {
-// 	t_token	*last;
-
-// 	if (*lst != NULL)
-// 	{
-// 		last = token_last(*lst);
-// 		last->next = new;
-// 	}
-// 	else
-// 		*lst = new;
-// }
-
 void	token_add_back(t_token **lst, t_token *new)
 {
 	if (!lst || !new)
@@ -25,15 +10,6 @@ void	token_add_back(t_token **lst, t_token *new)
 	else
 		token_last(*lst)->next = new;
 }
-
-// t_token	*token_last(t_token *lst)
-// {
-// 	if (lst == NULL)
-// 		return (NULL);
-// 	while (lst->next != NULL)
-// 		lst = lst->next;
-// 	return (lst);
-// }
 
 t_token	*token_last(t_token *lst)
 {
@@ -87,3 +63,25 @@ void	remove_quotes_helper(char *str, char quote, int *i, int *j)
 	*i = *i + 2;
 	*j = *j + 1;
 }
+
+// void	token_add_back(t_token **lst, t_token *new)
+// {
+// 	t_token	*last;
+
+// 	if (*lst != NULL)
+// 	{
+// 		last = token_last(*lst);
+// 		last->next = new;
+// 	}
+// 	else
+// 		*lst = new;
+// }
+
+// t_token	*token_last(t_token *lst)
+// {
+// 	if (lst == NULL)
+// 		return (NULL);
+// 	while (lst->next != NULL)
+// 		lst = lst->next;
+// 	return (lst);
+// }

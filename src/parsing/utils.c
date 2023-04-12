@@ -1,7 +1,6 @@
 
 #include "../../includes/minishell.h"
 
-
 int	skip_spaces(char *str)
 {
 	int	i;

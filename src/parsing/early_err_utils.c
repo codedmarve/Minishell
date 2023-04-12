@@ -19,7 +19,7 @@ int	quotes_err(char *s)
 {
 	int	dq_open;
 	int	sq_open;
-	int		i;
+	int	i;
 
 	i = 0;
 	dq_open = 0;
@@ -49,9 +49,7 @@ int	pipes_err(char *input)
 	while (input[i] == ' ')
 		i++;
 	if (input[i] == '|')
-	{
-		return (printf("minishell: error near unexpected token: `|'\n"), -1);
-	}
+		return (printf("minishell: token error: `|'\n"), -1);
 	while (input[i] != '\0')
 	{
 		if (input[i] == '\'')
@@ -64,9 +62,7 @@ int	pipes_err(char *input)
 			while (input[i] == ' ')
 				i++;
 			if (input[i] == '|' || input[i] == '\0')
-			{
-				return (printf("minishell: error near unexpected token: `|'\n"), -1);
-			}
+				return (printf("minishell: token error: `|'\n"), -1);
 		}
 		else
 			i++;
@@ -76,7 +72,7 @@ int	pipes_err(char *input)
 
 int	spec_char_err(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (input[i] != '\0')
@@ -90,7 +86,7 @@ int	spec_char_err(char *input)
 			|| input[i] == '~' || input[i] == '%'
 			|| input[i] == '#')
 		{
-			return (printf("minishell: unsupported special chars\n"), -1);
+			return (printf("minishell: unsupported special char\n"), -1);
 		}
 		else
 			i++;

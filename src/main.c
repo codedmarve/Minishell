@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **envp)
 	t_data	*data;
 
 	welcome(ac, av);
-	data = malloc(sizeof(t_data)); 
+	data = malloc(sizeof(t_data));
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
 	init_data(data, envp);

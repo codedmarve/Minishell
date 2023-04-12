@@ -1,6 +1,4 @@
 
-
-
 #include "../../includes/minishell.h"
 
 void	tokenizer(t_token **token_ll, char *input)
