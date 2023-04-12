@@ -1,9 +1,10 @@
 
 #include "../../includes/minishell.h"
 
-// check behavior of redirection!
-
-
+/// @brief checks so no lexing happens in case of error
+/// CHECK BEHAVIOR OF BASH REDIRECT AGAIN!!!
+/// @param data 
+/// @return -1 in error
 int	early_err(t_data *data)
 {
 	char	*input;
@@ -17,4 +18,3 @@ int	early_err(t_data *data)
 		return (-1);
 	return (0);
 }
-

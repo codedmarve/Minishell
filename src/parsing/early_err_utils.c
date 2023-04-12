@@ -1,6 +1,9 @@
 
 #include "../../includes/minishell.h"
 
+/// @brief checks if there was no input or whitespaces only
+/// @param input 
+/// @return -1 if input contains spaces only
 int	spaces_err(char *input)
 {
 	int	i;
@@ -13,6 +16,10 @@ int	spaces_err(char *input)
 	return (0);
 }
 
+/// @brief minishell doesn't support open quotation
+/// SIC! " ' ' " are closed, " ' " ' " are open
+/// @param s 
+/// @return -1 on error
 int	quotes_err(char *s)
 {
 	int	dq_open;
@@ -39,6 +46,9 @@ int	quotes_err(char *s)
 	return (0);
 }
 
+/// @brief no pipe on the beginning/end of input, no more then 1 pipe in a row
+/// @param input 
+/// @return -1 on error
 int	pipes_err(char *input)
 {
 	int	i;
@@ -68,10 +78,11 @@ int	pipes_err(char *input)
 	return (0);
 }
 
-/*
-couldn't add # and ´
-*/
-
+/// @brief minishell supports limited amt of special chars outside quotes:
+/// pipe, and redirections.
+/// couldn't add # and ´ here
+/// @param input 
+/// @return -1 on error
 int	spec_char_err(char *input)
 {
 	int	i;
@@ -100,6 +111,11 @@ int	spec_char_err(char *input)
 	return (0);
 }
 
+/// @brief minishell supports > >> < << only
+/// no redirection on the end of input
+/// no redirection before pipe
+/// @param input 
+/// @return -1 on error
 int	redirection_err(char *input)
 {
 	int	i;
