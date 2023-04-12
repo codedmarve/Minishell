@@ -84,6 +84,9 @@ int	spec_char_err(char *input)
 		else if (input[i] == ';' || input[i] == '&'
 			|| input[i] == '\\' || input[i] == '*'
 			|| input[i] == '~' || input[i] == '%'
+			|| input[i] == '(' || input[i] == ')'
+			|| input[i] == '[' || input[i] == ']'
+			|| input[i] == '{' || input[i] == '}'
 			|| input[i] == '#')
 		{
 			return (printf("minishell: unsupported special char\n"), -1);

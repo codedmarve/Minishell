@@ -7,19 +7,15 @@ t_token	*init_in_quotes(char *s, int *i, char q)
 	int		len;
 
 	len = skip_quotes(s, q);
-	token = malloc(sizeof(t_token));
+	token = ft_calloc(1, sizeof(t_token));
 	// if (!token)
-	// {
-	// 	//
-	// 	return (NULL);
-	// }
 	token->string = ft_substr(s, 1, len - 2);
+	if (*s == '\'')
+		token->quote_type = S_Q;
+	else if (*s == '"')
+		token->quote_type = D_Q;
 	token->type = WORD;
 	token->next = NULL;
-	// if (s[0] == '\'')
-	// 	token->quotation_type = IN_S_QUOTE;
-	// else if (s[0] == '"')
-	// 	token->quotation_type = IN_D_QUOTE;
 	*i += len;
 	return (token);
 }
@@ -28,11 +24,11 @@ t_token	*init_pipe_or_sep(char *s, int *i, char p_or_s)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
+	token = ft_calloc(1, sizeof(t_token));
 // 	if (!token)
-	token->string = malloc(sizeof(char));
-	// if (!token->string)
-	token->string[0] = '\0';
+	token->string = ft_calloc(1, sizeof(char));
+// if (!token->string)
+//	token->quote_type = NO_Q; // NOT NEEDED sine ft_calloc
 	token->next = NULL;
 	if (p_or_s == ' ')
 	{
@@ -44,10 +40,11 @@ t_token	*init_pipe_or_sep(char *s, int *i, char p_or_s)
 		*i = *i + 1;
 		token->type = PIPE;
 	}
-	// token->quotation_type = WO_QUOTE;
 	return (token);
 }
 
+
+// <issomefile"/" need be treated as ssomefile/ -> need to remove quotes later
 t_token	*init_single_redirection(char *s, int *i, char in_or_out)
 {
 	t_token	*token;
@@ -55,12 +52,12 @@ t_token	*init_single_redirection(char *s, int *i, char in_or_out)
 
 	*i += skip_spaces(&s[*i + 1]) + 1;
 	len = find_end(&s[*i], " <>|");
-	token = malloc(sizeof(t_token));
+	token = ft_calloc(sizeof(t_token), 1);
 	// if (!token)
-	// {
-	// 	//
-	// 	return (NULL);
-	// }
+	if (s[*i] == '\'')
+		token->quote_type = S_Q;
+	else if (s[*i] == '"')
+		token->quote_type = D_Q;
 	token->string = ft_substr(s, *i, len);
 	remove_quotes(token->string);
 	token->next = NULL;
@@ -79,19 +76,19 @@ t_token	*init_double_redirection(char *s, int *i, char in_or_out)
 
 	*i += skip_spaces(&s[*i + 2]) + 2;
 	len = find_end(&s[*i], " <>|");
-	token = malloc(sizeof(t_token));
+	token = ft_calloc(1, sizeof(t_token));
 	// if (!token)
-	// {
-	// 	//
-	// 	return (NULL);
-	// }
+	if (s[*i] == '\'')
+		token->quote_type = S_Q;
+	else if (s[*i] == '"')
+		token->quote_type = D_Q;
 	token->string = ft_substr(s, *i, len);
 	remove_quotes(token->string);
 	token->next = NULL;
 	if (in_or_out == '<')
 		token->type = HERE_DOC;
 	else if (in_or_out == '>')
-		token->type = APPEND_RED;
+		token->type = APP_RED;
 	*i += len;
 	return (token);
 }
@@ -102,12 +99,12 @@ t_token	*init_word(char *s, int *i)
 	int		len;
 
 	len = find_end(&s[*i], " '\"<>|");
-	token = malloc(sizeof(t_token));
+	token = ft_calloc(1, sizeof(t_token));
 	// if (!token)
-	// {
-	// 	//
-	// 	return (NULL);
-	// }
+	if (s[*i] == '\'')
+		token->quote_type = S_Q;
+	else if (s[*i] == '"')
+		token->quote_type = D_Q;
 	token->string = ft_substr(s, *i, len);
 	token->type = WORD;
 	token->next = NULL;

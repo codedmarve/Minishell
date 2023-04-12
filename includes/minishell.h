@@ -33,7 +33,7 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 
-// int	exit_status;
+int	exit_status;
 
 // typedef struct s_envp
 // {
@@ -42,31 +42,33 @@
 // 	struct s_envp	*next;
 // }					t_envp;
 
+// typedef struct s_token
+// {
+// 	char			*string;
+// 	int				type;
+// 	struct s_token	*next;
+// }					t_token;
+
 typedef struct s_token
 {
 	char			*string;
 	int				type;
-	// int				quotation_type;
+	int				quote_type;
 	struct s_token	*next;
 }					t_token;
-
-// typedef struct s_command
-// {
-	
-// }					t_command;
-
-// enum e_quotation_type
-// {	
-// 	WO_QUOTE,
-// 	IN_S_QUOTE,
-// 	IN_D_QUOTE,
-// } ;
 
 typedef struct s_data
 {
 	char	*input;
 	t_token *token_lst;
 }	t_data;
+
+enum	e_quote_types
+{
+	NO_Q,
+	S_Q,
+	D_Q,
+};
 
 enum	e_token_types
 {
@@ -76,7 +78,7 @@ enum	e_token_types
 	IN_RED,
 	OUT_RED,
 	HERE_DOC,
-	APPEND_RED,
+	APP_RED,
 };
 
 // main.c
