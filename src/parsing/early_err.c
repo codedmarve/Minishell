@@ -1,10 +1,10 @@
 
 #include "../../includes/minishell.h"
 
-/// @brief checks so no lexing happens in case of error
+/// @brief no lexing happens in case of error
 /// CHECK BEHAVIOR OF BASH REDIRECT AGAIN!!!
 /// @param data 
-/// @return -1 in error
+/// @return -1 on error
 int	early_err(t_data *data)
 {
 	char	*input;

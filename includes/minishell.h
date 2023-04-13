@@ -95,6 +95,7 @@ int		redirection_err_d_out(char *s, int *i);
 int		input_handler(t_data *data);
 
 // parser.c
+void	remove_consequtive_quotes(char *input);
 int		parser(t_data *data);
 
 // tokenizer.c
