@@ -80,7 +80,7 @@ int	pipes_err(char *input)
 
 /// @brief minishell supports limited amt of special chars outside quotes:
 /// pipe, and redirections.
-/// couldn't add # and ´ here
+/// couldn't add # ‘ ´ here
 /// @param input 
 /// @return -1 on error
 int	spec_char_err(char *input)
