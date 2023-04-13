@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_write_hex_upper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/30 17:06:22 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/13 19:18:31 by dgoremyk         ###   ########.fr       */
+/*   Created: 2022/07/20 10:17:33 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/12/06 23:46:06 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-ft_strcpy
-Copies string from (char *src) to (char *dest)
-adds NULL termination and returns dest string.
-*/
+#include "../libft.h"
 
-char	*ft_strcpy(char *dest, char *src)
+/* writes hex value in uppercase, returns the length */
+int	ft_write_hex_upper(unsigned int n)
 {
-	int	i;
+	unsigned int	digit;
+	int				length;
 
-	i = 0;
-	while (*(src + i))
-	{
-		*(dest + i) = *(src + i);
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	digit = 0;
+	length = 0;
+	if (n / 16)
+		length += ft_write_hex_upper(n / 16);
+	digit = n % 16;
+	length += write(1, &"0123456789ABCDEF"[digit], 1);
+	return (length);
 }

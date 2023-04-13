@@ -23,9 +23,6 @@ RDLIB	=	-lreadline
 LIB_DIR =	./library/libft/
 LIBFT	=	./library/libft/libft.a
 
-
-
-
 all:	$(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
@@ -33,13 +30,13 @@ $(NAME): $(SRC) $(LIBFT)
 	@echo "minishell created successfully"
 
 $(LIBFT):
-	make -C $(LIB_DIR)
-	make clean -C $(LIB_DIR)
+	@make -C $(LIB_DIR)
 
 clean:
-	make fclean -C $(LIB_DIR)
+	@make clean -C $(LIB_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
+	@make fclean -C $(LIB_DIR)
+	@rm -rf $(NAME)
 
 re: fclean all

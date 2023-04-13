@@ -3,54 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 14:09:08 by moduwole          #+#    #+#             */
-/*   Updated: 2022/05/02 14:09:08 by moduwole         ###   ########.fr       */
+/*   Created: 2022/05/04 16:43:31 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/05/30 16:04:15 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* function allocates (with malloc())) and returns a copy of ’s1’ with the
+characters specified in ’set’ removed from the beginning and the end of 
+the string */
+
 #include "libft.h"
-
-static int	ft_check(char c, char const *set)
-{
-	size_t	i;
-
-	i = 0;
-	while (set[i] != '\0')
-	{
-		if (set[i] == c)
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t	start;
-	size_t	end;
-	size_t	i;
+	size_t	len;
 	char	*str;
 
-	if (!s1)
+	if (!s1 || !set)
 		return (NULL);
-	start = 0;
-	end = ft_strlen(s1);
-	while ((ft_check(s1[start], set) == 0) && (s1[start] != '\0'))
-		start++;
-	while ((ft_check(s1[end - 1], set) == 0) && (end > start))
-		end--;
-	str = malloc(sizeof(char) * (end - start + 1));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (start < end)
-	{
-		str[i] = s1[start];
-		i++;
-		start++;
-	}
-	str[i] = '\0';
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	len = ft_strlen(s1);
+	while (len && ft_strchr(set, s1[len]))
+		len--;
+	str = ft_substr((char *)s1, 0, len + 1);
 	return (str);
 }
+
+/*
+#include <stdio.h>
+
+int main()
+{
+	char *string = "ABCddddddABC";
+	char *del = "ABC";
+	char *string2 = "QWERTYqwertyEEEERRRRTTTT";
+	char *del2 = "QWERTY";
+	
+	printf ("%s - %s = %s\n", 
+	string, del, ft_strtrim(string, del));	
+	printf ("%s - %s = %s\n",
+	string2, del2, ft_strtrim(string2, del2));
+	return (0);
+}
+*/

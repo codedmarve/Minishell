@@ -3,12 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 03:54:19 by moduwole          #+#    #+#             */
-/*   Updated: 2022/05/12 03:54:19 by moduwole         ###   ########.fr       */
+/*   Created: 2022/05/21 14:46:24 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/05/25 18:05:06 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+Adds the node ’new’ at the beginning of the list.
+*/
 
 #include "libft.h"
 

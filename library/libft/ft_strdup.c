@@ -3,31 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/02 09:33:11 by moduwole          #+#    #+#             */
-/*   Updated: 2022/05/02 09:33:11 by moduwole         ###   ########.fr       */
+/*   Created: 2022/05/03 18:00:32 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/01/15 18:04:14 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+save a copy of a string
+
+Allocates sufficient memory for a copy of the string s1,
+does the copy, and returns a pointer to it.  
+The pointer may subsequently be used as an argument to the function free(3).
+*/
+
 #include "libft.h"
 
-char	*ft_strdup(const char *str)
+/*
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	*dup;
 	size_t	i;
-	size_t	len;
 
 	i = 0;
-	len = ft_strlen(str) + 1;
-	dup = malloc(len * sizeof(char));
-	if (dup == NULL)
+	if (!dst && !src)
 		return (NULL);
-	while (str[i])
+	while (i < n)
 	{
-		dup[i] = str[i];
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
 		i++;
 	}
-	dup[i] = '\0';
-	return (dup);
+	return (dst);
 }
+*/
+
+char	*ft_strdup(const char *s1)
+{
+	char	*copy;
+
+	copy = malloc(ft_strlen(s1) + 1);
+	if (!copy)
+		return (NULL);
+	ft_memcpy(copy, s1, (ft_strlen(s1) + 1));
+	return (copy);
+}
+
+/*
+#include <stdio.h>
+
+int main()
+{
+	printf("%s\n", ft_strdup("goodbye this cruel word!"));
+	return (0);
+}
+*/

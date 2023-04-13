@@ -3,24 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 04:04:58 by moduwole          #+#    #+#             */
-/*   Updated: 2022/05/12 04:04:58 by moduwole         ###   ########.fr       */
+/*   Created: 2022/05/21 15:05:39 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/05/25 18:05:32 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+Counts the number of nodes in a list.
+*/
 
 #include "libft.h"
 
 int	ft_lstsize(t_list *lst)
 {
-	int	i;
+	int		i;
+	t_list	*temp;
 
 	i = 0;
-	while (lst)
+	temp = lst;
+	while (temp)
 	{
-		lst = lst->next;
 		i++;
+		temp = temp->next;
 	}
 	return (i);
 }

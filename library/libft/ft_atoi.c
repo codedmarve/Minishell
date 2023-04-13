@@ -3,40 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/01 23:47:29 by moduwole          #+#    #+#             */
-/*   Updated: 2022/05/01 23:47:29 by moduwole         ###   ########.fr       */
+/*   Created: 2022/04/29 16:07:07 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/05/25 18:08:13 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+convert ASCII string to integer
+
+Converts the initial portion of the string 
+pointed to by str to int representation.
+*/
 
 #include "libft.h"
 
 int	ft_atoi(const char *str)
 {
-	long	i;
-	long	nbr;
-	int		isneg;
+	int	sign;
+	int	num;
 
-	i = 0;
-	nbr = 0;
-	isneg = 0;
-	while (str[i] != '\0' && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f'))
-		i++;
-	if (str[i] != '\0' && str[i] == '-')
+	sign = 1;
+	num = 0;
+	while ((*str == ' ') || (*str == '\t') || (*str == '\n')
+		|| (*str == '\v') || (*str == '\f') || (*str == '\r'))
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		isneg = 1;
-		i++;
+		if (*str == '-')
+			sign *= -1;
+		str++;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] != '\0' && (str[i] >= '0' && str[i] <= '9'))
+	while (*str >= '0' && *str <= '9')
 	{
-		nbr = (nbr * 10) + (str[i] - '0');
-		i++;
+		num = (num * 10) + ((int)*str - '0');
+		str++;
 	}
-	if (isneg == 1)
-		return (-nbr);
-	return (nbr);
+	return (num * sign);
 }
+
+/*
+#include <stdio.h>
+#include <stdlib.h>
+
+int	main(void)
+{
+	printf("Test: 123\t\tatoi: %d\t\tft_atoi: %d\n", 
+	atoi("123"), ft_atoi("123"));
+	printf("Test: -2147483648\tatoi: %d\tft_atoi: %d\n", 
+	atoi("-2147483648"), ft_atoi("-2147483648"));
+	printf("Test: 0\t\t\tatoi: %d\t\t\tft_atoi: %d\n", 
+	atoi("0"), ft_atoi("0"));
+	printf("Test:  	-789\t\tatoi: %d\t\tft_atoi: %d\n", 
+	atoi(" 	-789"), ft_atoi(" 	-789"));
+	printf("Test: 	-+--789\t\tatoi: %d\t\t\tft_atoi: %d\n", 
+	atoi(" 	-+--789"), ft_atoi(" 	-+--789"));
+	return (0);
+}
+*/

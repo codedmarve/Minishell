@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_write_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/30 17:06:22 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/13 19:18:31 by dgoremyk         ###   ########.fr       */
+/*   Created: 2022/07/20 10:20:26 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/12/06 23:45:54 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-ft_strcpy
-Copies string from (char *src) to (char *dest)
-adds NULL termination and returns dest string.
-*/
+#include "../libft.h"
 
-char	*ft_strcpy(char *dest, char *src)
+/* writes char, returns 1 */
+int	ft_write_char(char c)
 {
-	int	i;
-
-	i = 0;
-	while (*(src + i))
-	{
-		*(dest + i) = *(src + i);
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	return (write(1, &c, 1));
 }

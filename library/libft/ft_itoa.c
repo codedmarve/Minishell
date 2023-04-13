@@ -3,76 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/03 17:57:49 by moduwole          #+#    #+#             */
-/*   Updated: 2022/05/03 17:57:49 by moduwole         ###   ########.fr       */
+/*   Created: 2022/05/16 12:04:20 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/01/15 18:00:05 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
+Allocates (with malloc(3)) and returns a string
+representing the integer received as an argument.
+Negative numbers must be handled.
+
+Returns the string representing the integer.
+NULL if the allocation fails.
+*/
+
 #include "libft.h"
 
-int	ft_count(int nbr)
-{
-	int	digit;
-
-	digit = 0;
-	if (nbr == 0)
-		return (1);
-	if (nbr < 0)
-	{
-		nbr *= -1;
-		digit++;
-	}
-	while (nbr > 0)
-	{
-		digit++;
-		nbr /= 10;
-	}
-	return (digit);
-}
-
-char	*ft_xneg(char *dest, char *src)
+int	counter(long n)
 {
 	int	i;
 
-	dest = malloc(12 * sizeof(char));
-	if (dest == NULL)
-		return (NULL);
 	i = 0;
-	while (i < 11)
+	if (n <= 0)
+		i = 1;
+	while (n)
 	{
-		dest[i] = src[i];
+		n /= 10;
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (i);
 }
 
 char	*ft_itoa(int n)
 {
+	long	casted_n;
+	int		len;
 	char	*str;
-	int		digit;
-	int		nb;
 
-	str = NULL;
-	if (n == -2147483648)
-		return (ft_xneg(str, "-2147483648"));
-	nb = n;
-	digit = ft_count(nb);
-	if (n < 0)
-		nb *= -1;
-	str = malloc((digit + 1) * sizeof(char));
-	if (str == NULL)
-		return (0);
-	str[digit] = '\0';
-	while (digit > 0)
+	casted_n = n;
+	len = counter(casted_n);
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	if (casted_n == 0)
+		str[0] = '0';
+	else if (casted_n < 0)
 	{
-		str[digit - 1] = (nb % 10) + 48;
-		nb /= 10;
-		digit--;
+		str[0] = '-';
+		casted_n = -casted_n;
 	}
-	if (n < 0)
-		str[digit] = '-';
+	while (casted_n)
+	{
+		len--;
+		str[len] = casted_n % 10 + '0';
+		casted_n = casted_n / 10;
+	}
 	return (str);
 }
+
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	printf("%s\n", ft_itoa(0));
+	printf("%s\n", ft_itoa(-2147483648));
+	printf("%s\n", ft_itoa(123));
+	return (0);
+}
+*/

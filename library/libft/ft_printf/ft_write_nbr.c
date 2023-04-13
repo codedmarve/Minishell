@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_write_nbr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/30 17:06:22 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/13 19:18:31 by dgoremyk         ###   ########.fr       */
+/*   Created: 2022/07/20 10:18:49 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/12/06 23:46:14 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-ft_strcpy
-Copies string from (char *src) to (char *dest)
-adds NULL termination and returns dest string.
-*/
+#include "../libft.h"
 
-char	*ft_strcpy(char *dest, char *src)
+/* writes int value, returns the length */
+
+int	ft_write_nbr(int n)
 {
-	int	i;
+	long			long_n;
+	int				length;
 
-	i = 0;
-	while (*(src + i))
+	long_n = (long)n;
+	length = 0;
+	if (long_n < 0)
 	{
-		*(dest + i) = *(src + i);
-		i++;
+		length += write(1, "-", 1);
+		long_n = -long_n;
 	}
-	dest[i] = '\0';
-	return (dest);
+	if (long_n / 10)
+		length += ft_write_nbr(long_n / 10);
+	long_n = long_n % 10 + '0';
+	length += write(1, &long_n, 1);
+	return (length);
 }

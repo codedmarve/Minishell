@@ -3,38 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/12 10:28:25 by moduwole          #+#    #+#             */
-/*   Updated: 2022/05/12 10:28:25 by moduwole         ###   ########.fr       */
+/*   Created: 2022/05/23 19:56:36 by dgoremyk          #+#    #+#             */
+/*   Updated: 2022/05/30 14:20:55 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+Iterates the list ’lst’ and applies the function
+’f’ on the content of each node.  Creates a new
+list resulting of the successive applications of
+the function ’f’.  The ’del’ function is used to
+delete the content of a node if needed.
+*/
 
 #include "libft.h"
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_list;
-	t_list	*save;
+	t_list	*newlst;
+	t_list	*new;
+	t_list	*lstiteri;
 
-	if (!lst || !f || !del)
-		return (0);
-	new_list = ft_lstnew(f(lst->content));
-	if (!new_list)
-		return (0);
-	save = new_list;
-	lst = lst->next;
-	while (lst)
+	newlst = NULL;
+	lstiteri = lst;
+	while (lstiteri)
 	{
-		new_list->next = ft_lstnew(f(lst->content));
-		if (!new_list->next)
+		new = ft_lstnew(f(lstiteri->content));
+		if (!new)
 		{
-			ft_lstclear(&save, del);
-			return (0);
+			ft_lstclear(&newlst, del);
+			return (newlst);
 		}
-		new_list = new_list->next;
-		lst = lst->next;
+		ft_lstadd_back(&newlst, new);
+		lstiteri = lstiteri -> next;
 	}
-	new_list->next = NULL;
-	return (save);
+	return (newlst);
 }

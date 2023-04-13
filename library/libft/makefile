@@ -3,52 +3,69 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+         #
+#    By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/11 09:25:04 by moduwole          #+#    #+#              #
-#    Updated: 2022/05/11 09:25:04 by moduwole         ###   ########.fr        #
-#      \\\\\\\\                                                                        #
+#    Created: 2022/05/17 17:22:34 by dgoremyk          #+#    #+#              #
+#    Updated: 2023/04/13 19:29:49 by dgoremyk         ###   ########.fr        #
+#                                                                              #
 # **************************************************************************** #
 
-NAME		=		libft.a
+.SILENT:
 
-SRC			= 		ft_calloc.c       ft_isdigit.c  ft_memcmp.c      ft_putchar_fd.c  ft_split.c  \
-					ft_strjoin.c      ft_strmapi.c  ft_strtrim.c     ft_isalnum.c     ft_toupper.c  \
-					ft_isprint.c      ft_memcpy.c   ft_putendl_fd.c  ft_strchr.c      ft_strlcat.c  \
-					ft_strncmp.c      ft_substr.c   ft_atoi.c        ft_isalpha.c     ft_itoa.c  \
-					ft_putnbr_fd.c    ft_strdup.c   ft_strlcpy.c     ft_strnstr.c     ft_tolower.c  \
-					ft_bzero.c        ft_isascii.c  ft_memchr.c      ft_memset.c      ft_putstr_fd.c  \
-					ft_striteri.c     ft_strlen.c   ft_strrchr.c     ft_memmove.c	  ft_utoa.c  \
-					ft_puthexi.c	  ft_hexi.c 	ft_printf.c		 ft_put.c 		  ft_putadd.c  \
-					get_next_line.c   ft_strcpy.c	ft_strcat.c  \
+NAME = libft.a
 
-OBJ			=		$(SRC:.c=.o)
+CC = gcc
 
-CC			=		gcc
+CFLAGS = -Wall -Werror -Wextra -g
 
-CFLAGS		=		-Werror -Wextra -Wall
+RM = rm -f
 
-BONUS		=		ft_lstadd_back.c  ft_lstadd_front.c ft_lstclear.c \
-					ft_lstdelone.c ft_lstiter.c	  ft_lstlast.c \
-					ft_lstmap.c	ft_lstnew.c	ft_lstsize.c \
+SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
+			ft_strlen.c \
+			ft_memset.c ft_bzero.c \
+			ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
+			ft_tolower.c ft_toupper.c \
+			ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c \
+			ft_memcmp.c ft_strnstr.c ft_atoi.c \
+			ft_calloc.c ft_strdup.c \
+			ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
+			ft_strmapi.c ft_striteri.c ft_strtrim.c ft_itoa.c \
+			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+			get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
+			ft_printf/ft_printf.c ft_printf/ft_write_char.c \
+			ft_printf/ft_write_str.c ft_printf/ft_write_nbr.c \
+			ft_printf/ft_write_unsigned_int.c \
+			ft_printf/ft_write_ptr.c ft_printf/ft_write_hex.c \
+			ft_printf/ft_write_hex_upper.c
 
-B_OBJ		=		$(BONUS:.c=.o)
+BONUS_SRCS = ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstsize.c \
+			ft_lstlast.c \
+			ft_lstadd_back.c \
+			ft_lstdelone.c \
+			ft_lstclear.c \
+			ft_lstiter.c \
+			ft_lstmap.c
+					
+OBJS = $(SRCS:.c=.o)
 
-all:				$(NAME)
 
-$(NAME):			$(OBJ)
-							ar -crs $(NAME) $(OBJ)
 
-$(OBJ):				$(SRC)
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
-bonus:				$(OBJ) $(B_OBJ)
-							ar -crs $(NAME) $(OBJ) $(B_OBJ)
+all: $(NAME)
 
+$(NAME): $(OBJS) $(BONUS_OBJS)
+	ar rcs $(NAME) $(BONUS_OBJS)
+	ar rcs $(NAME) $(OBJS)
+	
 clean:
-							rm -f $(OBJ) $(B_OBJ)
+	$(RM) $(OBJS) $(BONUS_OBJS)
 
-fclean:				clean
-							rm -f $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
-re:					fclean $(NAME)
+re: fclean all
 
+.PHONY: all clean fclean re
