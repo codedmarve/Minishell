@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 16:25:12 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/13 19:19:33 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:27:56 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ NULL if the allocation fails.
 #include "libft.h"
 
 /* NEW VERSION OF FT_SPLIT W/O USING EXTRA FUNCTIONS */
-/* count words by checking if it's
-the last letter of the word (next = c or next = NULL) */
+/* count words by checking if it's the last letter 
+of the word (next = c or next = NULL) */
 size_t	ft_word_counter(const char *s, char c)
 {
 	size_t	word_counter;
@@ -43,10 +43,9 @@ size_t	ft_word_counter(const char *s, char c)
 /*
 1. count word length + allocate memory for it 
 (incl NULL terminator)
-2. copies chars from an original str to new place,
-return ptr to it
-3. nothing is happening to orig. string  - we need to move among that 
-using ft_split function
+2. copies chars from an original str to new placem return ptr to it
+3. nothing is happening to orig. string  - 
+we need to move among that using ft_split function
 */
 char	*ft_write_words(const char *str, char c)
 {
@@ -98,7 +97,7 @@ char	**ft_split(char const *s, char c)
 	return (splitted);
 }
 
-/********************************/
+/*************************************************/
 /*
 size_t	ft_word_counter(const char *s, char c)
 {
@@ -155,7 +154,7 @@ char	**ft_split(const char *s, char c)
 }
 */
 
-/**********************************************/
+/***************************************************/
 
 /*
 size_t	ft_word_counter(const char *s, char c)

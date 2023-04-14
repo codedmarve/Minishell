@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:22:41 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/13 19:20:06 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:51:44 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ char			**ft_split(const char *s, char c);
 char			*ft_itoa(int n);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
+void			ft_strncat(char *dest, char *src, int n);
+void			ft_strncpy(char *dest, const char *src, size_t n);
 char			*ft_strnstr(const char *str, const char *needle, size_t len);
 char			*ft_strdup(const char *s1);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
@@ -66,6 +68,7 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
+char			*ft_strcpy(char *dest, const char *src);
 //==================LIBFT=FUNC=END======================//
 
 //==================LIBFT=FUNC=BONUS======================//

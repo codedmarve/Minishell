@@ -6,24 +6,25 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 17:06:22 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/04/13 19:18:31 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:23:34 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-ft_strcpy
-Copies string from (char *src) to (char *dest)
-adds NULL termination and returns dest string.
-*/
+#include "libft.h"
 
-char	*ft_strcpy(char *dest, char *src)
+/// @brief copies the content of the src string
+/// to the dest string.
+///
+/// It copies all chars including the terminating null char.
+/// Dest string must have enough space to hold the src string.
+char	*ft_strcpy(char *dest, const char *src)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (*(src + i))
+	while (src[i] != 0)
 	{
-		*(dest + i) = *(src + i);
+		dest[i] = src[i];
 		i++;
 	}
 	dest[i] = '\0';
