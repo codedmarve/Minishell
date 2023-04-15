@@ -37,11 +37,21 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_cmd
+{
+	char **cmd_splitted;
+	char *cmd_path;
+	int fd_infile;
+	int fd_outfile;
+	struct s_cmd	*next;
+}			t_cmd;
+
 typedef struct s_data
 {
 	char	*input;
 	t_token	*token_lst;
 	t_envp	*env_lst;
+	t_cmd 	*cmd_lst;
 }	t_data;
 
 enum	e_quote_types
@@ -101,6 +111,11 @@ int		parser(t_data *data);
 
 // tokenizer.c
 void	tokenizer(t_token **token_lst, char *input);
+
+// expander.c
+int		dollar_in_str(char *s);
+void	expand_token(char **token);
+void	expand_token_lst(t_token **token_lst);
 
 // tokenizer_init.c
 t_token	*init_in_quotes(char *s, int *i, char quote);
