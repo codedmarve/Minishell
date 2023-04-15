@@ -45,14 +45,14 @@ char	*exit_status(void)
 /// commented out stuff - it s not working, WHY??????
 void	expand_token(char **token)
 {
-	// char *new;
+	char *new;
 
-	// new = ft_calloc(1000, sizeof(char));
-	// new[0] = 'a';
-	// new[1] = '\0';
-	// free(token);
-	// *token = new;
-	printf("EXPAND THIS: %s\n", *token);
+	new = ft_calloc(1000, sizeof(char));
+	new[0] = 'a';
+	new[1] = '\0';
+	free(*token);
+	*token = new;
+	// printf("EXPAND THIS: %s\n", *token);
 	// return ;
 }
 
