@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **envp)
 		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
-		input_handler(data);
+		input_handler(data); // keep it void or return value?
 	}
 	free (data);
 	return (0);

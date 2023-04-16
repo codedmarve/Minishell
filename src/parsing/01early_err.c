@@ -1,8 +1,14 @@
 
 #include "../../includes/minishell.h"
 
-/// @brief no lexing happens in case of error
-/// CHECK BEHAVIOR OF BASH REDIRECT AGAIN!!!
+/// @brief checks if there are any errors in the input string 
+/// before executing any commands. 
+/// 
+/// It calls other functions to check for various types of errors
+/// such as spaces, quotes, pipes, special characters, and redirection. 
+/// If any of these functions return an error code of -1,
+/// the function returns -1.
+/// Otherwise, it returns 0 to indicate that there are no errors.
 /// @param data 
 /// @return -1 on error
 int	early_err(t_data *data)
