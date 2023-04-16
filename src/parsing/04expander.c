@@ -41,8 +41,6 @@ char	*exit_status(void)
 
 /// @brief FUNCTION SHOULD BE ADDED!
 /// @param token 
-
-/// commented out stuff - it s not working, WHY??????
 char	*expand_token(char *token)
 {
 	char *new;
