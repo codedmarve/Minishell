@@ -114,7 +114,7 @@ void	tokenizer(t_token **token_lst, char *input);
 
 // expander.c
 int		dollar_in_str(char *s);
-void	expand_token(char **token);
+char	*expand_token(char *token);
 void	expand_token_lst(t_token **token_lst);
 
 // tokenizer_init.c

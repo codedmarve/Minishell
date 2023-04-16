@@ -43,17 +43,15 @@ char	*exit_status(void)
 /// @param token 
 
 /// commented out stuff - it s not working, WHY??????
-void	expand_token(char **token)
+char	*expand_token(char *token)
 {
 	char *new;
 
 	new = ft_calloc(1000, sizeof(char));
-	new[0] = 'a';
+	new[0] = '!';
 	new[1] = '\0';
-	free(*token);
-	*token = new;
-	// printf("EXPAND THIS: %s\n", *token);
-	// return ;
+	free(token);
+	return (new);
 }
 
 void	expand_token_lst(t_token **token_lst)
@@ -64,7 +62,7 @@ void	expand_token_lst(t_token **token_lst)
 	while (tmp != NULL)
 	{
 		if (tmp->quote_type != S_Q && dollar_in_str(tmp->string))
-			expand_token(&tmp->string);
+			tmp->string = expand_token(tmp->string);
 		tmp = tmp->next;
 	}
 }
