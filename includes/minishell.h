@@ -37,21 +37,21 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_cmd
-{
-	char **cmd_splitted;
-	char *cmd_path;
-	int fd_infile;
-	int fd_outfile;
-	struct s_cmd	*next;
-}			t_cmd;
+// typedef struct s_cmd
+// {
+// 	char **cmd_splitted;
+// 	char *cmd_path;
+// 	int fd_infile;
+// 	int fd_outfile;
+// 	struct s_cmd	*next;
+// }			t_cmd;
 
 typedef struct s_data
 {
 	char	*input;
 	t_token	*token_lst;
 	t_envp	*env_lst;
-	t_cmd 	*cmd_lst;
+	// t_cmd 	*cmd_lst;
 }	t_data;
 
 enum	e_quote_types
@@ -86,50 +86,61 @@ void	print_env(t_data *data);
 // main.c
 int		main(int ac, char **av, char **envp);
 
-//early_err.c
+// 00input_handler.c
+int		input_handler(t_data *data);
+
+// 01early_err.c
 int		early_err(t_data *data);
 
-//early_err_utils.c
+// 01early_err_utils.c
 int		pipes_err(char *input);
 int		spaces_err(char *input);
 int		quotes_err(char *s);
 int		spec_char_err(char *input);
 int		redirection_err(char *input);
 
-//early_err_utils2.c
+// 01early_err_utils2.c
 int		redirection_err_s_in(char *s, int *i);
 int		redirection_err_s_out(char *s, int *i);
 int		redirection_err_d_in(char *s, int *i);
 int		redirection_err_d_out(char *s, int *i);
 
-//input_handler.c
-int		input_handler(t_data *data);
-
-// parser.c
+// 02parser.c
 void	remove_consequtive_quotes(char *input);
+void	free_token_lst(t_token **token_lst);
 int		parser(t_data *data);
 
-// tokenizer.c
+// 03tokenizer.c
 void	tokenizer(t_token **token_lst, char *input);
 
-// expander.c
-int		dollar_in_str(char *s);
-char	*expand_token(char *token);
-void	expand_token_lst(t_token **token_lst);
-
-// tokenizer_init.c
+// 03tokenizer_init.c
 t_token	*init_in_quotes(char *s, int *i, char quote);
 t_token	*init_pipe_or_sep(char *s, int *i, char pipe_or_sep);
 t_token	*init_single_redirection(char *s, int *i, char in_or_out);
 t_token	*init_double_redirection(char *s, int *i, char in_or_out);
 t_token	*init_word(char *s, int *i);
 
-//tokenizer_utils.c
+// 03tokenizer_utils.c
 t_token	*token_last(t_token *lst);
 void	token_add_back(t_token **lst, t_token *new);
 void	remove_quotes(char *s);
 
-//utils.c
+// 04expander.c
+char	*expand_token(char *token);
+void	expand_token_lst(t_token **token_lst);
+
+// 04expander2.c
+void	init_exit_status(char **new_ptr, int *j_ptr, int *i_ptr);
+void	init_single_dollar(char **new_ptr, int *j_ptr, int *i_ptr);
+void	expand_remainder(char **new_ptr, int *j_ptr, int *i_ptr, char *token);
+void	init_env_var(char **new_ptr, int *j_ptr, int *i_ptr, char *token);
+void	copy_token_char(char **new_ptr, int *j_ptr, char c);
+
+// 04expander_utils.c
+int		dollar_in_str(char *s);
+char	*get_exit_status(void);
+
+// utils.c
 int		skip_spaces(char *str);
 int		skip_quotes(char *str, char quote);
 int		find_end(char *str, char *possible_sep);

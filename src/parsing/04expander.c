@@ -1,57 +1,49 @@
 
 #include "../../includes/minishell.h"
 
-/// @brief checks if string contains $ char
-/// @param s 
-/// @return 1 if $ found
-int dollar_in_str(char *s)
-{
-	while (*s)
-	{
-		if (*s == '$')
-			return (1);
-		s++;
-	}
-	return (0);
-}
-
-/// @brief cheks if current char can belong to env varialbe
-/// @param c 
-/// @return 
-int	env_var_char(char c)
-{
-	if (ft_isalnum(c) || c == '_')
-		return (1);
-	return (0);
-}
-
-/// @brief takes exit status from global variable,
-/// saves it i a string *value
-/// @param  
-/// @return *value
-char	*exit_status(void)
-{
-	char	*value;
-
-	value = ft_itoa(g_exit_status);
-	if (!value)
-		return (NULL);
-	return (value);
-}
-
-/// @brief FUNCTION SHOULD BE ADDED!
+/// @brief expands environment variables in a given string token.
+/// It returns a new string with the expanded variables.
+/// If no environment variables are found, the original token is returned.
+/// The expanded string is allocated on the heap, 
+/// so it should be freed after use.
+///
+/// 'trasforms'consecutive $$ into $
+/// bash expands $$ as PID - we don't need to implement it
+///  
 /// @param token 
+/// @return 
 char	*expand_token(char *token)
 {
-	char *new;
+	char	*new;
+	int		i;
+	int		j;
 
-	new = ft_calloc(1000, sizeof(char));
-	new[0] = '!';
-	new[1] = '\0';
-	free(token);
+	new = malloc(10000); // if !new
+	i = 0;
+	j = 0;
+	while (token[i] != '\0')
+	{
+		if (token[i] == '$')
+		{
+			if (token[i + 1] == '?')
+				init_exit_status(&new, &j, &i);
+			else if (token[i + 1] == '$')
+				init_single_dollar(&new, &j, &i);
+			else
+				init_env_var(&new, &j, &i, token);
+		}
+		else
+			copy_token_char(&new, &j, token[i++]);
+	}
+	new[j] = '\0';
 	return (new);
 }
 
+/// @brief  loops through a linked list of tokens 
+/// and expands any token that contains a dollar sign. 
+///
+/// If the token has single quotes around it, the dollar sign is not expanded. 
+/// @param token_lst 
 void	expand_token_lst(t_token **token_lst)
 {
 	t_token	*tmp;

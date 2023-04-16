@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-void	print_after_tokenizer(t_data *data)
+void	print_full_token_data(t_data *data)
 {
 	t_token	*tmp;
 	int		i;
@@ -17,7 +17,7 @@ void	print_after_tokenizer(t_data *data)
 	}
 }
 
-void	print_after_expansion(t_data *data)
+void	print_token_string(t_data *data)
 {
 	t_token	*tmp;
 	int		i;
@@ -67,15 +67,29 @@ void	remove_consequtive_quotes(char *input)
 	input[j] = '\0';
 }
 
+void	free_token_lst(t_token **token_lst)
+{
+	t_token	*tmp;
+
+	tmp = *token_lst;
+	while (*token_lst != NULL)
+	{
+		if (tmp->string)
+			free(tmp->string);
+		tmp = tmp->next;
+		free(*token_lst);
+		*token_lst = tmp;
+	} // free(token_lst) here???
+}
 
 int	parser(t_data *data)
 {
 	remove_consequtive_quotes(data->input);
 	tokenizer(&data->token_lst, data->input);
-	print_after_tokenizer(data);
 	expand_token_lst(&data->token_lst);
-	print_after_expansion(data);
+	print_full_token_data(data);
 	// if (parser_err == -1) // checks if redirect (and what else?) are OK
-	
+	// if (interpreter == -1) // fills smd_struct
+	free_token_lst(&data->token_lst);
 	return (0);
 }
