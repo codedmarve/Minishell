@@ -22,7 +22,7 @@ void	init_data(t_data *data, char **envp)
 	// data->token_lst = NULL; // since ft_calloc
 	// data->env_lst = NULL; // since ft_calloc
 	envplist_handler(&data->env_lst, envp);
-	// print_env(data);
+//	print_env(data);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -39,6 +39,7 @@ int	main(int ac, char **av, char **envp)
 		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
+		// printf("%zu\n", ft_strlen(data->input));
 		input_handler(data); // keep it void or return value?
 	}
 	free (data);

@@ -19,7 +19,7 @@
 # include "../library/libft/libft.h"
 
 #define MAX_TOKEN_SIZE 1024
-int	g_exit_status;
+int		g_exit_status;
 
 typedef struct s_envp
 {
@@ -39,6 +39,8 @@ typedef struct s_token
 
 // typedef struct s_cmd
 // {
+//	typedef struct s_cmd *cmd_head;
+// 	int cmd_number;
 // 	char **cmd_splitted;
 // 	char *cmd_path;
 // 	int fd_infile;

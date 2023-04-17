@@ -16,11 +16,14 @@ int	early_err(t_data *data)
 	char	*input;
 
 	input = data->input;
-	if ((spaces_err(input) == -1)
-		|| (quotes_err(input) == -1)
+	if ((ft_strlen(data->input) == 0))
+		return (-1);
+	else if (spaces_err(input) == -1)	
+		return (-1);
+	else if ((quotes_err(input) == -1)
 		|| (pipes_err(input) == -1)
 		|| (spec_char_err(input) == -1)
 		|| (redirection_err(input) == -1))
-		return (-1);
+		return (-1); // and update global variable
 	return (0);
 }

@@ -18,7 +18,7 @@ char	*expand_token(char *token)
 	int		i;
 	int		j;
 
-	new = malloc(10000); // if !new
+	new = malloc(MAX_TOKEN_SIZE); // if !new
 	i = 0;
 	j = 0;
 	while (token[i] != '\0')
