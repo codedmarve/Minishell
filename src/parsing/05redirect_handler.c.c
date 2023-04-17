@@ -84,7 +84,7 @@ int	init_app_red(int *fd_outfile, char *filename)
 /// Closes any open fds.
 /// @param token_lst 
 /// @return 
-int	redirection_handler(t_token **token_lst)
+int	redirect_handler(t_token **token_lst)
 {
 	t_token	*tmp;
 	int		fd_infile;

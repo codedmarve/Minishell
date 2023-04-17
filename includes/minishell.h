@@ -142,13 +142,13 @@ void	copy_token_char(char **new_ptr, int *j_ptr, char c);
 int		dollar_in_str(char *s);
 char	*get_exit_status(void);
 
-// 05redirector.c
+// 05redirect_handler.c
 void	close_files_if_open(int *fd_infile, int *fd_outfile);
 int		init_in_red(int *fd_infile, char *filename);
 int		init_out_red(int *fd_outfile, char *filename);
 int		init_app_red(int *fd_outfile, char *filename);
 // int	init_here_doc(int *fd_outfile, char *filename);
-int		redirection_handler(t_token **token_lst);
+int		redirect_handler(t_token **token_lst);
 
 // 06interpreter.c
 int	interpreter(t_data *data);
