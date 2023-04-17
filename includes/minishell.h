@@ -37,23 +37,23 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-// typedef struct s_cmd
-// {
-//	typedef struct s_cmd *cmd_head;
-// 	int cmd_number;
-// 	char **cmd_splitted;
-// 	char *cmd_path;
-// 	int fd_infile;
-// 	int fd_outfile;
-// 	struct s_cmd	*next;
-// }			t_cmd;
+typedef struct s_cmd
+{
+	// typedef struct s_cmd *cmd_head;
+	int cmd_idx;
+	char **cmd_splitted;
+	// char *cmd_path;
+	int fd_infile;
+	int fd_outfile;
+	struct s_cmd	*next;
+}			t_cmd;
 
 typedef struct s_data
 {
 	char	*input;
 	t_token	*token_lst;
 	t_envp	*env_lst;
-	// t_cmd 	*cmd_lst;
+	t_cmd 	*cmd_lst;
 }	t_data;
 
 enum	e_quote_types
@@ -141,6 +141,17 @@ void	copy_token_char(char **new_ptr, int *j_ptr, char c);
 // 04expander_utils.c
 int		dollar_in_str(char *s);
 char	*get_exit_status(void);
+
+// 05redirector.c
+void	close_files_if_open(int *fd_infile, int *fd_outfile);
+int		init_in_red(int *fd_infile, char *filename);
+int		init_out_red(int *fd_outfile, char *filename);
+int		init_app_red(int *fd_outfile, char *filename);
+// int	init_here_doc(int *fd_outfile, char *filename);
+int		redirection_handler(t_token **token_lst);
+
+// 06interpreter.c
+int	interpreter(t_data *data);
 
 // utils.c
 int		skip_spaces(char *str);

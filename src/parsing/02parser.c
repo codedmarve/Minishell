@@ -104,8 +104,8 @@ int	parser(t_data *data)
 	tokenizer(&data->token_lst, data->input);
 	expand_token_lst(&data->token_lst);
 	print_full_token_data(data);
-	// if (parser_err == -1) // checks if redirect (and what else?) are OK 
-	// if (interpreter == -1) // fills smd_struct
+	redirection_handler(&data->token_lst); // returns 0
+	interpreter(data); // fills smd_struct
 	free_token_lst(&data->token_lst);
 	return (0);
 }
