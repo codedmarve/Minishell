@@ -10,8 +10,10 @@ void	print_full_token_data(t_data *data)
 	i = 0;
 	while (tmp)
 	{
-		printf("TOK %i:%s TOK_TYPE:%d QUOT:%d\n",
-			i, tmp->string, tmp->type, tmp->quote_type);
+		printf("TOK %i:%s TOK_TYPE:%d\n",
+			i, tmp->string, tmp->type);
+		// printf("TOK %i:%s TOK_TYPE:%d QUOT:%d\n",
+		// 	i, tmp->string, tmp->type, tmp->quote_type);
 		i++;
 		tmp = tmp->next;
 	}
