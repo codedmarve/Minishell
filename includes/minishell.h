@@ -40,25 +40,26 @@ typedef struct s_token
 
 // typedef struct s_cmd
 // {
-// 	// typedef struct s_cmd *cmd_head;
-// 	int cmd_idx;
 // 	char **cmd_splitted;
-// 	// char *cmd_path;
+// 	char **infiles;
+// 	char **outfiles;
+// 	char **heredocs;
+// 	char **appends;
 // 	int fd_infile;
 // 	int fd_outfile;
-// 	struct s_cmd	*next;
+// 	// int cmd_idx;
 // }			t_cmd;
 
 typedef struct s_cmd
 {
 	char **cmd_splitted;
-	char **infiles;
-	char **outfiles;
-	char **heredocs;
-	char **appends;
+	t_list *infiles;
+	t_list *outfiles;
+	t_list *heredocs;
+	t_list *appends;
 	int fd_infile;
 	int fd_outfile;
-	int cmd_idx;
+	// int cmd_idx;
 }			t_cmd;
 
 typedef struct s_data
