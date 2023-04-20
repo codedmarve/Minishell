@@ -19,7 +19,7 @@
 # include "../library/libft/libft.h"
 
 #define MAX_TOKEN_SIZE 1024
-// #define MAX_TOKENS_PER_TYPE 100
+#define MAX_TOKENS_PER_TYPE 100
 int		g_exit_status;
 
 typedef struct s_envp
@@ -38,26 +38,27 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct s_outs
-{
-	char *string;
-	int app_flag;
-} t_outs;
+// typedef struct s_out
+// {
+// 	char *string;
+// 	int app_red_flag;
+// 	struct s_out *next;
+// } t_out;
 
-typedef struct s_ins
-{
-	char *string;
-	int heredoc_flag;
-} t_ins;
+// typedef struct s_in
+// {
+// 	char *string;
+// 	int here_doc_flag;
+// 	struct s_in *next;
+// } t_in;
 
 typedef struct s_cmd
 {
-	char **cmd_splitted; // ls -l blah
-	t_ins *ins;
-	t_outs *outs;
+	char **cmd_splitted;
+	t_token *in_heredoc;
+	t_token *out_app;
 	int fd_infile; // 0
 	int fd_outfile; // 1
-	// int cmd_idx;
 }			t_cmd;
 
 // typedef struct s_cmd
@@ -78,7 +79,7 @@ typedef struct s_data
 	char	*input;
 	t_token	*token_lst;
 	t_envp	*env_lst;
-	t_cmd	**cmds; // * 
+	t_cmd	*cmds; // i did it **, WHY
 }	t_data;
 
 enum	e_quote_types
