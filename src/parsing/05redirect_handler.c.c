@@ -70,6 +70,28 @@ int	init_app_red(int *fd_outfile, char *filename)
 	return (0);
 }
 
+int	init_here_doc(char *delimiter)
+{
+	char	*str;
+	int		fd;
+
+	fd = open("tmp.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
+	str = readline(">");
+	while (ft_strncmp(str, delimiter, ft_strlen(delimiter))
+		|| ft_strlen(delimiter) != ft_strlen(str))
+	{
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
+		free(str);
+		str = readline(">");
+	}
+	free(str);
+	close(fd);
+	// fd = open("tmp.txt", O_RDONLY);
+	// printf("%s\n", get_next_line(fd));
+	// close(fd);
+}
+
 /// @brief handles input and output redirections 
 /// in a command line interpreter. 
 ///
@@ -103,7 +125,7 @@ int	redirect_handler(t_token **token_lst)
 		else if (tmp->type == APP_RED)
 			value = init_app_red(&fd_outfile, tmp->string);
 		// else if (tmp->type == HERE_DOC)
-		// 	value = init_here_doc(&infile, tmp->string);
+		// 	value = init_here_doc(tmp->string);
 		if (value == -1)
 			break ;
 		tmp = tmp->next;

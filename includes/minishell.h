@@ -150,6 +150,8 @@ int		init_app_red(int *fd_outfile, char *filename);
 // int	init_here_doc(int *fd_outfile, char *filename);
 int		redirect_handler(t_token **token_lst);
 
+int	init_here_doc(char *delimeter);
+
 // 06interpreter.c
 int	interpreter(t_data *data);
 
