@@ -102,6 +102,10 @@ void add_token_to_cmd(t_cmd *cmd, t_token *token)
     {
            token_add_back(&cmd->in_heredoc, token);
     }
+	// else if (token->type == WORD)
+	// {
+
+	// }
 }
 
 void print_data(t_data *data)
@@ -172,10 +176,11 @@ int	parser(t_data *data)
 	tokenizer(&data->token_lst, data->input);
 	expand_token_lst(&data->token_lst);
 	print_full_token_data(data);
+
 //	redirect_handler(&data->token_lst); // returns 0
-//	create_cmds(data);
-	// allocate_cmds(data);
-	// print_data(data);
+	allocate_cmds(data);
+	create_cmds(data);
+	print_data(data);
 	free_token_lst(&data->token_lst);
 	return (0);
 }
