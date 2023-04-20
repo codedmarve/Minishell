@@ -1,0 +1,57 @@
+
+
+bash-5.2$  <inputfile.txt cat  > | outfile 
+bash: syntax error near unexpected token `|'
+
+
+ERROR HANDLING:
+
+bash: syntax error near unexpected token `&'
+
+
+
+
+Minishell does not support \, ;, &&, ||, or wildcards.
+
+we need to implement:
+
+' ' single quotes prevent from interpreting special chars
+(echo '$PATH' outputs '$PATH' on the screen)
+
+" " double quotes prevent from interpreting special chars except $
+(echo "$PATH" equal to echo $PATH)
+if " ls " - command not found
+
+EMPTY QUOTES
+bash-5.2$ ""
+bash: : command not found
+bash-5.2$ ''
+bash: : command not found
+
+QUOTES + SPACES
+' ls '
+bash:  ls : command not found
+" ls "
+bash:  ls : command not found
+
+PIPES
+REDIRECTIONS > >> < <<
+do not need
+
+$?
+
+
+OPTIONAL
+!
+#
+
+
+------------------------------------------------
+PARSING(t_data *data, char *input)
+(parsing struct inside of data struct)
+
+initialize_parsing_structure (data, input)
+input
+copy data there
+
+

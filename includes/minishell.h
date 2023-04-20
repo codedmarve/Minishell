@@ -38,15 +38,25 @@ typedef struct s_token
 	struct s_token	*next;
 }					t_token;
 
+typedef struct s_outs
+{
+	char *string;
+	int app_flag;
+} t_outs;
+
+typedef struct s_ins
+{
+	char *string;
+	int heredoc_flag;
+} t_ins;
+
 typedef struct s_cmd
 {
-	char **cmd_splitted;
-	char **infiles;
-	char **outfiles;
-	char **heredocs;
-	char **appends;
-	int fd_infile;
-	int fd_outfile;
+	char **cmd_splitted; // ls -l blah
+	t_ins *ins;
+	t_outs *outs;
+	int fd_infile; // 0
+	int fd_outfile; // 1
 	// int cmd_idx;
 }			t_cmd;
 
@@ -55,8 +65,9 @@ typedef struct s_cmd
 // 	char **cmd_splitted;
 // 	t_list *infiles;
 // 	t_list *outfiles;
-// 	t_list *heredocs;
-// 	t_list *appends;
+// 	// t_list *heredocs;
+// 	// t_list *appends;
+// 	t_outs *outs;
 // 	int fd_infile;
 // 	int fd_outfile;
 // 	// int cmd_idx;
@@ -67,7 +78,7 @@ typedef struct s_data
 	char	*input;
 	t_token	*token_lst;
 	t_envp	*env_lst;
-	t_cmd	**cmds;
+	t_cmd	**cmds; // * 
 }	t_data;
 
 enum	e_quote_types

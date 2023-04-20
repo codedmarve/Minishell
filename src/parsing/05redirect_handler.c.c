@@ -35,7 +35,7 @@ int	init_in_red(int *fd_infile, char *filename)
 {
 	if (*fd_infile != 0)
 		close(*fd_infile);
-	*fd_infile = open(filename, O_RDONLY);
+	*fd_infile = open(filename, O_RDONLY);>
 	if (*fd_infile == -1)
 	{
 		printf("in_red error\n");
