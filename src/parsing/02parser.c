@@ -42,6 +42,7 @@ int	alloc_arr_with_2d(t_data *data)
     while (i < cmds)
     {
         cmd = ft_calloc(1, sizeof(t_cmd));
+		// if
         cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
         cmd->infiles = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
         cmd->outfiles = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
@@ -76,7 +77,7 @@ int alloc_arr_w_lists(t_data *data)
 	{
         cmd = ft_calloc(1, sizeof(t_cmd));
 		//if (!cmd)
-        cmd->cmd_splitted = (char **)ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+        cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
 		// if (!cmd->cmd_splitted)
         cmd->infiles = NULL;
         cmd->outfiles = NULL;
