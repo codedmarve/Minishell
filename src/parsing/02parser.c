@@ -1,16 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-/*
-Use the function count_cmds to count the number of t_cmd structs required based on the number of PIPE tokens in the token list.
-Allocate memory for the array of t_cmd structs using calloc, based on the count returned by count_cmds.
-Iterate through the token list and separate the tokens into groups based on the PIPE tokens. Create a new t_cmd struct for each group, and store the relevant tokens in the corresponding struct. Skip tokens of type SEP and PIPE.
-For each t_cmd struct, allocate memory for the cmd_splitted 2d array of strings using calloc, and store the *string of tokens of type WORD in it.
-For each t_cmd struct, iterate through the token list again and store the *string of tokens of type IN_RED and HERE_DOC in a linked list of t_ins structs, using the here_doc_flag to indicate HERE_DOC tokens. Allocate memory for each t_ins struct using malloc.
-For each t_cmd struct, iterate through the token list again and store the *string of tokens of type OUT_RED and APP_RED in a linked list of t_outs structs, using the app_red_flag to indicate APP_RED tokens. Allocate memory for each t_outs struct using malloc.
-Set the fd_infile and fd_outfile of each t_cmd struct to 0 and 1, respectively.
-After completing the above steps, you should have an array of t_cmd structs that contains all the relevant data from the token list.
-*/
+
 // /// @brief counts the number of pipes (|) present in the 
 // /// input token list, which is used to determine the number 
 // /// of commands that will be executed in a pipeline.
@@ -68,7 +59,7 @@ int allocate_cmds(t_data *data)
         //     free(data->cmds);
         //     return 1;
         // }
-        cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+        cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *)); 
         // if (!cmd->cmd_splitted)
         // {
         //     perror("Failed to allocate memory for cmd->cmd_splitted");
@@ -101,33 +92,17 @@ int allocate_cmds(t_data *data)
 	return (0);
 }
 
-void add_word_to_cmd(t_cmd *cmd, char *word)
-{
-    int i = 0;
-    while (cmd->cmd_splitted[i] != NULL)
-        i++;
-    cmd->cmd_splitted[i] = ft_strdup(word);
-}
-
-
 void add_token_to_cmd(t_cmd *cmd, t_token *token)
 {
     if (token->type == IN_RED || token->type == HERE_DOC)
     {
-
            token_add_back(&cmd->in_heredoc, token);
     }
     else if (token->type == OUT_RED || token->type == APP_RED)
     {
-
            token_add_back(&cmd->in_heredoc, token);
     }
-    // else if (token->type == WORD)
-    // {
-    //     add_word_to_cmd(cmd, token->string);
-    // }
 }
-
 
 void print_data(t_data *data)
 {
@@ -141,9 +116,9 @@ void print_data(t_data *data)
 
         cmd = &data->cmds[i];
 
-        printf("\tCMD SPLITTED:\n");
-        for (j = 0; cmd->cmd_splitted[j] != NULL; j++)
-            printf("\t\t[%d]: %s\n", j, cmd->cmd_splitted[j]);
+        // printf("\tCMD SPLITTED:\n");
+        // for (j = 0; cmd->cmd_splitted[j] != NULL; j++)
+        //     printf("\t\t[%d]: %s\n", j, cmd->cmd_splitted[j]);
 
         printf("\tIN HEREDOC:\n");
         token = cmd->in_heredoc;
@@ -166,15 +141,41 @@ void print_data(t_data *data)
     }
 }
 
+void create_cmds(t_data *data)
+{
+	t_token *current_token;
+	int current_cmd_index;
+
+	current_token = data->token_lst;
+    current_cmd_index = 0;
+    while (current_token != NULL)
+    {
+        if (current_token->type == PIPE)
+        {
+            current_cmd_index++;
+            current_token = current_token->next;
+            continue;
+        }
+        if (current_token->type == SEP)
+        {
+            current_token = current_token->next;
+            continue;
+        }
+        add_token_to_cmd(&(data->cmds[current_cmd_index]), current_token);
+        current_token = current_token->next;
+    }
+}
+
 int	parser(t_data *data)
 {
 	remove_consequtive_quotes(data->input);
 	tokenizer(&data->token_lst, data->input);
 	expand_token_lst(&data->token_lst);
-//	print_full_token_data(data);
+	print_full_token_data(data);
 //	redirect_handler(&data->token_lst); // returns 0
-	create_cmds(data);
-	print_data(data);
+//	create_cmds(data);
+	// allocate_cmds(data);
+	// print_data(data);
 	free_token_lst(&data->token_lst);
 	return (0);
 }
