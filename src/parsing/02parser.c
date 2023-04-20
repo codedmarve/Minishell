@@ -22,82 +22,126 @@ int cmd_counter(t_token *token_lst)
     return (i);
 }
 
-/// @brief 
-/// allocate array of struct*
-/// allocate structs corresponding to each struct*
-/// allocate array of char* corresponding to each struct, 
-/// those will be dynamically changed later
-/// @param data 
-/// @return 
-int	alloc_arr_with_2d(t_data *data)
-{
-    int cmds;
-    int i;
-    t_cmd *cmd;
+// NO NORM
+// t_cmd	*create_cmd(t_token *token_lst)
+// {
+// 	t_cmd	*cmd;
+// 	int		num_tokens;
+// 	int		i;
 
-    cmds = cmd_counter(data->token_lst);
-    data->cmds = ft_calloc((cmds + 1), sizeof(t_cmd *));
-    // if (!data->cmds)
-    i = 0;
-    while (i < cmds)
-    {
-        cmd = ft_calloc(1, sizeof(t_cmd));
-		// if
-        cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
-        cmd->infiles = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
-        cmd->outfiles = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
-        cmd->heredocs = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
-        cmd->appends = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
-		// (if !)
-        cmd->fd_infile = 0;
-        cmd->fd_outfile = 1;
-  //      cmd->cmd_idx = i;
-        data->cmds[i] = cmd;
-        i++;
-    }
-    data->cmds[i] = NULL; // Set the last element of the array to NULL
-	return (0);
+// 	num_tokens = 0;
+// 	while (token_lst && token_lst->type != PIPE) // Count the number of relevant tokens
+// 	{
+// 		if (token_lst->type != SEP)
+// 			num_tokens++;
+// 		token_lst = token_lst->next;
+// 	}
+// 	cmd = ft_calloc(1, sizeof(t_cmd)); 	// Allocate memory for the cmd struct and its members
+// 	cmd->cmd_splitted = ft_calloc((num_tokens + 1), sizeof(char *));
+// 	cmd->infiles = ft_calloc((num_tokens + 1), sizeof(char *));
+// 	cmd->outfiles = ft_calloc((num_tokens + 1), sizeof(char *));
+// 	cmd->heredocs = ft_calloc((num_tokens + 1), sizeof(char *));
+// 	cmd->appends = ft_calloc((num_tokens + 1), sizeof(char *));
+// 	cmd->fd_infile = 0;
+// 	cmd->fd_outfile = 1;
+// 	i = 0;
+// 	while (i <= num_tokens)
+// 	{ 	// Initialize arrays with NULL
+// 		cmd->cmd_splitted[i] = NULL;
+// 		cmd->infiles[i] = NULL;
+// 		cmd->outfiles[i] = NULL;
+// 		cmd->heredocs[i] = NULL;
+// 		cmd->appends[i] = NULL;
+// 		i++;
+// 	}
+// 	return (cmd);
+// }
+
+int		count_tokens(t_token *token_lst, int stop_token)
+{
+	int		num_tokens;
+
+	num_tokens = 0;
+	while (token_lst && token_lst->type != stop_token)
+	{
+		if (token_lst->type != SEP)
+			num_tokens++;
+		token_lst = token_lst->next;
+	}
+	return (num_tokens);
 }
 
-/// @brief note that this implementation uses NULL to indicate an empty list, 
-/// but it's possible also use a sentinel node as a placeholder.
-/// @param data 
-/// @return 
-int alloc_arr_w_lists(t_data *data) 
+t_cmd	*allocate_cmd(int num_tokens)
 {
-	int cmds;
-    int i;
-    t_cmd *cmd;
+	t_cmd	*cmd;
 
-    cmds = cmd_counter(data->token_lst);
-    data->cmds = ft_calloc((cmds + 1), sizeof(t_cmd *));
-	// if (!data->cmds)
-    i = 0;
-    while (i < cmds) 
+	cmd = ft_calloc(1, sizeof(t_cmd));
+	cmd->cmd_splitted = ft_calloc((num_tokens + 1), sizeof(char *));
+	cmd->infiles = ft_calloc((num_tokens + 1), sizeof(char *));
+	cmd->outfiles = ft_calloc((num_tokens + 1), sizeof(char *));
+	cmd->heredocs = ft_calloc((num_tokens + 1), sizeof(char *));
+	cmd->appends = ft_calloc((num_tokens + 1), sizeof(char *));
+	cmd->fd_infile = 0;
+	cmd->fd_outfile = 1;
+	return (cmd);
+}
+
+void	init_arrays(t_cmd *cmd, int num_tokens)
+{
+	int		i;
+
+	i = 0;
+	while (i <= num_tokens)
 	{
-        cmd = ft_calloc(1, sizeof(t_cmd));
-		//if (!cmd)
-        cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
-		// if (!cmd->cmd_splitted)
-        cmd->infiles = NULL;
-        cmd->outfiles = NULL;
-        cmd->heredocs = NULL;
-        cmd->appends = NULL;
-        cmd->fd_infile = 0;
-        cmd->fd_outfile = 1;
- //       cmd->cmd_idx = i;
-        data->cmds[i] = cmd;
-        i++;
-    }
-    data->cmds[i] = NULL; // Set the last element of the array to NULL
+		cmd->cmd_splitted[i] = NULL;
+		cmd->infiles[i] = NULL;
+		cmd->outfiles[i] = NULL;
+		cmd->heredocs[i] = NULL;
+		cmd->appends[i] = NULL;
+		i++;
+	}
+}
+
+t_cmd	*create_cmd(t_token *token_ptr)
+{
+	t_cmd	*cmd;
+	int		num_tokens;
+
+	num_tokens = count_tokens(token_ptr, PIPE);  // Count the number of relevant tokens
+	cmd = allocate_cmd(num_tokens);  // Allocate memory for the cmd struct and its members
+	init_arrays(cmd, num_tokens);  // Initialize arrays with NULL
+	return (cmd);
+}
+
+void	allocate_cmds(t_data *data)
+{
+	t_token	*token_ptr;
+	int		cmds;
+	int		i;
+
+
+	cmds = cmd_counter(data->token_lst);
+	data->cmds = ft_calloc(cmds, sizeof(t_cmd *));	// Allocate memory for the cmds array
+	// Initialize each element of the cmds array with a t_cmd struct
+	token_ptr = data->token_lst; 	// Initialize each element of the cmds array with a t_cmd struct
+	i = 0;
+	while (i < cmds)
+	{
+		data->cmds[i] = create_cmd(token_ptr);
+		while (token_ptr && token_ptr->type != PIPE) // Move to the next PIPE token
+			token_ptr = token_ptr->next;
+		if (token_ptr)
+			token_ptr = token_ptr->next;
+		i++;
+	}
 	i = 0;
 	while (i < cmd_counter(data->token_lst))
 	{
 		printf("i: %d in: %d out: %d\n", i, data->cmds[i]->fd_infile, data->cmds[i]->fd_outfile);
 		i++;
 	}
-	return(0);
 }
+
 
 int	parser(t_data *data)
 {
@@ -106,7 +150,8 @@ int	parser(t_data *data)
 	expand_token_lst(&data->token_lst);
 //	print_full_token_data(data);
 //	redirect_handler(&data->token_lst); // returns 0
-	alloc_arr_w_lists(data);
+	allocate_cmds(data);
+	// alloc_arr_w_lists(data);
 //	create_cmds(data);
 	free_token_lst(&data->token_lst);
 	return (0);
@@ -162,3 +207,83 @@ int	parser(t_data *data)
 		// 	j++;
 		// }
 // 		i++;
+
+
+
+
+/// @brief 
+/// allocate array of struct*
+/// allocate structs corresponding to each struct*
+/// allocate array of char* corresponding to each struct, 
+/// those will be dynamically changed later
+/// @param data 
+/// @return 
+// int	alloc_arr_with_2d(t_data *data)
+// {
+//     int cmds;
+//     int i;
+//     t_cmd *cmd;
+
+//     cmds = cmd_counter(data->token_lst);
+//     data->cmds = ft_calloc((cmds + 1), sizeof(t_cmd *));
+//     // if (!data->cmds)
+//     i = 0;
+//     while (i < cmds)
+//     {
+//         cmd = ft_calloc(1, sizeof(t_cmd));
+// 		// if
+//         cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+//         cmd->infiles = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+//         cmd->outfiles = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+//         cmd->heredocs = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+//         cmd->appends = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+// 		// (if !)
+//         cmd->fd_infile = 0;
+//         cmd->fd_outfile = 1;
+//   //      cmd->cmd_idx = i;
+//         data->cmds[i] = cmd;
+//         i++;
+//     }
+//     data->cmds[i] = NULL; // Set the last element of the array to NULL
+// 	return (0);
+// }
+
+/// @brief note that this implementation uses NULL to indicate an empty list, 
+/// but it's possible also use a sentinel node as a placeholder.
+/// @param data 
+/// @return 
+// int alloc_arr_w_lists(t_data *data) 
+// {
+// 	int cmds;
+//     int i;
+//     t_cmd *cmd;
+
+//     cmds = cmd_counter(data->token_lst);
+//     data->cmds = ft_calloc((cmds + 1), sizeof(t_cmd *));
+// 	// if (!data->cmds)
+//     i = 0;
+//     while (i < cmds) 
+// 	{
+//         cmd = ft_calloc(1, sizeof(t_cmd));
+// 		//if (!cmd)
+//         cmd->cmd_splitted = ft_calloc(MAX_TOKENS_PER_TYPE, sizeof(char *));
+// 		// if (!cmd->cmd_splitted)
+//         cmd->infiles = NULL;
+//         cmd->outfiles = NULL;
+//         cmd->heredocs = NULL;
+//         cmd->appends = NULL;
+//         cmd->fd_infile = 0;
+//         cmd->fd_outfile = 1;
+//  //       cmd->cmd_idx = i;
+//         data->cmds[i] = cmd;
+//         i++;
+//     }
+//     data->cmds[i] = NULL; // Set the last element of the array to NULL
+// 	i = 0;
+// 	while (i < cmd_counter(data->token_lst))
+// 	{
+// 		printf("i: %d in: %d out: %d\n", i, data->cmds[i]->fd_infile, data->cmds[i]->fd_outfile);
+// 		i++;
+// 	}
+// 	return(0);
+// }
