@@ -67,7 +67,7 @@ typedef struct s_data
 	char	*input;
 	t_token	*token_lst;
 	t_envp	*env_lst;
-	t_cmd **cmds;
+	t_cmd	**cmds;
 }	t_data;
 
 enum	e_quote_types
