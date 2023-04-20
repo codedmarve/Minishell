@@ -67,7 +67,6 @@ typedef struct s_data
 	char	*input;
 	t_token	*token_lst;
 	t_envp	*env_lst;
-//	t_cmd 	*cmd_lst;
 	t_cmd **cmds;
 }	t_data;
 
@@ -122,10 +121,19 @@ int		redirection_err_s_out(char *s, int *i);
 int		redirection_err_d_in(char *s, int *i);
 int		redirection_err_d_out(char *s, int *i);
 
+// 01early_err_utils3.c
+int		skip_spaces(char *str);
+int		skip_quotes(char *str, char quote);
+
 // 02parser.c
 void	remove_consequtive_quotes(char *input);
 void	free_token_lst(t_token **token_lst);
 int		parser(t_data *data);
+
+// 02parser_utils.c
+void	remove_consequtive_quotes(char *input);
+void	print_full_token_data(t_data *data); //DELETE LATER
+void	print_token_string(t_data *data); //DELETE LATER
 
 // 03tokenizer.c
 void	tokenizer(t_token **token_lst, char *input);
@@ -141,6 +149,7 @@ t_token	*init_word(char *s, int *i);
 t_token	*token_last(t_token *lst);
 void	token_add_back(t_token **lst, t_token *new);
 void	remove_quotes(char *s);
+int		find_end(char *str, char *possible_sep);
 
 // 04expander.c
 char	*expand_token(char *token);
@@ -167,10 +176,5 @@ int		redirect_handler(t_token **token_lst);
 
 // 06interpreter.c
 int	interpreter(t_data *data);
-
-// utils.c
-int		skip_spaces(char *str);
-int		skip_quotes(char *str, char quote);
-int		find_end(char *str, char *possible_sep);
 
 #endif
