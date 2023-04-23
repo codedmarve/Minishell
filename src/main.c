@@ -1,7 +1,7 @@
 
 #include "../includes/minishell.h"
 
-int	g_exit_status = 0;
+// int	g_exit_status = 0;
 
 void	welcome(int argc, char **argv)
 {
@@ -34,17 +34,14 @@ int	main(int ac, char **av, char **envp)
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
 	init_data(data, envp);
-	while (1)
-	// for (int i = 0; i < 1; i++)
+	// while (1)
+	for (int i = 0; i < 1; i++)
 	{
 		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
 		
 		input_handler(data); // keep it void or return value?
-		// print_token_string(data);
-		print_full_token_data(data);
-		free_token_lst(&data->token_lst);
 	}
 	free (data);
 	return (0);

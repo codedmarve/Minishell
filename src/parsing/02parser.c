@@ -147,12 +147,18 @@ int	parser(t_data *data)
 	remove_consequtive_quotes(data->input);
 	tokenizer(&data->token_lst, data->input);
 	expand_token_lst(&data->token_lst);
+	
+	cmd_init(data);
+	get_cmdpath(data);
+
+	
+
+
 	// print_full_token_data(data);
 //	redirect_handler(&data->token_lst); // returns 0
 	// allocate_cmds(data);
 	// alloc_arr_w_lists(data);
 //	create_cmds(data);
-	// free_token_lst(&data->token_lst);
 	return (0);
 }
 

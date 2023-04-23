@@ -40,25 +40,29 @@ typedef struct s_token
 
 typedef struct s_outs
 {
-	char *string;
-	int app_flag;
+	char			*string;
+	int				append;
+	struct s_outs	*next;
 } t_outs;
 
 typedef struct s_ins
 {
-	char *string;
-	int heredoc_flag;
+	char			*string;
+	int				heredoc;
+	struct s_ins	*next;
 } t_ins;
 
-typedef struct s_cmd
+typedef struct s_cmdGroup
 {
-	char **cmd_splitted; // ls -l blah
+	char **cmd; // ls -l blah
 	t_ins *ins;
 	t_outs *outs;
 	int fd_infile; // 0
 	int fd_outfile; // 1
+	char *str;
+	struct s_cmdGroup	*next;
 	// int cmd_idx;
-}			t_cmd;
+}			t_cmdGroup;
 
 // typedef struct s_cmd
 // {
@@ -75,10 +79,10 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	char	*input;
-	t_token	*token_lst;
-	t_envp	*env_lst;
-	t_cmd	**cmds; // * 
+	char		*input;
+	t_token		*token_lst;
+	t_envp		*env_lst;
+	t_cmdGroup	*cmdGroup; // * 
 }	t_data;
 
 enum	e_quote_types
@@ -185,7 +189,14 @@ int		init_app_red(int *fd_outfile, char *filename);
 // int	init_here_doc(int *fd_outfile, char *filename);
 int		redirect_handler(t_token **token_lst);
 
-int	init_here_doc(char *delimeter);
+// added by Marve
+int		arrlen(char **arr);
+void	ft_clarr(char **str);
+int		cmd_init(t_data *data);
+void	get_cmdpath(t_data *data);
+int		init_here_doc(char *delimeter);
+char	*ft_strjoin2(char *s1, char *s2, char c);
+
 
 // 06interpreter.c
 int	interpreter(t_data *data);
