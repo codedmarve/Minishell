@@ -63,6 +63,7 @@ void	get_cmdpath(t_data *data)
 	while (group)
 	{
 		add_path(group, path);
+		pipe(group->pipe);  // error check?
 		group = group->next;
 	}
 	ft_clarr(path);

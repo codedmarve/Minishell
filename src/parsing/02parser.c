@@ -151,6 +151,7 @@ int	parser(t_data *data)
 	cmd_init(data);
 	get_cmdpath(data);
 
+
 	
 
 

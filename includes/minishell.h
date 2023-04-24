@@ -54,15 +54,18 @@ typedef struct s_ins
 
 typedef struct s_cmdGroup
 {
-	char **cmd; // ls -l blah
-	t_ins *ins;
-	t_outs *outs;
-	int fd_infile; // 0
-	int fd_outfile; // 1
-	char *str;
+	char				**cmd; // ls -l blah
+	t_ins				*ins;
+	t_outs				*outs;
+	int					pid;
+	int					pipe[2];
+	int					fd_infile; // 0
+	int					fd_outfile; // 1
+	char				*str;
+	struct s_cmdGroup	*prev;
 	struct s_cmdGroup	*next;
 	// int cmd_idx;
-}			t_cmdGroup;
+}						t_cmdGroup;
 
 // typedef struct s_cmd
 // {
@@ -78,7 +81,7 @@ typedef struct s_cmdGroup
 // }			t_cmd;
 
 typedef struct s_data
-{
+{		
 	char		*input;
 	t_token		*token_lst;
 	t_envp		*env_lst;
@@ -192,7 +195,7 @@ int		redirect_handler(t_token **token_lst);
 // added by Marve
 int		arrlen(char **arr);
 void	ft_clarr(char **str);
-int		cmd_init(t_data *data);
+void	cmd_init(t_data *data);
 void	get_cmdpath(t_data *data);
 int		init_here_doc(char *delimeter);
 char	*ft_strjoin2(char *s1, char *s2, char c);

@@ -75,17 +75,17 @@ t_token	*add_group(t_data *data, t_token *token)
 		tok = tok->next;
 	}
 	group->cmd = ft_split(group->str, '\n');
-	free(group->str);
 	if (data->cmdGroup == NULL)
 		return ((data->cmdGroup = group), tok);
 	tmp = data->cmdGroup;
 	while (tmp->next)
 		tmp = tmp->next;
+	group->prev = tmp;
 	tmp->next = group;
 	return (tok);
 }
 
-int	cmd_init(t_data *data)
+void	cmd_init(t_data *data)
 {
 	t_token *token;
 
