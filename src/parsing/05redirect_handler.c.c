@@ -70,27 +70,7 @@ int	init_app_red(int *fd_outfile, char *filename)
 	return (0);
 }
 
-int	init_here_doc(char *delimiter)
-{
-	char	*str;
-	int		fd;
 
-	fd = open("tmp.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
-	str = readline(">");
-	while (ft_strncmp(str, delimiter, ft_strlen(delimiter))
-		|| ft_strlen(delimiter) != ft_strlen(str))
-	{
-		write(fd, str, ft_strlen(str));
-		write(fd, "\n", 1);
-		free(str);
-		str = readline(">");
-	}
-	free(str);
-	close(fd);
-	// fd = open("tmp.txt", O_RDONLY);
-	// printf("%s\n", get_next_line(fd));
-	// close(fd);
-}
 
 /// @brief handles input and output redirections 
 /// in a command line interpreter. 

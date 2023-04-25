@@ -18,7 +18,7 @@ void	insert_end_outs(t_token *token, t_cmdGroup *group)
 	t_outs	*tmp;
 
 	new = ft_calloc(sizeof(t_outs), 1);
-	new->string = ft_strdup(token->string);
+	new->str = ft_strdup(token->string);
 	new->append = 0;
 	if (token->type == APP_RED)
 		new->append = 1;
@@ -40,7 +40,7 @@ void	insert_end_ins(t_token *token, t_cmdGroup *group)
 	t_ins	*tmp;
 
 	new = ft_calloc(sizeof(t_ins), 1);
-	new->string = ft_strdup(token->string);
+	new->str = ft_strdup(token->string);
 	new->heredoc = 0;
 	if (token->type == HERE_DOC)
 		new->heredoc = 1;
@@ -96,5 +96,5 @@ void	cmd_init(t_data *data)
 		if (token)
 			token = token->next;
 	}
-	free_token_lst(&data->token_lst);
+	
 }

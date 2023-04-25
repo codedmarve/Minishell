@@ -33,6 +33,7 @@ void	envplist_handler(t_envp **head, char **envp)
 		envp_pair[0] = ft_strdup2(envp[i], ptr - envp[i]);
 		envp_pair[1] = ft_strdup(ptr + 1);
 		envp_add_back(head, create_envp_node(envp_pair));
+		free(envp_pair);
 		i++;
 	}
 }

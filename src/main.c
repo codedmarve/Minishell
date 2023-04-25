@@ -25,6 +25,23 @@ void	init_data(t_data *data, char **envp)
 	// print_env(data);
 }
 
+void	free_env(t_data *data)
+{
+	t_envp *env;
+
+	env = data->env_lst;
+	while(env)
+	{
+		free(env->envp_key);
+		free(env->envp_value);
+
+		data->env_lst = env->next;
+		free(env);
+		env = data->env_lst;
+	}
+	free(data);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
@@ -34,8 +51,8 @@ int	main(int ac, char **av, char **envp)
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
 	init_data(data, envp);
-	// while (1)
-	for (int i = 0; i < 1; i++)
+	while (1)
+	// for (int i = 0; i < 1; i++)
 	{
 		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
@@ -43,6 +60,6 @@ int	main(int ac, char **av, char **envp)
 		
 		input_handler(data); // keep it void or return value?
 	}
-	free (data);
+	free_env(data);
 	return (0);
 }

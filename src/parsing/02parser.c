@@ -150,6 +150,13 @@ int	parser(t_data *data)
 	
 	cmd_init(data);
 	get_cmdpath(data);
+	init_fds(data);
+
+	execute(data);
+
+	free_all(data);
+	
+	
 
 
 	

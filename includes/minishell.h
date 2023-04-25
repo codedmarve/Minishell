@@ -15,6 +15,7 @@
 
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 # include "../library/libft/libft.h"
 
@@ -40,14 +41,14 @@ typedef struct s_token
 
 typedef struct s_outs
 {
-	char			*string;
+	char			*str;
 	int				append;
 	struct s_outs	*next;
 } t_outs;
 
 typedef struct s_ins
 {
-	char			*string;
+	char			*str;
 	int				heredoc;
 	struct s_ins	*next;
 } t_ins;
@@ -59,8 +60,8 @@ typedef struct s_cmdGroup
 	t_outs				*outs;
 	int					pid;
 	int					pipe[2];
-	int					fd_infile; // 0
-	int					fd_outfile; // 1
+	int					infile; // 0
+	int					outfile; // 1
 	char				*str;
 	struct s_cmdGroup	*prev;
 	struct s_cmdGroup	*next;
@@ -199,6 +200,9 @@ void	cmd_init(t_data *data);
 void	get_cmdpath(t_data *data);
 int		init_here_doc(char *delimeter);
 char	*ft_strjoin2(char *s1, char *s2, char c);
+int		init_fds(t_data *data);
+int		execute(t_data *data);
+void	free_all(t_data *data);
 
 
 // 06interpreter.c
