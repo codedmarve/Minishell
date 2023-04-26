@@ -67,7 +67,7 @@ t_token	*add_group(t_data *data, t_token *token)
 	while (tok && tok->type != PIPE)
 	{
 		if (tok->type == WORD)
-			group->str = ft_strjoin2(group->str, tok->string, '\n');
+			group->str = ft_strjoin2(group->str, tok->string, '\n'); // cat -n tmp
 		else if (tok->type == IN_RED || tok->type == HERE_DOC)
 			insert_end_ins(tok, group);
 		else if (tok->type == OUT_RED || tok->type == APP_RED)

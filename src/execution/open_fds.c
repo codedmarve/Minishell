@@ -95,5 +95,4 @@ int	init_fds(t_data *data)
 		pipe(group->pipe);  // error check?
 		group = group->next;
 	}
-
 }

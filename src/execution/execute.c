@@ -63,11 +63,36 @@ int	execute(t_data *data)
 	t_cmdGroup *group;
 
 	group = data->cmdGroup;
+	int i = 1;
 	while (group)
 	{
 		group->pid = fork();
+
 		if (group->pid == 0)
 		{
+			// if (group->infile != 0)
+			// {
+			// 	// if (group->)
+			// 	dup2(group->infile, STDIN_FILENO);
+			// }
+
+
+			if (group->prev && group->prev->outfile == 1)
+			{
+				// close(group->prev->pipe[1]);
+				dup2(group->prev->pipe[0], STDIN_FILENO);
+			}
+
+
+
+			if (group->next && group->outfile == 1)
+			{
+				// close(group->pipe[0]);
+				dup2(group->pipe[1], STDOUT_FILENO);
+			}
+
+			// printf("group %i\n", i);=
+
 			// to do exit status
 			if (execve(group->cmd[0], group->cmd, NULL) == -1)
 			{
@@ -75,6 +100,7 @@ int	execute(t_data *data)
 				exit(1);
 			}
 		}
+		i++;
 		group = group->next;
 	}
 
