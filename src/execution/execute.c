@@ -70,6 +70,7 @@ int	execute(t_data *data)
 
 		if (group->pid == 0)
 		{
+
 			// if (group->infile != 0)
 			// {
 			// 	// if (group->)

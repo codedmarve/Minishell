@@ -1,7 +1,8 @@
 
 #include "../includes/minishell.h"
 
-// int	g_exit_status = 0;
+int	g_exit_status = 0;
+
 
 void	welcome(int argc, char **argv)
 {
@@ -42,9 +43,11 @@ void	free_env(t_data *data)
 	free(data);
 }
 
+
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
+	struct sigaction	sa;
 
 	welcome(ac, av);
 	data = ft_calloc(1, sizeof(t_data));
@@ -54,10 +57,11 @@ int	main(int ac, char **av, char **envp)
 	while (1)
 	// for (int i = 0; i < 1; i++)
 	{
+		sig_interactive();
 		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
-		
+		sig_noninteractive();
 		input_handler(data); // keep it void or return value?
 	}
 	free_env(data);

@@ -1,0 +1,13 @@
+12. Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
+there are signals
+
+13. In interactive mode:
+◦ ctrl-C displays a new prompt on a new line. ◦ ctrl-D exits the shell.
+◦ ctrl-\ does nothing.
+??? what does interactive mode means??
+https://www.geeksforgeeks.org/shell-scripting-interactive-and-non-interactive-shell/
+A shell that runs a script is always considered a non-interactive shell.
+The type of shell being used can be detected (BASH only). 
+We can determine if we are using an interactive or non-interactive shell by,
+
+[[ $- == *i* ]] && echo ‘Interactive’ || echo ‘not-interactive’

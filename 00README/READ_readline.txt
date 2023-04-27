@@ -4,3 +4,9 @@ if you installed it with brew it should be
 /usr/local/opt/readline/lib
 or I think this should work 
 find / -type d -name readline
+
+
+/opt/homebrew/Cellar/readline
+/opt/homebrew/Cellar/readline/8.2.1/include/readline
+/opt/homebrew/Cellar/readline/8.2.1/share/readline
+/opt/homebrew/Cellar/readline/8.2.1/share/doc/readline

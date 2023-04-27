@@ -13,9 +13,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+#include <signal.h>
 
 # include "../library/libft/libft.h"
 
@@ -207,5 +209,16 @@ void	free_all(t_data *data);
 
 // 06interpreter.c
 int	interpreter(t_data *data);
+
+
+//signals.c
+
+
+void	newline_reset(int sig);
+void	sig_noninteractive(void);
+
+void	sigquit_sig_ign(void);
+void	prompt_reset(int sig);
+void	sig_interactive(void);
 
 #endif
