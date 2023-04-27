@@ -221,4 +221,7 @@ void	sigquit_sig_ign(void);
 void	prompt_reset(int sig);
 void	sig_interactive(void);
 
+void	ctrl_d(int sig);
+void sig_ctrl_d(void);
+
 #endif
