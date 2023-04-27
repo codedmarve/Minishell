@@ -67,9 +67,11 @@ int	execute(t_data *data)
 	while (group)
 	{
 		group->pid = fork();
-
 		if (group->pid == 0)
 		{
+			if (group->infile == -1 || group->outfile == -1)
+				exit(1);
+
 			// if (group->infile != 0)
 			// {
 			// 	// if (group->)
@@ -77,19 +79,31 @@ int	execute(t_data *data)
 			// }
 
 
-			if (group->prev && group->prev->outfile == 1)
-			{
-				// close(group->prev->pipe[1]);
-				dup2(group->prev->pipe[0], STDIN_FILENO);
-			}
-
-
-
+			close(group->pipe[0]);
 			if (group->next && group->outfile == 1)
-			{
-				// close(group->pipe[0]);
 				dup2(group->pipe[1], STDOUT_FILENO);
+			if (group->outfile > 1)
+			{
+				dup2(group->outfile, STDOUT_FILENO);
+				close(group->outfile);
 			}
+			close(group->pipe[1]);
+
+
+
+			if (group->prev && group->prev->outfile == 1 && group->infile == 0)
+			{
+				close(group->prev->pipe[1]);
+				dup2(group->prev->pipe[0], STDIN_FILENO);
+				close(group->prev->pipe[0]);
+			}
+			if (group->infile > 0)
+				dup2(group->infile, STDIN_FILENO);
+
+
+
+
+
 
 			// printf("group %i\n", i);=
 
@@ -99,6 +113,11 @@ int	execute(t_data *data)
 				perror("-bash: ");
 				exit(1);
 			}
+		}
+		if (group->prev)
+		{
+			close(group->prev->pipe[0]);
+			close(group->prev->pipe[1]);
 		}
 		i++;
 		group = group->next;

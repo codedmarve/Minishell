@@ -30,6 +30,8 @@ void	free_env(t_data *data)
 	t_envp *env;
 
 	env = data->env_lst;
+	if (data->input)
+		free(data->input);
 	while(env)
 	{
 		free(env->envp_key);
