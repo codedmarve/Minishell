@@ -214,11 +214,11 @@ int	interpreter(t_data *data);
 //signals.c
 
 
-void	newline_reset(int sig);
+void	display_newline(int sig);
 void	sig_noninteractive(void);
 
-void	sigquit_sig_ign(void);
-void	prompt_reset(int sig);
+void	ignore_ctrl_backslash(void);
+void	ctrl_c(int sig);
 void	sig_interactive(void);
 
 void	ctrl_d(int sig);

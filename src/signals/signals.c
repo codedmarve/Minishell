@@ -8,9 +8,8 @@
 // // ◦ ctrl-\ does nothing.
 
 
-void	sigquit_sig_ign(void)
+void	ignore_ctrl_backslash(void)
 {
-	// printf("ignore ctrl-backslash\n");
 	struct sigaction	sa;
 
 	ft_memset(&sa, 0, sizeof(sa));
@@ -18,7 +17,7 @@ void	sigquit_sig_ign(void)
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
-void	prompt_reset(int sig)
+void	ctrl_c(int sig)
 {
 	(void)sig;
 
@@ -29,21 +28,27 @@ void	prompt_reset(int sig)
 	rl_redisplay();
 }
 
+// void sigterm(int sig)
+// {
+// 	(void)sig;
+// 	exit(0);
+// }
 
 void	sig_interactive(void)
 {
 	struct sigaction	sa;
 
-	sigquit_sig_ign(); // CTRL + \ = SIGQUIT
+	ignore_ctrl_backslash(); // CTRL + \ = SIGQUIT
 	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = &prompt_reset;
+	sa.sa_handler = &ctrl_c;
 	sigaction(SIGINT, &sa, NULL);
-	sig_ctrl_d();
+	// signal(SIGTERM, sigterm);
+	// sig_ctrl_d();
 }
 
 ////////////////////////////////////////////
 
-void	newline_reset(int sig)
+void	display_newline(int sig)
 {
 	(void)sig;
 	// printf("newline reset:\n");
@@ -56,27 +61,27 @@ void	sig_noninteractive(void)
 	struct sigaction	sa;
 
 	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = &newline_reset;
+	sa.sa_handler = &display_newline;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	sig_ctrl_d();
+	// signal(SIGTERM, sigterm);
+	// sig_ctrl_d();
 }
 
 
 ///////////////////////
 
-void	ctrl_d(int sig)
-{
-	(void)sig;
-	exit(EXIT_FAILURE);
-}
+// void	ctrl_d(int sig)
+// {
+// 	(void)sig;
+// 	exit(EXIT_FAILURE);
+// }
 
-void sig_ctrl_d(void)
-{
-	struct sigaction	sa;
+// void sig_ctrl_d(void)
+// {
+// 	struct sigaction	sa;
 
-	sigquit_sig_ign();
-	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = &ctrl_d;
-	sigaction(SIGTERM, &sa, NULL);
-}
+// 	ft_memset(&sa, 0, sizeof(sa));
+// 	sa.sa_handler = &ctrl_d;
+// 	sigaction(SIGTERM, &sa, NULL);
+// }
