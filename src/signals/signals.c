@@ -38,7 +38,7 @@ void	sig_interactive(void)
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = &prompt_reset;
 	sigaction(SIGINT, &sa, NULL);
-	// sig_ctrl_d();
+	sig_ctrl_d();
 }
 
 ////////////////////////////////////////////
@@ -59,7 +59,7 @@ void	sig_noninteractive(void)
 	sa.sa_handler = &newline_reset;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	// sig_ctrl_d();
+	sig_ctrl_d();
 }
 
 
@@ -78,5 +78,5 @@ void sig_ctrl_d(void)
 	sigquit_sig_ign();
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = &ctrl_d;
-	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGTERM, &sa, NULL);
 }
