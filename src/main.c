@@ -59,6 +59,7 @@ int	main(int ac, char **av, char **envp)
 		data->input = readline("minishell$ ");
 		if (!data->input)
 		{
+			write(1, "exit\n", 5);
 			exit(0);
 		}
 		if (ft_strlen(data->input) > 0)
