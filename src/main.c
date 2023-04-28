@@ -43,19 +43,6 @@ void	free_env(t_data *data)
 	free(data);
 }
 
-int contains_eof(char *input)
-{
-	while (*input)
-	{
-		if (*input == '\0')
-		{
-			return (1);
-		}
-		input++;
-	}
-	return (0);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
