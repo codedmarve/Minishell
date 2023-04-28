@@ -212,16 +212,14 @@ int	interpreter(t_data *data);
 
 
 //signals.c
-
-
-void	display_newline(int sig);
-void	sig_noninteractive(void);
-
 void	ignore_ctrl_backslash(void);
 void	ctrl_c(int sig);
 void	sig_interactive(void);
 
-void	ctrl_d(int sig);
-void sig_ctrl_d(void);
+void	display_newline(int sig);
+void	sig_noninteractive(void);
+
+void ctrl_c_heredoc(int sig);
+void	sig_heredoc(void);
 
 #endif

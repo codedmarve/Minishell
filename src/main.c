@@ -43,11 +43,22 @@ void	free_env(t_data *data)
 	free(data);
 }
 
+int contains_eof(char *input)
+{
+	while (*input)
+	{
+		if (*input == '\0')
+		{
+			return (1);
+		}
+		input++;
+	}
+	return (0);
+}
 
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
-	struct sigaction	sa;
 
 	welcome(ac, av);
 	data = ft_calloc(1, sizeof(t_data));
@@ -59,6 +70,10 @@ int	main(int ac, char **av, char **envp)
 	{
 		sig_interactive();
 		data->input = readline("minishell$ ");
+		if (!data->input)
+		{
+			exit(0);
+		}
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
 		sig_noninteractive();

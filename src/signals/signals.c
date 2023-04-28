@@ -1,13 +1,7 @@
 
 #include "../../includes/minishell.h"
-// // 12. Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
-// // there are signals
 
-// // 13. In interactive mode:
-// // ◦ ctrl-C displays a new prompt on a new line. ◦ ctrl-D exits the shell.
-// // ◦ ctrl-\ does nothing.
-
-
+/// @brief helper function for sig_interactive
 void	ignore_ctrl_backslash(void)
 {
 	struct sigaction	sa;
@@ -17,45 +11,48 @@ void	ignore_ctrl_backslash(void)
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
+/// @brief helper function for sig_interactive
+/// @param sig 
 void	ctrl_c(int sig)
 {
 	(void)sig;
 
-	// printf("prompt reset:\n");
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-// void sigterm(int sig)
-// {
-// 	(void)sig;
-// 	exit(0);
-// }
-
+/// @brief default signal flow
+/// ctrl-backslash is ignored
+/// ctrl-D exits the shell
+/// ctrl-C displays new prompt
+/// @param  
 void	sig_interactive(void)
 {
 	struct sigaction	sa;
 
-	ignore_ctrl_backslash(); // CTRL + \ = SIGQUIT
+	ignore_ctrl_backslash();
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = &ctrl_c;
 	sigaction(SIGINT, &sa, NULL);
-	// signal(SIGTERM, sigterm);
-	// sig_ctrl_d();
 }
 
-////////////////////////////////////////////
+/////////////////////////////////////////////
 
+/// @brief helper function for sig_noninteractive
+/// @param sig 
 void	display_newline(int sig)
 {
 	(void)sig;
-	// printf("newline reset:\n");
+	if (sig == SIGQUIT)
+		write(1, "quit", 4);
 	write(1, "\n", 1);
 	rl_on_new_line();
 }
 
+/// @brief for child processes usage
+/// @param  
 void	sig_noninteractive(void)
 {
 	struct sigaction	sa;
@@ -64,24 +61,23 @@ void	sig_noninteractive(void)
 	sa.sa_handler = &display_newline;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
-	// signal(SIGTERM, sigterm);
-	// sig_ctrl_d();
 }
 
+/////////////////////////////////////////////
+void ctrl_c_heredoc(int sig)
+{
+	(void)sig;
+	if (sig == SIGINT)
+		exit(1);
+}
 
-///////////////////////
+void	sig_heredoc(void)
+{
+	struct sigaction	sa;
 
-// void	ctrl_d(int sig)
-// {
-// 	(void)sig;
-// 	exit(EXIT_FAILURE);
-// }
+	ignore_ctrl_backslash();
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = &ctrl_c_heredoc;
+	sigaction(SIGINT, &sa, NULL);
+}
 
-// void sig_ctrl_d(void)
-// {
-// 	struct sigaction	sa;
-
-// 	ft_memset(&sa, 0, sizeof(sa));
-// 	sa.sa_handler = &ctrl_d;
-// 	sigaction(SIGTERM, &sa, NULL);
-// }
