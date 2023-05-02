@@ -2,7 +2,7 @@
 #include "../../includes/minishell.h"
 
 
-int input_handler(t_data *data)
+int run_minishell(t_data *data)
 {
 	if (early_err(data) == -1)
 		return (-1);

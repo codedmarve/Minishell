@@ -109,8 +109,8 @@ char	*ft_strdup1(const char *str);
 // main.c
 int		main(int ac, char **av, char **envp);
 
-// 00input_handler.c
-int		input_handler(t_data *data);
+// 00run_minishell.c
+int		run_minishell(t_data *data);
 
 // 01early_err.c
 int		early_err(t_data *data);
