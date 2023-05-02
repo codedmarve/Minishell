@@ -68,19 +68,6 @@ typedef struct s_cmdGroup
 	// int cmd_idx;
 }						t_cmdGroup;
 
-// typedef struct s_cmd
-// {
-// 	char **cmd_splitted;
-// 	t_list *infiles;
-// 	t_list *outfiles;
-// 	// t_list *heredocs;
-// 	// t_list *appends;
-// 	t_outs *outs;
-// 	int fd_infile;
-// 	int fd_outfile;
-// 	// int cmd_idx;
-// }			t_cmd;
-
 typedef struct s_data
 {		
 	char		*input;
@@ -116,7 +103,6 @@ t_envp	*envp_last(t_envp *lst);
 // envplist_utils.c
 char	*ft_strdup2(const char *str, int len);
 char	*ft_strdup1(const char *str);
-void	print_env(t_data *data);
 
 // main.c
 int		main(int ac, char **av, char **envp);
@@ -204,6 +190,19 @@ int		init_fds(t_data *data);
 int		execute(t_data *data);
 void	free_all(t_data *data);
 
+void	export_print(t_data *data);
+char	*ft_strdup2(const char *str, int len);
+char	*ft_strdup1(const char *str);
+
+// builtins
+void	ft_pwd();
+void	ft_cd(char **str);
+void	ft_echo(char **s);
+void	export(t_data *data, char **var);
+void	ft_unset(t_data *data, char **key);
+void	ft_env(t_data *data, char **str);
+int		isbuiltin(t_cmdGroup *group);
+void	builtin(t_data *data, t_cmdGroup *group);
 
 // 06interpreter.c
 int	interpreter(t_data *data);

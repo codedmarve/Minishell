@@ -17,7 +17,7 @@ int	here_doc(char *delimiter)
 	char	*str;
 	int		fd;
 
-	fd = open("tmp.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
+	fd = open("here_doc.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	str = readline(">");
 	while (ft_strncmp(str, delimiter, ft_strlen(delimiter))
 		|| ft_strlen(delimiter) != ft_strlen(str))
@@ -36,20 +36,17 @@ void	outfile_handler(t_cmdGroup *group)
 	t_outs	*outs;
 
 	outs = group->outs;
-
 	while (outs)
 	{
 		if (outs->append)
 			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_APPEND, 0777);
 		else
 			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
-
 		if (group->outfile == -1)
 		{
 			perror("-bash: "); // exit status handling
 			return ;
 		}
-			
 		outs = outs->next;
 	}
 }
@@ -64,18 +61,15 @@ void	infile_handler(t_cmdGroup *group)
 		if (ins->heredoc)
 		{
 			here_doc(ins->str);
-			group->infile = open("tmp.txt", O_RDONLY);
+			group->infile = open("here_doc.txt", O_RDONLY);
 		}
 		else
 			group->infile = open(ins->str, O_RDONLY);
-
-
 		if (group->infile == -1)
 		{
 			perror("-bash: "); // exit status handling
 			return ;
 		}
-
 		ins = ins->next;
 	}
 }

@@ -53,80 +53,101 @@ void	free_cmdGroup(t_data *data)
 
 void	free_all(t_data *data)
 {
+	unlink("here_doc.txt");
 	free(data->input);
 	free_token_lst(&data->token_lst);
 	free_cmdGroup(data);
 }
 
+
+void	in_out_handler(t_cmdGroup *group)
+{
+	if (group->infile == -1 || group->outfile == -1 || !group->cmd)
+	{
+		if (!isbuiltin(group))
+			exit(1);
+		return ;
+	}
+	if (!isbuiltin(group))
+		close(group->pipe[0]);
+	if (group->next && group->outfile == 1)
+		dup2(group->pipe[1], STDOUT_FILENO);
+	if (group->outfile > 1)
+	{
+		dup2(group->outfile, STDOUT_FILENO);
+		close(group->outfile);
+	}
+	close(group->pipe[1]);
+	if (group->prev && group->prev->outfile == 1
+		&& group->infile == 0)
+	{
+		close(group->prev->pipe[1]);
+		dup2(group->prev->pipe[0], STDIN_FILENO);
+		close(group->prev->pipe[0]);
+	}
+	if (group->infile > 0)
+		dup2(group->infile, STDIN_FILENO);
+}
+
+void pclose_pipes(t_cmdGroup *group)
+{
+	if (group->prev)
+	{
+		close(group->prev->pipe[0]);
+		close(group->prev->pipe[1]);
+	}
+}
+
+void	parent_wait(t_cmdGroup *group)
+{
+	t_cmdGroup *tmp;
+
+	tmp = group;
+	while (tmp)
+	{
+		waitpid(tmp->pid, NULL, 0);
+		tmp = tmp->next;
+	}
+}
+
 int	execute(t_data *data)
 {
 	t_cmdGroup *group;
-
-	group = data->cmdGroup;
-	int i = 1;
-	while (group)
-	{
-		group->pid = fork();
-		if (group->pid == 0)
-		{
-			if (group->infile == -1 || group->outfile == -1)
-				exit(1);
-
-			// if (group->infile != 0)
-			// {
-			// 	// if (group->)
-			// 	dup2(group->infile, STDIN_FILENO);
-			// }
-
-
-			close(group->pipe[0]);
-			if (group->next && group->outfile == 1)
-				dup2(group->pipe[1], STDOUT_FILENO);
-			if (group->outfile > 1)
-			{
-				dup2(group->outfile, STDOUT_FILENO);
-				close(group->outfile);
-			}
-			close(group->pipe[1]);
-
-
-
-			if (group->prev && group->prev->outfile == 1 && group->infile == 0)
-			{
-				close(group->prev->pipe[1]);
-				dup2(group->prev->pipe[0], STDIN_FILENO);
-				close(group->prev->pipe[0]);
-			}
-			if (group->infile > 0)
-				dup2(group->infile, STDIN_FILENO);
-
-
-
-
-
-
-			// printf("group %i\n", i);=
-
-			// to do exit status
-			if (execve(group->cmd[0], group->cmd, NULL) == -1)
-			{
-				perror("-bash: ");
-				exit(1);
-			}
-		}
-		if (group->prev)
-		{
-			close(group->prev->pipe[0]);
-			close(group->prev->pipe[1]);
-		}
-		i++;
-		group = group->next;
-	}
+	int stdin;
+	int stdout;
 
 	group = data->cmdGroup;
 	while (group)
 	{
-		waitpid(group->pid, NULL, 0);
+		if (isbuiltin(group))
+		{
+			stdin = dup(STDIN_FILENO);
+			stdout = dup(STDOUT_FILENO);
+			in_out_handler(group);
+			builtin(data, group);
+		}
+		else
+		{
+			group->pid = fork();
+			if (group->pid == 0)
+			{
+				in_out_handler(group);
+				// to do exit status
+				if (execve(group->cmd[0], group->cmd, NULL) == -1)
+					perror("-bash: ");
+				exit(1);
+			}
+		}
+		if (isbuiltin(group))
+		{
+			dup2(stdin, STDIN_FILENO);
+			dup2(stdout, STDOUT_FILENO);
+			close(stdin);
+			close(stdout);
+		}
+		else
+			pclose_pipes(group);
 		group = group->next;
 	}
+	parent_wait(data->cmdGroup);
 }

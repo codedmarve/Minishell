@@ -29,7 +29,7 @@ void	add_path(t_cmdGroup *group, char **paths)
 	char	**str;
 
 	i = 0;
-	if (access(group->cmd[0], X_OK) == 0) // /usr/bin/cat
+	if (access(group->cmd[0], X_OK) == 0 || isbuiltin(group)) // /usr/bin/cat
 		return ;
 	str = ft_calloc(arrlen(paths) + 1, sizeof(char *));
 	while (paths[i])

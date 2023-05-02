@@ -54,7 +54,6 @@ int	main(int ac, char **av, char **envp)
 		return (printf("Error: malloc failure (main)"), 1);
 	init_data(data, envp);
 	while (1)
-	// for (int i = 0; i < 1; i++)
 	{
 		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
