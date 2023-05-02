@@ -55,10 +55,16 @@ int	main(int ac, char **av, char **envp)
 	init_data(data, envp);
 	while (1)
 	{
+		sig_interactive();
 		data->input = readline("minishell$ ");
+		if (!data->input)
+		{
+			write(1, "exit\n", 5);
+			exit(0);
+		}
 		if (ft_strlen(data->input) > 0)
 			add_history(data->input);
-		
+		sig_noninteractive();
 		input_handler(data); // keep it void or return value?
 	}
 	free_env(data);
