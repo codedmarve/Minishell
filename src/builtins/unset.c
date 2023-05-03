@@ -22,6 +22,8 @@ void	ft_unset(t_data *data, char **key)
 		&& ft_strlen(ptr->envp_key) == ft_strlen(key[1]))
 	{
 		data->env_lst = ptr->next;
+		free(ptr->envp_key);
+		free(ptr->envp_value);
 		free(ptr);
 		return ;
 	}
@@ -32,9 +34,11 @@ void	ft_unset(t_data *data, char **key)
 			&& ft_strlen(ptr2->envp_key) == ft_strlen(key[1]))
 		{
 			ptr->next = ptr2->next;
+			free(ptr2->envp_key);
+			free(ptr2->envp_value);
 			free(ptr2);
 			return ;
 		}
 		ptr = ptr->next;
-	};
+	}
 }

@@ -16,34 +16,6 @@ void	welcome(int argc, char **argv)
 		"\033[0m");
 }
 
-void	init_data(t_data *data, char **envp)
-{
-	// data->input = NULL; // since ft_calloc
-	// data->token_lst = NULL; // since ft_calloc
-	// data->env_lst = NULL; // since ft_calloc
-	envplist_handler(&data->env_lst, envp);
-	// print_env(data);
-}
-
-void	free_env(t_data *data)
-{
-	t_envp *env;
-
-	env = data->env_lst;
-	if (data->input)
-		free(data->input);
-	while(env)
-	{
-		free(env->envp_key);
-		free(env->envp_value);
-
-		data->env_lst = env->next;
-		free(env);
-		env = data->env_lst;
-	}
-	free(data);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
@@ -52,15 +24,17 @@ int	main(int ac, char **av, char **envp)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
-	init_data(data, envp);
+	envplist_handler(&data->env_lst, envp);
 	while (1)
 	{
 		data->input = readline("minishell$ ");
 		if (ft_strlen(data->input) > 0)
+		{
 			add_history(data->input);
-		
-		input_handler(data); // keep it void or return value?
+			input_handler(data);
+		}
+		else
+			free(data->input);
 	}
-	free_env(data);
 	return (0);
 }

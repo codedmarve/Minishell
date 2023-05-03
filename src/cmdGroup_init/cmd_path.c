@@ -29,7 +29,8 @@ void	add_path(t_cmdGroup *group, char **paths)
 	char	**str;
 
 	i = 0;
-	if (access(group->cmd[0], X_OK) == 0 || isbuiltin(group)) // /usr/bin/cat
+	if (!group->cmd || !group->cmd[0] || !access(group->cmd[0], X_OK)
+		|| isbuiltin(group))
 		return ;
 	str = ft_calloc(arrlen(paths) + 1, sizeof(char *));
 	while (paths[i])
@@ -40,7 +41,7 @@ void	add_path(t_cmdGroup *group, char **paths)
 			str[i] = ft_strjoin(paths[i], group->cmd[0]);
 		if (access(str[i], X_OK) == 0)
 		{
-			free(group->cmd[0]); // cat
+			free(group->cmd[0]);
 			group->cmd[0] = ft_strdup(str[i]);
 		}
 		i++;

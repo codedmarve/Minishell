@@ -1,23 +1,23 @@
 
 #include "../../includes/minishell.h"
 
-/*
-probably its possible to store envp as ll, 
-so it's easier to remove/add elements in case of export/unset
-*/
+char	*ft_strdup2(const char *str, int len)
+{
+	char	*dup;
+	int		i;
 
-// typedef struct s_envp
-// {
-// 	char			*envp_key;
-// 	char			*envp_value;
-// 	struct s_envp	*next;
-// }					t_envp;
-
-/*
-function to store the content of envp in a linked list
-arg: char **envp  - arr of strings containing an environmental variable
-return: t_env * -  first element of the new envp list
-*/
+	i = 0;
+	dup = ft_calloc(len + 1, sizeof(char));
+	if (dup == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		dup[i] = str[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
 
 void	envplist_handler(t_envp **head, char **envp)
 {

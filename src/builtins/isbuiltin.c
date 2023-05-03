@@ -16,6 +16,8 @@ int	isbuiltin(t_cmdGroup *group)
 {
 	char	**str;
 
+	if (!group->cmd || !group->cmd[0])
+		return (0);
 	str = group->cmd;
 	if (!ft_strncmp(str[0], "echo", 4) && ft_strlen(str[0]) == 4)
 		return (1);
@@ -33,7 +35,7 @@ int	isbuiltin(t_cmdGroup *group)
 }
 
 
-void	builtin(t_data *data, t_cmdGroup *group)
+void	execbn(t_data *data, t_cmdGroup *group)
 {
 	char	**str;
 
@@ -52,4 +54,16 @@ void	builtin(t_data *data, t_cmdGroup *group)
 		ft_unset(data, str);
 	if (!ft_strncmp(str[0], "env", 3) && ft_strlen(str[0]) == 3)
 		ft_env(data, str);
+}
+
+void	reset(t_data *data)
+{
+	t_envp	*ptr;
+
+	ptr = data->env_lst;
+	while (ptr)
+	{
+		ptr->sorted = 0;
+		ptr = ptr->next;
+	}
 }

@@ -198,11 +198,18 @@ char	*ft_strdup1(const char *str);
 void	ft_pwd();
 void	ft_cd(char **str);
 void	ft_echo(char **s);
-void	export(t_data *data, char **var);
+int		export(t_data *data, char **var);
 void	ft_unset(t_data *data, char **key);
 void	ft_env(t_data *data, char **str);
 int		isbuiltin(t_cmdGroup *group);
-void	builtin(t_data *data, t_cmdGroup *group);
+void	execbn(t_data *data, t_cmdGroup *group);
+void	pclose_pipes(t_cmdGroup *group);
+void	parent_wait(t_cmdGroup *group);
+void	ft_default(int stdin, int stdout);
+void	exec_free(t_data *data);
+void	free_cmdGroup(t_data *data);
+void	exit_free(t_data *data);
+void	reset(t_data *data);
 
 // 06interpreter.c
 int	interpreter(t_data *data);

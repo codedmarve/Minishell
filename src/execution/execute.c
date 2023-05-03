@@ -12,62 +12,23 @@
 
 #include "../../includes/minishell.h"
 
-void	free_cmdGroup(t_data *data)
+
+void	in_handler(t_cmdGroup *group)
 {
-	t_cmdGroup *tmp = data->cmdGroup;
-	while (tmp)
+	if (group->prev && group->prev->outfile == 1
+		&& group->infile == 0 && group->prev->cmd
+		&& !isbuiltin(group))
 	{
-		if (tmp->cmd)
-			ft_clarr(tmp->cmd);
-
-		if (tmp->ins)
-		{
-			t_ins *ptr = tmp->ins;
-			while (tmp->ins)
-			{
-				free(ptr->str);
-				tmp->ins = ptr->next;
-				free(ptr);
-				ptr = tmp->ins;
-			}
-		}
-		if (tmp->outs)
-		{
-			t_outs *ptr = tmp->outs;
-			while (tmp->outs)
-			{
-				free(ptr->str);
-				tmp->outs = ptr->next;
-				free(ptr);
-				ptr = tmp->outs;
-			}
-		}
-		if (tmp->str)
-			free(tmp->str);
-
-		data->cmdGroup = tmp->next;
-		free(tmp);
-		tmp = data->cmdGroup;
+		close(group->prev->pipe[1]);
+		dup2(group->prev->pipe[0], STDIN_FILENO);
+		close(group->prev->pipe[0]);
 	}
+	if (group->infile > 0)
+		dup2(group->infile, STDIN_FILENO);
 }
 
-void	free_all(t_data *data)
+void	out_handler(t_cmdGroup *group)
 {
-	unlink("here_doc.txt");
-	free(data->input);
-	free_token_lst(&data->token_lst);
-	free_cmdGroup(data);
-}
-
-
-void	in_out_handler(t_cmdGroup *group)
-{
-	if (group->infile == -1 || group->outfile == -1 || !group->cmd)
-	{
-		if (!isbuiltin(group))
-			exit(1);
-		return ;
-	}
 	if (!isbuiltin(group))
 		close(group->pipe[0]);
 	if (group->next && group->outfile == 1)
@@ -78,41 +39,39 @@ void	in_out_handler(t_cmdGroup *group)
 		close(group->outfile);
 	}
 	close(group->pipe[1]);
-	if (group->prev && group->prev->outfile == 1
-		&& group->infile == 0)
-	{
-		close(group->prev->pipe[1]);
-		dup2(group->prev->pipe[0], STDIN_FILENO);
-		close(group->prev->pipe[0]);
-	}
-	if (group->infile > 0)
-		dup2(group->infile, STDIN_FILENO);
 }
 
-void pclose_pipes(t_cmdGroup *group)
+void	in_out_handler(t_cmdGroup *group)
 {
-	if (group->prev)
+	if (group->infile == -1 || group->outfile == -1
+		|| !group->cmd || !group->cmd[0])
 	{
-		close(group->prev->pipe[0]);
-		close(group->prev->pipe[1]);
+		if (!isbuiltin(group))
+			exit(1);
+		return ;
 	}
+	out_handler(group);
+	in_handler(group);
 }
 
-void	parent_wait(t_cmdGroup *group)
+void	child_process(t_cmdGroup *group)
 {
-	t_cmdGroup *tmp;
-
-	tmp = group;
-	while (tmp)
+	if (!group->cmd)
+		return ;
+	group->pid = fork();
+	if (group->pid == 0)
 	{
-		waitpid(tmp->pid, NULL, 0);
-		tmp = tmp->next;
+		in_out_handler(group);
+		// to do exit status
+		if (execve(group->cmd[0], group->cmd, NULL) == -1)
+			perror("-bash: ");
+		exit(1);
 	}
 }
 
 int	execute(t_data *data)
 {
-	t_cmdGroup *group;
+	t_cmdGroup	*group;
 	int stdin;
 	int stdout;
 
@@ -124,27 +83,12 @@ int	execute(t_data *data)
 			stdin = dup(STDIN_FILENO);
 			stdout = dup(STDOUT_FILENO);
 			in_out_handler(group);
-			builtin(data, group);
+			execbn(data, group);
 		}
 		else
-		{
-			group->pid = fork();
-			if (group->pid == 0)
-			{
-				in_out_handler(group);
-				// to do exit status
-				if (execve(group->cmd[0], group->cmd, NULL) == -1)
-					perror("-bash: ");
-				exit(1);
-			}
-		}
+			child_process(group);
 		if (isbuiltin(group))
-		{
-			dup2(stdin, STDIN_FILENO);
-			dup2(stdout, STDOUT_FILENO);
-			close(stdin);
-			close(stdout);
-		}
+			ft_default(stdin, stdout);
 		else
 			pclose_pipes(group);
 		group = group->next;

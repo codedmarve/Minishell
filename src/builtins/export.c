@@ -94,19 +94,7 @@ int	is_update(t_data *data, char *key, char *value)
 	return (0);
 }
 
-void	reset(t_data *data)
-{
-	t_envp	*ptr;
-
-	ptr = data->env_lst;
-	while (ptr)
-	{
-		ptr->sorted = 0;
-		ptr = ptr->next;
-	}
-}
-
-void	export(t_data *data, char **var)
+int	export(t_data *data, char **var)
 {
 	char	**str;
 	char	*ptr;
@@ -121,7 +109,9 @@ void	export(t_data *data, char **var)
 	{
 		ptr = ft_strchr(var[1], '=');
 		if (!ptr)
-			exit(1);
+			return (0);
+		if (ptr[0] == '=')
+			return (printf("-bash: export: '%s' is not a identifier\n", ptr), 0);
 		tmp = ft_strdup2(var[1], ptr - var[1]);
 		str = ft_split(var[1], '\0');
 		if (!is_update(data, tmp, ptr + 1))
