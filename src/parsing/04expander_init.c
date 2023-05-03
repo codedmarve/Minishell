@@ -1,187 +1,112 @@
 
 #include "../../includes/minishell.h"
 
-/// @brief  initializes the exit status by getting it using get_exit_status(),
-/// copies the exit status to the new_ptr at the index
-/// specified by j_ptr and updates j_ptr to point to the end of the new string.
-///
-/// It then frees the memory allocated for exit_status.
-/// Finally, it updates i_ptr to the index after the "$?" characters.
-/// @param new_ptr 
-/// @param j_ptr 
-/// @param i_ptr 
-void	init_exit_status(char **new_ptr, int *j_ptr, int *i_ptr)
+void	init_exit_status(char **new_ptr, t_idx *idx)
 {
 	char	*exit_status;
 
 	exit_status = get_exit_status();
-	ft_strcpy(&(*new_ptr)[*j_ptr], exit_status);
-	*j_ptr += ft_strlen(exit_status);
+	ft_strcpy(&(*new_ptr)[idx->j], exit_status);
+	idx->j += ft_strlen(exit_status);
 	free(exit_status);
-	*i_ptr += 2;
+	idx->i += 2;
 }
 
-/// @brief handles a single dollar sign in a token string 
-/// by adding it to the expanded token and incrementing the index ptr by 2.
+/// @brief function replaces PID expansion => displays $ instead of $$
 /// @param new_ptr 
-/// @param j_ptr 
-/// @param i_ptr 
-void	init_single_dollar(char **new_ptr, int *j_ptr, int *i_ptr)
+/// @param idx 
+void	init_single_dollar(char **new_ptr, t_idx *idx)
 {
-	(*new_ptr)[(*j_ptr)++] = '$';
-	*i_ptr += 2;
+	(*new_ptr)[(idx->j)++] = '$';
+	idx->i += 2;
 }
 
-/// @brief expands the remaining tokens of the string token 
-/// that start with the $ character.
-/// If the next character after the $ is ?,
-/// it initializes the exit status by calling the init_exit_status(). 
-/// If it's $, it initializes the $ by calling the init_single_dollar().
-/// Otherwise, it initializes the env variable by calling the init_env_var().
-/// Keeps expanding the remaining tokens as long as the next character is a $.
-/// Updates the pointers j_ptr and i_ptr accordingly.
-/// @param new_ptr 
-/// @param j_ptr 
-/// @param i_ptr 
-/// @param token 
-void	expand_remainder(char **new_ptr, int *j_ptr,
-	int *i_ptr, char *token)
+void	expand_remainder(char **new_ptr, t_idx *idx, char *token, t_data *data)
 {
-	while (token[*i_ptr] == '$')
+	int	len;
+
+	len = ft_strlen(token);
+	while (token[idx->i] == '$' && idx->i < len)
 	{
-		if (token[*i_ptr + 1] == '?')
-			init_exit_status(new_ptr, j_ptr, i_ptr);
-		else if (token[*i_ptr + 1] == '$')
-			init_single_dollar(new_ptr, j_ptr, i_ptr);
+		if (token[idx->i + 1] == '?')
+			init_exit_status(new_ptr, idx);
+		else if (token[idx->i + 1] == '$')
+			init_single_dollar(new_ptr, idx);
+		else if (ft_isalnum(token[idx->i + 1]) || token[idx->i + 1] == '_')
+			init_env_var(new_ptr, idx, token, data);
 		else
-			init_env_var(new_ptr, j_ptr, i_ptr, token);
+			copy_token_char(new_ptr, idx, token[idx->i++]);
 	}
 }
 
-/// @brief Initializes an env variable in the expanded token string.
-/// It takes four arguments:
-/// @param new_ptr ptr to a ptr to the beginning of the new string.
-/// @param j_ptr ptr to the index of the current char in the new string.
-/// @param i_ptr ptr to the index of the current char in the original token str.
-/// @param token the original token string.
-///
-/// extracts the name of the env var by parsing the str following the "$" char,
-/// then checks if the env var exists and if it does,
-/// it appends the value of the env var to the new string. 
-/// Finally, it expands any remaining "$" chars in the original str by calling 
-/// the `expand_remainder` function.
-///
-/// If no valid environment variable name is found,
-/// the function simply returns without modifying the new string.
-///
-/// Does not return anything,
-/// but it modifies the `new_ptr`, `j_ptr`, and `i_ptr` ptr's
-/// indirectly by updating the new string and the current indices
-/// in the original and new str.
-void	init_env_var(char **new_ptr, int *j_ptr, int *i_ptr, char *token)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		k;
+	while (*s1 != '\0' && *s2 != '\0' && *s1 == *s2)
+	{
+		s1++;
+        s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
+char	*find_envp_value(t_envp *env_lst, const char *var_name)
+{
+	while (env_lst != NULL)
+	{
+		if (ft_strcmp(env_lst->envp_key, var_name) == 0)
+			return (env_lst->envp_value);
+		env_lst = env_lst->next;
+	}
+	return (NULL);
+}
+
+char	*create_var_from_token(char *token, t_idx *idx)
+{
 	char	*var;
 	int		var_len;
-	char	*env_var;
 
-	k = *i_ptr + 1;
-	var = malloc(ft_strlen(token) + 1); // if !var
+	var = malloc(ft_strlen(token) + 1);
+	// if !var
 	var_len = 0;
-	while (ft_isalnum(token[k]))
-		var[var_len++] = token[k++];
-	if (var_len == 0) // no valid environment variable name found
+	while (ft_isalnum(token[idx->i]))
+	{
+		var[var_len++] = token[idx->i];
+		idx->i++;
+	}
+	if (var_len == 0)
 	{
 		free(var);
-		return ;
+		return (NULL);
 	}
 	var[var_len] = '\0';
-	env_var = getenv(var);
+	return (var);
+}
+
+void	copy_env_var_value(char **new_ptr, t_idx *idx, char *env_var)
+{
+	ft_strcpy(&(*new_ptr)[idx->j], env_var);
+	idx->j += ft_strlen(env_var);
+}
+
+void	init_env_var(char **new_ptr, t_idx *idx, char *token, t_data *data)
+{
+	char	*var;
+	char	*env_var;
+
+	idx->i++;
+	var = create_var_from_token(token, idx);
+	if (!var)
+		return ;
+
+	env_var = find_envp_value(data->env_lst, var);
 	if (env_var != NULL)
-	{
-		ft_strcpy(&(*new_ptr)[*j_ptr], env_var);
-		*j_ptr += ft_strlen(env_var);
-	}
-	expand_remainder(new_ptr, j_ptr, &k, token);
-	*i_ptr = k;
+		copy_env_var_value(new_ptr, idx, env_var);
+	expand_remainder(new_ptr, idx, token, data);
+	idx->i += ft_strlen(var);
 	free(var);
 }
 
-/// @brief takes in a character c and copies it to the new_ptr string
-/// at the index specified by j_ptr. 
-/// It then increments j_ptr by 1 to indicate that the next char
-/// should be written to the next index in the string.
-///
-/// @param new_ptr pointer to the string where the new token will be stored
-/// @param j_ptr pointer to an integer representing the current index in new_ptr
-/// @param c  the character to be copied to the new token
-void	copy_token_char(char **new_ptr, int *j_ptr, char c)
+void	copy_token_char(char **new_ptr, t_idx *idx, char c)
 {
-	(*new_ptr)[(*j_ptr)++] = c;
+	(*new_ptr)[(idx->j)++] = c;
 }
-
-//// NO NORM! but could handle bonus part in this implementation  -
-////"$USER'$USER'"
-//
-// void init_env_var(char** new_ptr, int* j_ptr, int* i_ptr, char* token) {
-//     int k = *i_ptr + 1;
-//     char *var = malloc(ft_strlen(token) + 1);
-//     int var_len = 0;
-
-//     while (ft_isalnum(token[k])) {
-//         var[var_len++] = token[k++];
-//     }
-
-//     if (var_len == 0) {
-//         // No valid environment variable name found
-//         free(var);
-//         return;
-//     }
-
-//     var[var_len] = '\0';
-
-//     char* env_var = getenv(var);
-
-//     if (env_var != NULL) {
-//         strcpy(&(*new_ptr)[*j_ptr], env_var);
-//         *j_ptr += ft_strlen(env_var);
-//     }
-
-//     // If there are more $ characters, keep expanding
-//     while (token[k] == '$') {
-//         if (token[k + 1] == '?') {
-//             init_exit_status(new_ptr, j_ptr, &k);
-//         } else if (token[k + 1] == '$') {
-//             init_single_dollar(new_ptr, j_ptr, &k);
-//         } else {
-//             init_env_var(new_ptr, j_ptr, &k, token);
-//         }
-//     }
-
-//     *i_ptr = k;
-//     free(var);
-// }
-
-/// /// couldnt handle bonus part in this implementation  - "$USER'$USER'"
-// void	init_env_var(char **new_ptr, int *j_ptr, int *i_ptr, char *token)
-// {
-// 	int		k;
-// 	char	var[1000];
-// 	int		var_len;
-// 	char	*env_var;
-
-// 	k = *i_ptr + 1;
-// 	var_len = 0;
-// 	while (token[k] != '\0' && token[k] != '$' && token[k] != ' ')
-// 	{
-// 		var[var_len++] = token[k++];
-// 	}
-// 	var[var_len] = '\0';
-// 	env_var = getenv(var);
-// 	if (env_var != NULL)
-// 	{
-// 		ft_strcpy(&(*new_ptr)[*j_ptr], env_var);
-// 		*j_ptr += strlen(env_var);
-// 	}
-// 	*i_ptr = k;
-// }

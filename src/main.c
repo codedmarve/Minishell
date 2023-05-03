@@ -1,7 +1,8 @@
 
 #include "../includes/minishell.h"
 
-// int	g_exit_status = 0;
+int	g_exit_status = 0;
+
 
 void	welcome(int argc, char **argv)
 {
@@ -22,7 +23,8 @@ void	init_data(t_data *data, char **envp)
 	// data->token_lst = NULL; // since ft_calloc
 	// data->env_lst = NULL; // since ft_calloc
 	envplist_handler(&data->env_lst, envp);
-	// print_env(data);
+	//print_env(data);
+	g_exit_status = 0;
 }
 
 void	free_env(t_data *data)

@@ -146,14 +146,12 @@ int	parser(t_data *data)
 {
 	remove_consequtive_quotes(data->input);
 	tokenizer(&data->token_lst, data->input);
-	expand_token_lst(&data->token_lst);
-	
+	expand_token_lst(data);
+	//print_full_token_data(data);
 	cmd_init(data);
 	get_cmdpath(data);
 	init_fds(data);
-
 	execute(data);
-
 	free_all(data);
 	
 	
@@ -162,10 +160,10 @@ int	parser(t_data *data)
 	
 
 
-	// print_full_token_data(data);
+// print_full_token_data(data);
 //	redirect_handler(&data->token_lst); // returns 0
-	// allocate_cmds(data);
-	// alloc_arr_w_lists(data);
+// allocate_cmds(data);
+// alloc_arr_w_lists(data);
 //	create_cmds(data);
 	return (0);
 }

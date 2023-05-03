@@ -96,6 +96,12 @@ enum	e_token_types
 	APP_RED,
 };
 
+typedef struct s_idx
+{
+	int i;
+	int j;
+} t_idx;
+
 // envplist_handler.c
 void	envplist_handler(t_envp **head, char **envp);
 t_envp	*create_envp_node(char **data);
@@ -159,15 +165,25 @@ void	remove_quotes(char *s);
 int		find_end(char *str, char *possible_sep);
 
 // 04expander.c
-char	*expand_token(char *token);
-void	expand_token_lst(t_token **token_lst);
+char	*expand_token(char *token, t_data *data);
+void	expand_token_lst(t_data *data);
 
 // 04expander2.c
-void	init_exit_status(char **new_ptr, int *j_ptr, int *i_ptr);
-void	init_single_dollar(char **new_ptr, int *j_ptr, int *i_ptr);
-void	expand_remainder(char **new_ptr, int *j_ptr, int *i_ptr, char *token);
-void	init_env_var(char **new_ptr, int *j_ptr, int *i_ptr, char *token);
-void	copy_token_char(char **new_ptr, int *j_ptr, char c);
+// void	init_exit_status(char **new_ptr, int *j_ptr, int *i_ptr);
+// void	init_single_dollar(char **new_ptr, int *j_ptr, int *i_ptr);
+// void	expand_remainder(char **new_ptr, int *j_ptr, int *i_ptr, char *token);
+// void	init_env_var(char **new_ptr, int *j_ptr, int *i_ptr, char *token);
+// void	copy_token_char(char **new_ptr, int *j_ptr, char c);
+
+void	init_exit_status(char **new_ptr, t_idx *idx);
+void	init_single_dollar(char **new_ptr, t_idx *idx);
+// void	expand_remainder(char **new_ptr, t_idx *idx, char *token);
+void	expand_remainder(char **new_ptr, t_idx *idx, char *token, t_data *data);
+// void	init_env_var(char **new_ptr, t_idx *idx, char *token);
+void	init_env_var(char **new_ptr, t_idx *idx, char *token, t_data *data);
+
+void	copy_token_char(char **new_ptr, t_idx *idx, char c);
+
 
 // 04expander_utils.c
 int		dollar_in_str(char *s);
