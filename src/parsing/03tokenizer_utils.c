@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   03tokenizer_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/04 15:06:35 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/05/04 15:06:51 by dgoremyk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -60,67 +71,3 @@ int	find_end(char *str, char *possible_sep)
 	}
 	return (i);
 }
-
-
-// void	remove_quotes(char *str)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	len;
-
-// 	i = 0;
-// 	j = 0;
-// 	len = ft_strlen(str);
-// 	while (i < len)
-// 	{
-// 		if (str[i] == '\'')
-// 		{
-// 			len -= 2;
-// 			remove_quotes_helper(str, str[i], &i, &j);
-// 		}
-// 		else if (str[i] == '"')
-// 		{
-// 			len -= 2;
-// 			remove_quotes_helper(str, str[i], &i, &j);
-// 		}
-// 		str[j] = str[i];
-// 		j++;
-// 		i++;
-// 	}
-// 	str[j] = '\0';
-// }
-
-// void	remove_quotes_helper(char *str, char quote, int *i, int *j)
-// {
-// 	*i = *i + 1;
-// 	while (str[*i] != quote)
-// 	{
-// 		str[*j] = str[*i];
-// 		*i = *i + 1;
-// 		*j = *j + 1;
-// 	}
-// 	*i = *i + 2;
-// 	*j = *j + 1;
-// }
-
-// void	token_add_back(t_token **lst, t_token *new)
-// {
-// 	t_token	*last;
-
-// 	if (*lst != NULL)
-// 	{
-// 		last = token_last(*lst);
-// 		last->next = new;
-// 	}
-// 	else
-// 		*lst = new;
-// }
-
-// t_token	*token_last(t_token *lst)
-// {
-// 	if (lst == NULL)
-// 		return (NULL);
-// 	while (lst->next != NULL)
-// 		lst = lst->next;
-// 	return (lst);
-// }

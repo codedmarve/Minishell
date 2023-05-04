@@ -58,7 +58,7 @@ void	insert_end_ins(t_token *token, t_cmdGroup *group)
 
 t_token	*add_group(t_data *data, t_token *token)
 {
-	t_token 	*tok;
+	t_token		*tok;
 	t_cmdGroup	*tmp;
 	t_cmdGroup	*group;
 
@@ -87,7 +87,7 @@ t_token	*add_group(t_data *data, t_token *token)
 
 void	cmd_init(t_data *data)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = data->token_lst;
 	while (token)
@@ -96,5 +96,4 @@ void	cmd_init(t_data *data)
 		if (token)
 			token = token->next;
 	}
-	
 }
