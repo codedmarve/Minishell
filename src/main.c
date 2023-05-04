@@ -24,14 +24,21 @@ int	main(int ac, char **av, char **envp)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
-	envplist_handler(&data->env_lst, envp);
+	envplist_handler(&data->env_lst, envp); // g_exit_status = 0; ?
 	while (1)
 	{
+		// sig_interactive();
 		data->input = readline("minishell$ ");
+		// if (!data->input)
+		// {
+		// 	write(1, "exit\n", 5);
+		// 	exit(0);
+		// }
 		if (ft_strlen(data->input) > 0)
 		{
 			add_history(data->input);
-			run_minishell(data);
+			// sig_noninteractive();
+			run_minishell(data); // keep it void or return value?
 		}
 		else
 			free(data->input);

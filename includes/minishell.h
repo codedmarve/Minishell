@@ -13,9 +13,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
+// stdio should be included before readline library
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # include "../library/libft/libft.h"
 
@@ -96,9 +99,9 @@ enum	e_token_types
 
 typedef struct s_idx
 {
-	int i;
-	int j;
-} t_idx;
+	int	i;
+	int	j;
+}	t_idx;
 
 // envplist_handler.c
 void	envplist_handler(t_envp **head, char **envp);
@@ -166,6 +169,14 @@ int		find_end(char *str, char *possible_sep);
 char	*expand_token(char *token, t_data *data);
 void	expand_token_lst(t_data *data);
 
+//signals.c
+void	ignore_ctrl_backslash(void);
+void	ctrl_c(int sig);
+void	sig_interactive(void);
+void	display_newline(int sig);
+void	sig_noninteractive(void);
+void	ctrl_c_heredoc(int sig);
+void	sig_heredoc(void);
 
 // 04expander2.c
 void	init_exit_status(char **new_ptr, t_idx *idx);
@@ -177,14 +188,6 @@ void	copy_token_char(char **new_ptr, t_idx *idx, char c);
 // 04expander_utils.c
 int		dollar_in_str(char *s);
 char	*get_exit_status(void);
-
-// 05redirect_handler.c
-void	close_files_if_open(int *fd_infile, int *fd_outfile);
-int		init_in_red(int *fd_infile, char *filename);
-int		init_out_red(int *fd_outfile, char *filename);
-int		init_app_red(int *fd_outfile, char *filename);
-// int	init_here_doc(int *fd_outfile, char *filename);
-int		redirect_handler(t_token **token_lst);
 
 // added by Marve
 int		arrlen(char **arr);
@@ -202,7 +205,7 @@ char	*ft_strdup2(const char *str, int len);
 char	*ft_strdup1(const char *str);
 
 // builtins
-void	ft_pwd();
+void	ft_pwd(void);
 void	ft_cd(char **str);
 void	ft_echo(char **s);
 int		export(t_data *data, char **var);
@@ -217,8 +220,5 @@ void	exec_free(t_data *data);
 void	free_cmdGroup(t_data *data);
 void	exit_free(t_data *data);
 void	reset(t_data *data);
-
-// 06interpreter.c
-int	interpreter(t_data *data);
 
 #endif

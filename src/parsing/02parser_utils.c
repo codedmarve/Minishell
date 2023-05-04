@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:04:33 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/04 15:06:10 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:42:40 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	free_token_lst(t_token **token_lst)
 		tmp = tmp->next;
 		free(*token_lst);
 		*token_lst = tmp;
-	} // free(token_lst) here???
+	}
+	// free(token_lst) here???
 }
 
 void	print_full_token_data(t_data *data)
