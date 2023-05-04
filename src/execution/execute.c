@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-
 void	in_handler(t_cmdGroup *group)
 {
 	if (group->prev && group->prev->outfile == 1
@@ -72,8 +71,8 @@ void	child_process(t_cmdGroup *group)
 int	execute(t_data *data)
 {
 	t_cmdGroup	*group;
-	int stdin;
-	int stdout;
+	int			stdin;
+	int			stdout;
 
 	group = data->cmdGroup;
 	while (group)

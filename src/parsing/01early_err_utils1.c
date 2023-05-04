@@ -1,10 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   01early_err_utils1.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/04 15:01:17 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/05/04 15:01:19 by dgoremyk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/// @brief takes a pointer to a string as input
-/// and checks if the string contains only spaces.
-/// @param input 
-/// @return -1 if contains only spaces
+/// @brief checks if the string contains only spaces.
 int	spaces_err(char *input)
 {
 	int	i;
@@ -18,26 +26,6 @@ int	spaces_err(char *input)
 }
 
 /// @brief checks for mismatched quotes in the input string.
-/// It takes a pointer to a character array as input and returns an int value.
-///
-/// The function initializes two variables, dq_open and sq_open, to 0,
-/// representing whether a double quote or single quote is currently open.
-/// It then iterates through each character of the input string s.
-///
-/// If it encounters a single quote or double quote and that type of quote
-/// is not currently open, it sets the appropriate variable to 1.
-///
-/// If it encounters a single quote or double quote and the appropriate type
-/// of quote is already open, it sets the appropriate variable to 0
-/// to close the quote.
-///
-/// If at the end of the loop either of the dq_open or sq_open variables 
-// is still set to 1, it means that there is a mismatched quote, 
-/// and the function returns -1 and prints an error message.
-/// 
-/// Otherwise, the function returns 0 to indicate that there are no errors.
-/// @param s 
-/// @return 
 int	quotes_err(char *s)
 {
 	int	dq_open;
@@ -65,26 +53,6 @@ int	quotes_err(char *s)
 }
 
 /// @brief checks if there are any errors related to pipes in the input command.
-///
-/// It starts by skipping any leading spaces in the input.
-/// If the first character encountered is a pipe, 
-/// it indicates a token error and the function returns -1 after printing
-/// an appropriate error message.
-///
-/// Then it iterates through the input character by character.
-/// If it encounters a single or double quote, 
-/// it skips the quoted string to avoid considering pipes inside quotes.
-///
-/// If it encounters a pipe char, it skips any subsequent spaces and checks 
-/// if the next character is another pipe or if it is the end of the input. 
-///
-/// In either case, it indicates a token error and the function returns -1 
-/// after printing an appropriate error message.
-///
-/// If it reaches the end of the input without encountering any errors,
-/// it returns 0 to indicate success.
-/// @param input 
-/// @return 
 int	pipes_err(char *input)
 {
 	int	i;

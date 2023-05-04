@@ -31,7 +31,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strlen(data->input) > 0)
 		{
 			add_history(data->input);
-			input_handler(data);
+			run_minishell(data);
 		}
 		else
 			free(data->input);

@@ -14,8 +14,8 @@
 
 void	free_ins(t_ins **ptr)
 {
-	t_ins *tmp;
-	
+	t_ins	*tmp;
+
 	tmp = *ptr;
 	while (tmp)
 	{
@@ -28,8 +28,8 @@ void	free_ins(t_ins **ptr)
 
 void	free_outs(t_outs **ptr)
 {
-	t_outs *tmp;
-	
+	t_outs	*tmp;
+
 	tmp = *ptr;
 	while (tmp)
 	{
@@ -42,7 +42,9 @@ void	free_outs(t_outs **ptr)
 
 void	free_cmdGroup(t_data *data)
 {
-	t_cmdGroup *tmp = data->cmdGroup;
+	t_cmdGroup	*tmp;
+
+	tmp = data->cmdGroup;
 	while (tmp)
 	{
 		if (tmp->cmd)
@@ -61,12 +63,12 @@ void	free_cmdGroup(t_data *data)
 
 void	exit_free(t_data *data)
 {
-	t_envp *env;
+	t_envp	*env;
 
 	env = data->env_lst;
 	if (data->input)
 		free(data->input);
-	while(env)
+	while (env)
 	{
 		free(env->envp_key);
 		free(env->envp_value);
