@@ -60,7 +60,7 @@ void	child_process(t_cmdGroup *group)
 	group->pid = fork();
 	if (group->pid == 0)
 	{
-		//sig_noninteractive(); /////////////
+		// sig_noninteractive(); /////////////
 		in_out_handler(group);
 		// to do exit status
 		if (execve(group->cmd[0], group->cmd, NULL) == -1)
@@ -78,6 +78,7 @@ int	execute(t_data *data)
 	group = data->cmdGroup;
 	while (group)
 	{
+		//sig_noninteractive(); /////////////
 		if (isbuiltin(group))
 		{
 			stdin = dup(STDIN_FILENO);
@@ -94,4 +95,5 @@ int	execute(t_data *data)
 		group = group->next;
 	}
 	parent_wait(data->cmdGroup);
+//	sig_interactive(); /////////////
 }

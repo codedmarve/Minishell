@@ -37,7 +37,7 @@
 // not used in heredoc contexts.
 
 /// @brief helper function for sig_interactive
-void	ignore_ctrl_backslash(void)
+void	ignore_ctrl_bslash(void)
 {
 	struct sigaction	sa;
 
@@ -48,9 +48,9 @@ void	ignore_ctrl_backslash(void)
 
 /// @brief helper function for sig_interactive
 /// @param sig 
-void	ctrl_c(int sig)
+void	ctrl_c_interactive(int sig)
 {
-	(void)sig;
+	// (void)sig;
 
 	write(1, "\n", 1);
 	rl_on_new_line();
@@ -66,9 +66,9 @@ void	sig_interactive(void) // DEFAULT STATE
 {
 	struct sigaction	sa;
 
-	ignore_ctrl_backslash();
+	ignore_ctrl_bslash();
 	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = &ctrl_c;
+	sa.sa_handler = &ctrl_c_interactive;
 	sigaction(SIGINT, &sa, NULL);
 }
 
@@ -76,11 +76,12 @@ void	sig_interactive(void) // DEFAULT STATE
 
 /// @brief helper function for sig_noninteractive
 /// @param sig 
-void	display_newline(int sig)
+void	ctrl_c_ctrl_bslash_noninteractive(int sig)
 {
 	// (void)sig;
-	if (sig == SIGQUIT)
-		write(1, "quit", 4);
+
+	// if (sig == SIGQUIT)
+	// 	write(1, "quit", 4);
 	write(1, "\n", 1);
 	rl_on_new_line();
 }
@@ -92,28 +93,31 @@ void	sig_noninteractive(void) // CHILD PROCESS
 	struct sigaction	sa;
 
 	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = &display_newline;
+	sa.sa_handler = &ctrl_c_ctrl_bslash_noninteractive;
 	sigaction(SIGINT, &sa, NULL);
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
 /////////////////////////////////////////////
-// void ctrl_c_heredoc(int sig)
-// {
-// 	(void)sig;
-// 	if (sig == SIGINT)
-// 		exit(1);
-// }
+void ctrl_c_heredoc(int sig)
+{
+	//(void)sig;
 
-// void	sig_heredoc(void)
-// {
-// 	struct sigaction	sa;
+	if (sig == SIGINT)
+		// return ;
+		exit(1);
+}
 
-// 	ignore_ctrl_backslash();
-// 	ft_memset(&sa, 0, sizeof(sa));
-// 	sa.sa_handler = &ctrl_c_heredoc;
-// 	sigaction(SIGINT, &sa, NULL);
-// }
+
+void	sig_heredoc(void)
+{
+	struct sigaction	sa;
+
+	ignore_ctrl_bslash();
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = &ctrl_c_heredoc;
+	sigaction(SIGINT, &sa, NULL);
+}
 
 
 // void signal_child_active(void) {

@@ -166,31 +166,23 @@ void	remove_quotes(char *s);
 int		find_end(char *str, char *possible_sep);
 
 // 04expander.c
+// char	*expand_exit_status(char *exp, t_idx *idx);
+// char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data);
+// char	*expand_single_char(char *exp, t_idx *idx, char c);
 char	*expand_token(char *token, t_data *data);
 void	expand_token_lst(t_data *data);
-
-// 04expander_init1.c
-void	init_exit_status(char **new_ptr, t_idx *idx);
-void	init_single_dollar(char **new_ptr, t_idx *idx);
-void	expand_remainder(char **new_ptr, t_idx *idx, char *token, t_data *data);
-void	copy_token_char(char **new_ptr, t_idx *idx, char c);
-
-// 04expander_init2.c
-int		ft_strcmp(char *s1, char *s2);
-char	*find_envp_value(t_envp *env_lst, char *var_name);
-char	*create_var_from_token(char *token, t_idx *idx);
-void	copy_env_var_value(char **new_ptr, t_idx *idx, char *env_var);
-void	init_env_var(char **new_ptr, t_idx *idx, char *token, t_data *data);
 
 // 04expander_utils.c
 int		dollar_in_str(char *s);
 char	*get_exit_status(void);
+int	ft_strcmp(char *s1, char *s2);
+char	*find_envp_value(t_envp *env_lst, char *var_name);
 
 //signals.c
-void	ignore_ctrl_backslash(void);
-void	ctrl_c(int sig);
+void	ignore_ctrl_bslash(void);
+void	ctrl_c_interactive(int sig);
 void	sig_interactive(void);
-void	display_newline(int sig);
+void	ctrl_c_ctrl_bslash_noninteractive(int sig);
 void	sig_noninteractive(void);
 void	ctrl_c_heredoc(int sig);
 void	sig_heredoc(void);

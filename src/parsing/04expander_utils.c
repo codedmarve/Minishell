@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:44 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/04 15:01:46 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/05 10:42:17 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,25 @@ char	*get_exit_status(void)
 	if (!value)
 		return (NULL);
 	return (value);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 != '\0' && *s2 != '\0' && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)*s1 - (unsigned char)*s2);
+}
+
+char	*find_envp_value(t_envp *env_lst, char *var_name)
+{
+	while (env_lst != NULL)
+	{
+		if (ft_strcmp(env_lst->envp_key, var_name) == 0)
+			return (env_lst->envp_value);
+		env_lst = env_lst->next;
+	}
+	return (NULL);
 }
