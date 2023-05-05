@@ -17,6 +17,7 @@ int	here_doc(char *delimiter)
 	char	*str;
 	int		fd;
 
+	//sig_heredoc();
 	fd = open("here_doc.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	str = readline(">");
 	while (ft_strncmp(str, delimiter, ft_strlen(delimiter))

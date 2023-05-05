@@ -60,6 +60,7 @@ void	child_process(t_cmdGroup *group)
 	group->pid = fork();
 	if (group->pid == 0)
 	{
+		//sig_noninteractive(); /////////////
 		in_out_handler(group);
 		// to do exit status
 		if (execve(group->cmd[0], group->cmd, NULL) == -1)
