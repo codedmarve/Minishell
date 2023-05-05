@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:50 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/05 09:34:44 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/05 09:50:28 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data)
 	return (exp);
 }
 
-char	*expand_single_token(char *exp, t_idx *idx, char c)
+char	*expand_single_char(char *exp, t_idx *idx, char c)
 {
 	exp[idx->j++] = c;
 	idx->i++;
@@ -73,14 +73,14 @@ char	*expand_token(char *token, t_data *data)
 			if (token[idx.i + 1] == '?')
 				exp = expand_exit_status(exp, &idx);
 			else if (token[idx.i + 1] == '$')
-				exp = expand_single_token(exp, &idx, token[idx.i++]);
+				exp = expand_single_char(exp, &idx, token[idx.i++]);
 			else if (ft_isalnum(token[idx.i + 1]) || token[idx.i + 1] == '_')
 				exp = expand_env_var(exp, &idx, token, data);
 			else
-				exp = expand_single_token(exp, &idx, token[idx.i++]);
+				exp = expand_single_char(exp, &idx, token[idx.i++]);
 		}
 		else
-			exp = expand_single_token(exp, &idx, token[idx.i++]);
+			exp = expand_single_char(exp, &idx, token[idx.i++]);
 	}
 	exp[idx.j] = '\0';
 	return (exp);
