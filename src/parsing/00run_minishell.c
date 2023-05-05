@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:00:25 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/05 09:38:14 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/05 10:28:32 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	run_minishell(t_data *data)
 		return (-1);
 	if (parser(data) == -1)
 		return (-1);
-	//cmd_init(data);
-	//get_cmdpath(data);
-//	init_fds(data);
-	//execute(data);
-//	exec_free(data);
+	cmd_init(data);
+	get_cmdpath(data);
+	init_fds(data);
+	execute(data);
+	exec_free(data);
 	return (0);
 }

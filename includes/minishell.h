@@ -176,7 +176,7 @@ void	expand_remainder(char **new_ptr, t_idx *idx, char *token, t_data *data);
 void	copy_token_char(char **new_ptr, t_idx *idx, char c);
 
 // 04expander_init2.c
-int	ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 char	*find_envp_value(t_envp *env_lst, char *var_name);
 char	*create_var_from_token(char *token, t_idx *idx);
 void	copy_env_var_value(char **new_ptr, t_idx *idx, char *env_var);

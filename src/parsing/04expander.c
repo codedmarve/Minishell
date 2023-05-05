@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:50 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/05 09:50:28 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/05 10:24:13 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,26 @@ char	*expand_token(char *token, t_data *data)
 void	expand_token_lst(t_data *data)
 {
 	t_token	*tmp;
-
+	char	*expanded_string; // NEW!!!!!!
+	
 	tmp = data->token_lst;
+	// while (tmp != NULL)
+	// {
+	// 	if (tmp->quote_type != S_Q && dollar_in_str(tmp->string))
+	// 		tmp->string = expand_token(tmp->string, data);
+	// 	tmp = tmp->next;
+	// }
 	while (tmp != NULL)
 	{
 		if (tmp->quote_type != S_Q && dollar_in_str(tmp->string))
-			tmp->string = expand_token(tmp->string, data);
+		{
+			expanded_string = expand_token(tmp->string, data);
+			if (expanded_string != NULL)
+			{
+				free(tmp->string);
+				tmp->string = expanded_string;
+			}
+		}
 		tmp = tmp->next;
 	}
 }
