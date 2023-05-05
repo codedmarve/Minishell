@@ -78,7 +78,7 @@ int	execute(t_data *data)
 	group = data->cmdGroup;
 	while (group)
 	{
-		//sig_noninteractive(); /////////////
+		sig_noninteractive(); /////////////
 		if (isbuiltin(group))
 		{
 			stdin = dup(STDIN_FILENO);

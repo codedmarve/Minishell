@@ -46,6 +46,7 @@ void	ignore_ctrl_bslash(void)
 	sigaction(SIGQUIT, &sa, NULL);
 }
 
+
 /// @brief helper function for sig_interactive
 /// @param sig 
 void	ctrl_c_interactive(int sig)
@@ -104,7 +105,6 @@ void ctrl_c_heredoc(int sig)
 	//(void)sig;
 
 	if (sig == SIGINT)
-		// return ;
 		exit(1);
 }
 
@@ -118,14 +118,3 @@ void	sig_heredoc(void)
 	sa.sa_handler = &ctrl_c_heredoc;
 	sigaction(SIGINT, &sa, NULL);
 }
-
-
-// void signal_child_active(void) {
-//     struct sigaction sa;
-
-//     memset(&sa, 0, sizeof(sa));
-//     sa.sa_handler = SIG_DFL;
-
-//     sigaction(SIGINT, &sa, NULL);
-//     sigaction(SIGQUIT, &sa, NULL);
-// }

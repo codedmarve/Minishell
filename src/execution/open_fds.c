@@ -30,7 +30,6 @@ int	here_doc(char *delimiter)
 	}
 	free(str);
 	close(fd);
-	// sig_interactive();
 }
 
 void	outfile_handler(t_cmdGroup *group)
