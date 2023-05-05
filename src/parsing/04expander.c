@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:50 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/05 09:23:55 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/05 09:34:44 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,12 @@
 char	*expand_exit_status(char *exp, t_idx *idx)
 {
 	char	*exit_status;
-	char	*str;
 
 	exit_status = get_exit_status();
 	if (!exit_status)
 		return (NULL);
-	str = exit_status;
-	while (*str)
-	{
-		exp[idx->j++] = *str++;
-	}
+	ft_strcpy(&exp[idx->j], exit_status);
+	idx->j += ft_strlen(exit_status);
 	idx->i++;
 	free(exit_status);
 	return (exp);
@@ -42,7 +38,6 @@ char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data)
 	var_len = 0;
 	while (ft_isalnum(token[idx->i + 1 + var_len]) || token[idx->i + 1 + var_len] == '_')
 		var_len++;
-
 	ft_strncpy(var_name, &token[idx->i + 1], var_len);
 	var_name[var_len] = '\0';
 	var_value = find_envp_value(data->env_lst, var_name);
