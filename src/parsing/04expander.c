@@ -6,25 +6,12 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:50 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/05 16:17:26 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/08 16:57:24 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// char	*expand_exit_status(char *exp, t_idx *idx)
-// {
-// 	char	*exit_status;
-
-// 	exit_status = get_exit_status();
-// 	if (!exit_status)
-// 		return (NULL);
-// 	ft_strcpy(&exp[idx->j], exit_status);
-// 	idx->j += ft_strlen(exit_status);
-// 	idx->i++;
-// 	free(exit_status);
-// 	return (exp);
-// }
 
 char	*expand_exit_status(char *exp, t_idx *idx)
 {
@@ -68,13 +55,43 @@ char	*expand_single_char(char *exp, t_idx *idx, char c)
 	return (exp);
 }
 
+// char	*expand_token(char *token, t_data *data)
+// {
+// 	char	*exp;
+// 	t_idx	idx;
+
+// 	exp = malloc(MAX_TOKEN_SIZE);
+
+// 	idx.i = 0;
+// 	idx.j = 0;
+// 	while (token[idx.i] != '\0')
+// 	{
+// 		if (token[idx.i] == '$')
+// 		{
+// 			if (token[idx.i + 1] == '?')
+// 				exp = expand_exit_status(exp, &idx);
+// 			else if (token[idx.i + 1] == '$')
+// 				exp = expand_single_char(exp, &idx, token[idx.i++]);
+// 			else if (ft_isalnum(token[idx.i + 1]) || token[idx.i + 1] == '_')
+// 				exp = expand_env_var(exp, &idx, token, data);
+// 			else
+// 				exp = expand_single_char(exp, &idx, token[idx.i++]);
+// 		}
+// 		else
+// 			exp = expand_single_char(exp, &idx, token[idx.i++]);
+// 	}
+// 	exp[idx.j] = '\0';
+// 	return (exp);
+// }
+
+
 char	*expand_token(char *token, t_data *data)
 {
 	char	*exp;
 	t_idx	idx;
 
 	exp = malloc(MAX_TOKEN_SIZE);
-
+	// if ! new
 	idx.i = 0;
 	idx.j = 0;
 	while (token[idx.i] != '\0')
@@ -82,16 +99,16 @@ char	*expand_token(char *token, t_data *data)
 		if (token[idx.i] == '$')
 		{
 			if (token[idx.i + 1] == '?')
-				exp = expand_exit_status(exp, &idx);
+				init_exit_status(&exp, &idx);
 			else if (token[idx.i + 1] == '$')
-				exp = expand_single_char(exp, &idx, token[idx.i++]);
+				init_single_dollar(&exp, &idx);
 			else if (ft_isalnum(token[idx.i + 1]) || token[idx.i + 1] == '_')
-				exp = expand_env_var(exp, &idx, token, data);
+				init_env_var(&exp, &idx, token, data);
 			else
-				exp = expand_single_char(exp, &idx, token[idx.i++]);
+				copy_token_char(&exp, &idx, token[idx.i++]);
 		}
 		else
-			exp = expand_single_char(exp, &idx, token[idx.i++]);
+			copy_token_char(&exp, &idx, token[idx.i++]);
 	}
 	exp[idx.j] = '\0';
 	return (exp);
@@ -116,6 +133,7 @@ void	expand_token_lst(t_data *data)
 	// }
 	while (tmp != NULL)
 	{
+	//	if (dollar_in_expandable_str(tmp->string, tmp->quote_type))
 		if (tmp->quote_type != S_Q && dollar_in_str(tmp->string))
 		{
 			expanded_string = expand_token(tmp->string, data);
