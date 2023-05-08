@@ -12,33 +12,46 @@
 
 #include "../../includes/minishell.h"
 
-int	here_doc(char *delimiter)
+int here_doc2(char *delimeter)
 {
 	char	*str;
 	int		fd;
-	int		pid;
 
+	fd = open("here_doc.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
+	str = readline(">");
+	while (ft_strncmp(str, delimeter, ft_strlen(delimeter))
+		|| ft_strlen(delimeter) != ft_strlen(str))
+	{
+		write(fd, str, ft_strlen(str));
+		write(fd, "\n", 1);
+		free(str);
+		str = readline(">");
+	}
+	free(str);
+	close(fd);
+	exit(1);
+}
+
+int	here_doc(char *delimeter)
+{
+	int		pid;
+	int		chexit;
+
+	chexit = 1;
 	pid = fork();
 	if (pid == 0)
 	{
 		sig_heredoc();
-		fd = open("here_doc.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
-		str = readline(">");
-		while (ft_strncmp(str, delimiter, ft_strlen(delimiter))
-			|| ft_strlen(delimiter) != ft_strlen(str))
-		{
-			write(fd, str, ft_strlen(str));
-			write(fd, "\n", 1);
-			free(str);
-			str = readline(">");
-		}
-		free(str);
-		close(fd);
-		exit(1);
+		here_doc2(delimeter);
 	}
 	else
-		waitpid(pid, NULL, 0);
-	// sig_interactive();
+	{
+		sig_noninteractive();
+		waitpid(pid, &chexit, 0);
+		if (WIFEXITED(chexit))
+			return (1);
+	}
+	return (0);
 }
 
 void	outfile_handler(t_cmdGroup *group)
@@ -61,7 +74,7 @@ void	outfile_handler(t_cmdGroup *group)
 	}
 }
 
-void	infile_handler(t_cmdGroup *group)
+int	infile_handler(t_cmdGroup *group)
 {
 	t_ins	*ins;
 
@@ -70,7 +83,8 @@ void	infile_handler(t_cmdGroup *group)
 	{
 		if (ins->heredoc)
 		{
-			here_doc(ins->str);
+			if (!here_doc(ins->str))
+				return (0);
 			group->infile = open("here_doc.txt", O_RDONLY);
 		}
 		else
@@ -78,10 +92,11 @@ void	infile_handler(t_cmdGroup *group)
 		if (group->infile == -1)
 		{
 			perror("-bash: "); // exit status handling
-			return ;
+			return (1);
 		}
 		ins = ins->next;
 	}
+	return (1);
 }
 
 int	init_fds(t_data *data)
@@ -93,10 +108,12 @@ int	init_fds(t_data *data)
 	{
 		group->outfile = 1;
 		if (group->ins)
-			infile_handler(group);
+			if (!infile_handler(group))
+				return (0);
 		if (group->outs)
 			outfile_handler(group);
 		pipe(group->pipe);  // error check?
 		group = group->next;
 	}
+	return (1);
 }

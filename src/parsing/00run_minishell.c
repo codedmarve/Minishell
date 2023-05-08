@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   00run_minishell.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:00:25 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/05 10:28:32 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:41:59 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	run_minishell(t_data *data)
 		return (-1);
 	cmd_init(data);
 	get_cmdpath(data);
-	init_fds(data);
+	if (!init_fds(data))
+		return (exec_free(data), 0);	
 	execute(data);
 	exec_free(data);
-	return (0);
+	return (1);
 }
