@@ -120,6 +120,17 @@ void	sig_heredoc(void)
 }
 
 
+void	sig_parent_heredoc(void)
+{
+	struct sigaction	sa;
+
+	ignore_ctrl_bslash();
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGINT, &sa, NULL);
+}
+
+
 // void signal_child_active(void) {
 //     struct sigaction sa;
 

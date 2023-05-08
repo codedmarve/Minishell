@@ -208,7 +208,7 @@ void	ctrl_c_ctrl_bslash_noninteractive(int sig);
 void	sig_noninteractive(void);
 void	ctrl_c_heredoc(int sig);
 void	sig_heredoc(void);
-
+void	sig_parent_heredoc(void);
 // added by Marve
 int		arrlen(char **arr);
 void	ft_clarr(char **str);
