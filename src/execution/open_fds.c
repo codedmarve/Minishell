@@ -16,20 +16,28 @@ int	here_doc(char *delimiter)
 {
 	char	*str;
 	int		fd;
+	int		pid;
 
-	// sig_heredoc();
-	fd = open("here_doc.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
-	str = readline(">");
-	while (ft_strncmp(str, delimiter, ft_strlen(delimiter))
-		|| ft_strlen(delimiter) != ft_strlen(str))
+	pid = fork();
+	if (pid == 0)
 	{
-		write(fd, str, ft_strlen(str));
-		write(fd, "\n", 1);
-		free(str);
+		sig_heredoc();
+		fd = open("here_doc.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
 		str = readline(">");
+		while (ft_strncmp(str, delimiter, ft_strlen(delimiter))
+			|| ft_strlen(delimiter) != ft_strlen(str))
+		{
+			write(fd, str, ft_strlen(str));
+			write(fd, "\n", 1);
+			free(str);
+			str = readline(">");
+		}
+		free(str);
+		close(fd);
+		exit(1);
 	}
-	free(str);
-	close(fd);
+	else
+		waitpid(pid, NULL, 0);
 	// sig_interactive();
 }
 

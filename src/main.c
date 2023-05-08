@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **envp)
 	envplist_handler(&data->env_lst, envp); // g_exit_status = 0; ?
 	while (1)
 	{
-	//	sig_interactive();
+		sig_interactive();
 		data->input = readline("minishell$ ");
 		if (!data->input)
 		{
@@ -38,7 +38,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strlen(data->input) > 0)
 		{
 			add_history(data->input);
-//			sig_noninteractive();
+			// sig_noninteractive();
 			run_minishell(data); // keep it void or return value?
 		}
 		else
