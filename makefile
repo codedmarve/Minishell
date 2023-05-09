@@ -18,7 +18,7 @@ LIBFT	=	./library/libft/libft.a
 all:	$(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
-	@$(CC)  $(SRC) $(RDLIB) $(LIBFT) -o $(NAME)
+	@$(CC)  $(SRC) $(CFLAGS) $(RDLIB) $(LIBFT) -o $(NAME)
 	@echo "minishell created successfully"
 
 $(LIBFT):

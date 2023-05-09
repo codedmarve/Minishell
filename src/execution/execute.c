@@ -30,7 +30,8 @@ void	out_handler(t_cmdGroup *group)
 {
 	if (!isbuiltin(group))
 		close(group->pipe[0]);
-	if (group->next && group->outfile == 1)
+	if (group->next && group->outfile == 1
+		&& access(group->cmd[0], X_OK) == 0)
 		dup2(group->pipe[1], STDOUT_FILENO);
 	if (group->outfile > 1)
 	{
@@ -60,16 +61,14 @@ void	child_process(t_cmdGroup *group)
 	group->pid = fork();
 	if (group->pid == 0)
 	{
-		// sig_noninteractive(); /////////////
 		in_out_handler(group);
-		// to do exit status
 		if (execve(group->cmd[0], group->cmd, NULL) == -1)
-			perror("-bash: ");
-		exit(1);
+			printf("%s: command not found\n", group->cmd[0]);
+		exit(127);
 	}
 }
 
-int	execute(t_data *data)
+void	execute(t_data *data)
 {
 	t_cmdGroup	*group;
 	int			stdin;

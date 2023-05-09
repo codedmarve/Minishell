@@ -21,6 +21,7 @@ void	ft_echo(char **s)
 	if (arrlen(s) == 1)
 	{
 		printf("\n");
+		g_exit_status = 0;
 		return ;
 	}
 	str = &s[1];
@@ -37,4 +38,5 @@ void	ft_echo(char **s)
 	}
 	if (!(!ft_strncmp(s[1], "-n", 2) && ft_strlen(s[1]) == 2))
 		printf("\n");
+	g_exit_status = 0;
 }

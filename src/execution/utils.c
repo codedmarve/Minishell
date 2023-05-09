@@ -24,11 +24,18 @@ void	pclose_pipes(t_cmdGroup *group)
 void	parent_wait(t_cmdGroup *group)
 {
 	t_cmdGroup	*tmp;
+	int			exit;
 
+	exit = 0;
 	tmp = group;
 	while (tmp)
 	{
-		waitpid(tmp->pid, NULL, 0);
+		if (!isbuiltin(tmp))
+		{
+			waitpid(tmp->pid, &exit, 0);
+			if (WIFEXITED(exit))
+				g_exit_status = WEXITSTATUS(exit);
+		}
 		tmp = tmp->next;
 	}
 }

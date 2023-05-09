@@ -111,7 +111,7 @@ int	export(t_data *data, char **var)
 		if (!ptr)
 			return (0);
 		if (ptr[0] == '=')
-			return (printf("-bash: export: '%s' is not a identifier\n", ptr), 0);
+			return (printf("-bash: export: '%s' not a valid identifier\n", ptr), 0);
 		tmp = ft_strdup2(var[1], ptr - var[1]);
 		str = ft_split(var[1], '\0');
 		if (!is_update(data, tmp, ptr + 1))
@@ -119,4 +119,5 @@ int	export(t_data *data, char **var)
 		free(tmp);
 		ft_clarr(str);
 	}
+	return (1);
 }

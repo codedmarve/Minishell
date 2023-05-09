@@ -71,7 +71,8 @@ void	outfile_handler(t_cmdGroup *group)
 			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (group->outfile == -1)
 		{
-			perror("-bash: "); // exit status handling
+			printf("-bash: %s: %s\n", outs->str, strerror(errno));
+			g_exit_status = 1;
 			return ;
 		}
 		outs = outs->next;
@@ -95,7 +96,8 @@ int	infile_handler(t_cmdGroup *group)
 			group->infile = open(ins->str, O_RDONLY);
 		if (group->infile == -1)
 		{
-			perror("-bash: "); // exit status handling
+			printf("-bash: %s: %s\n", ins->str, strerror(errno));
+			g_exit_status = 1;
 			return (1);
 		}
 		ins = ins->next;

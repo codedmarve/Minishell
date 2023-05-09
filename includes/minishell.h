@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <signal.h>
+#include <errno.h>
 
 # include "../library/libft/libft.h"
 
@@ -215,9 +216,8 @@ void	get_cmdpath(t_data *data);
 int		init_here_doc(char *delimeter);
 char	*ft_strjoin2(char *s1, char *s2, char c);
 int		init_fds(t_data *data);
-int		execute(t_data *data);
+void	execute(t_data *data);
 void	free_all(t_data *data);
-
 void	export_print(t_data *data);
 char	*ft_strdup2(const char *str, int len);
 char	*ft_strdup1(const char *str);
