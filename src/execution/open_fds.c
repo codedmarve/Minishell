@@ -17,6 +17,7 @@ int here_doc2(char *delimeter)
 	char	*str;
 	int		fd;
 
+	sig_heredoc();
 	fd = open("here_doc.txt", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	str = readline(">");
 	while (ft_strncmp(str, delimeter, ft_strlen(delimeter))
@@ -41,7 +42,7 @@ int	here_doc(char *delimeter)
 	pid = fork();
 	if (pid == 0)
 	{
-		sig_heredoc();
+		// sig_heredoc();
 		here_doc2(delimeter);
 	}
 	else
