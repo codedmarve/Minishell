@@ -12,6 +12,21 @@
 
 #include "../../includes/minishell.h"
 
+void ctrl_c_heredoc_parent(int sig)
+{
+	(void)sig;
+}
+
+void	sig_parent_heredoc2(void)
+{
+	struct sigaction	sa;
+
+	ignore_ctrl_bslash();
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = ctrl_c_heredoc_parent;
+	sigaction(SIGINT, &sa, NULL);
+}
+
 int here_doc2(char *delimeter)
 {
 	char	*str;
@@ -46,8 +61,9 @@ int	here_doc(char *delimeter)
 	}
 	else
 	{
+		sig_parent_heredoc2();
 		//sig_parent_heredoc();
-		sig_interactive();
+		//sig_interactive();
 		//sig_noninteractive();
 		waitpid(pid, &chexit, 0);
 		if (WIFEXITED(chexit))
