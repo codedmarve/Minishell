@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:17:04 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/09 12:17:18 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:31:11 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ctrl_c_heredoc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "> ^C\n", 5);
+//		write(1, "> ^C\n", 5);
 		exit(1);
 	}
 }

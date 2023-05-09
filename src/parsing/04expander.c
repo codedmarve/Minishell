@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:50 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/09 12:22:12 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:49:34 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ char	*expand_token(char *token, t_data *data)
 	{
 		if (token[idx.i] == '$')
 		{
-			if (token[idx.i + 1] == '?')
+			if (token[idx.i + 1] && token[idx.i + 1] == '?')
 				init_exit_status(&exp, &idx);
-			else if (token[idx.i + 1] == '$')
+			else if (token[idx.i + 1] && token[idx.i + 1] == '$')
 				init_single_dollar(&exp, &idx);
-			else if (ft_isalnum(token[idx.i + 1]) || token[idx.i + 1] == '_')
+			else if (token[idx.i + 1] && (ft_isalnum(token[idx.i + 1]) || token[idx.i + 1] == '_'))
 				init_env_var(&exp, &idx, token, data);
 			else
 				copy_token_char(&exp, &idx, token[idx.i++]);
