@@ -104,6 +104,11 @@ void ctrl_c_heredoc(int sig)
 	//(void)sig;
 
 	if (sig == SIGINT)
+	// {
+	// 	write(1, "> ^C\n", 5);
+	// 	//write(1, "heredoc aborted\n", 16);
+	// 	exit(1);
+	// }
 		// return ;
 		exit(1);
 }

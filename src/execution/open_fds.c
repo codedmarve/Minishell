@@ -46,8 +46,8 @@ int	here_doc(char *delimeter)
 	}
 	else
 	{
-		sig_parent_heredoc();
-		//sig_interactive();
+		//sig_parent_heredoc();
+		sig_interactive();
 		//sig_noninteractive();
 		waitpid(pid, &chexit, 0);
 		if (WIFEXITED(chexit))
