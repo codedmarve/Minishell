@@ -165,19 +165,6 @@ void	token_add_back(t_token **lst, t_token *new);
 void	remove_quotes(char *s);
 int		find_end(char *str, char *possible_sep);
 
-// // 04expander.c
-// char	*expand_exit_status(char *exp, t_idx *idx);
-// char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data);
-// char	*expand_single_char(char *exp, t_idx *idx, char c);
-// char	*expand_token(char *token, t_data *data);
-// void	expand_token_lst(t_data *data);
-
-// // 04expander_utils.c
-// int		dollar_in_str(char *s);
-// char	*get_exit_status(void);
-// int	ft_strcmp(char *s1, char *s2);
-// char	*find_envp_value(t_envp *env_lst, char *var_name);
-
 // 04expander_init1.c
 void	init_exit_status(char **new_ptr, t_idx *idx);
 void	init_single_dollar(char **new_ptr, t_idx *idx);
@@ -196,11 +183,11 @@ int		dollar_in_str(char *s);
 char	*get_exit_status(void);
 
 // // 04expander.c
-char	*expand_exit_status(char *exp, t_idx *idx);
-char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data);
-char	*expand_single_char(char *exp, t_idx *idx, char c);
-char	*expand_token(char *token, t_data *data);
+// char	*expand_exit_status(char *exp, t_idx *idx);
+// char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data);
+// char	*expand_single_char(char *exp, t_idx *idx, char c);
 // char	*expand_token(char *token, t_data *data);
+char	*expand_token(char *token, t_data *data);
 void	expand_token_lst(t_data *data);
 
 //signals1.c
