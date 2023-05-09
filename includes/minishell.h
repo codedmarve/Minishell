@@ -183,12 +183,15 @@ int		dollar_in_str(char *s);
 char	*get_exit_status(void);
 
 // // 04expander.c
+
+char	*expand_token(char *token, t_data *data);
+void	expand_token_lst(t_data *data);
+
+//ARCHIVE
 // char	*expand_exit_status(char *exp, t_idx *idx);
 // char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data);
 // char	*expand_single_char(char *exp, t_idx *idx, char c);
 // char	*expand_token(char *token, t_data *data);
-char	*expand_token(char *token, t_data *data);
-void	expand_token_lst(t_data *data);
 
 //signals1.c
 void	ignore_ctrl_bslash(void);
