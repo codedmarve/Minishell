@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:38 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/09 12:59:21 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/09 13:01:01 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	expand_remainder(char **new_ptr, t_idx *idx, char *token, t_data *data)
 			init_exit_status(new_ptr, idx);
 		else if (token[idx->i + 1] && token[idx->i + 1] == '$')
 			init_single_dollar(new_ptr, idx);
-		else if (ft_isalnum(token[idx->i + 1] && (token[idx->i + 1]) || token[idx->i + 1] == '_'))
+		else if (token[idx->i + 1] && (ft_isalnum(token[idx->i + 1]) || token[idx->i + 1] == '_'))
 			init_env_var(new_ptr, idx, token, data);
 		else
 			copy_token_char(new_ptr, idx, token[idx->i++]);
