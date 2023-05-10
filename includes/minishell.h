@@ -22,8 +22,8 @@
 
 # include "../library/libft/libft.h"
 
-#define MAX_TOKEN_SIZE 1024
-// #define MAX_TOKENS_PER_TYPE 100
+# define MAX_TOKEN_SIZE 1024
+
 int		g_exit_status;
 
 typedef struct s_envp
@@ -114,6 +114,8 @@ char	*ft_strdup2(const char *str, int len);
 char	*ft_strdup1(const char *str);
 
 // main.c
+void	welcome(int argc, char **argv);
+// void	set_g_exit_status(char *str, int exit_status);
 int		main(int ac, char **av, char **envp);
 
 // 00run_minishell.c
@@ -140,14 +142,13 @@ int		skip_spaces(char *str);
 int		skip_quotes(char *str, char quote);
 
 // 02parser.c
-void	remove_consequtive_quotes(char *input);
-void	free_token_lst(t_token **token_lst);
-int		parser(t_data *data);
+void	parser(t_data *data);
 
 // 02parser_utils.c
 void	remove_consequtive_quotes(char *input);
-void	print_full_token_data(t_data *data); //DELETE LATER
-void	print_token_string(t_data *data); //DELETE LATER
+void	free_token_lst(t_token **token_lst);
+// void	print_full_token_data(t_data *data);
+// void	print_token_string(t_data *data);
 
 // 03tokenizer.c
 void	tokenizer(t_token **token_lst, char *input);
@@ -182,16 +183,10 @@ void	init_env_var(char **new_ptr, t_idx *idx, char *token, t_data *data);
 int		dollar_in_str(char *s);
 char	*get_exit_status(void);
 
-// // 04expander.c
-
+// 04expander.c
+void	process_expansion(char *token, t_data *data, t_idx *idx, char **exp);
 char	*expand_token(char *token, t_data *data);
 void	expand_token_lst(t_data *data);
-
-//ARCHIVE
-// char	*expand_exit_status(char *exp, t_idx *idx);
-// char	*expand_env_var(char *exp, t_idx *idx, char *token, t_data *data);
-// char	*expand_single_char(char *exp, t_idx *idx, char c);
-// char	*expand_token(char *token, t_data *data);
 
 //signals1.c
 void	ignore_ctrl_bslash(void);

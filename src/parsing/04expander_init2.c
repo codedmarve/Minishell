@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:38 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/09 14:51:24 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:13:40 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ char	*create_var_from_token(char *token, t_idx *idx)
 	int		var_len;
 
 	var = malloc(ft_strlen(token) + 1);
-	// if !var
+	if (!token)
+	{
+		printf("minishell: malloc failed in expander\n");
+		g_exit_status = 13;
+		return (NULL);
+	}
 	var_len = 0;
-	while (ft_isalnum(token[idx->i]) || token[idx->i] == '_') // new 2nd part
+	while (ft_isalnum(token[idx->i]) || token[idx->i] == '_')
 	{
 		var[var_len++] = token[idx->i];
 		idx->i++;
@@ -70,12 +75,8 @@ void	init_env_var(char **new_ptr, t_idx *idx, char *token, t_data *data)
 	var = create_var_from_token(token, idx);
 	if (!var)
 		return ;
-
 	env_var = find_envp_value(data->env_lst, var);
 	if (env_var != NULL)
 		copy_env_var_value(new_ptr, idx, env_var);
-	
-	//expand_remainder(new_ptr, idx, token, data); // issue with $USER$USER
-	//idx->i += ft_strlen(var); // issue with $USER$USER
 	free(var);
 }

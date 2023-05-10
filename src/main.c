@@ -16,6 +16,12 @@ void	welcome(int argc, char **argv)
 		"\033[0m");
 }
 
+// void	set_g_exit_status(char *str, int exit_status)
+// {
+// 	ft_putstr_fd(str, 2);
+// 	g_exit_status = exit_status;
+// }
+
 int	main(int ac, char **av, char **envp)
 {
 	t_data	*data;
@@ -24,7 +30,7 @@ int	main(int ac, char **av, char **envp)
 	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (printf("Error: malloc failure (main)"), 1);
-	envplist_handler(&data->env_lst, envp); // g_exit_status = 0; ?
+	envplist_handler(&data->env_lst, envp);
 	while (1)
 	{
 		sig_interactive();
@@ -38,8 +44,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strlen(data->input) > 0)
 		{
 			add_history(data->input);
-			// sig_noninteractive();
-			run_minishell(data); // keep it void or return value?
+			run_minishell(data);
 		}
 		else
 			free(data->input);

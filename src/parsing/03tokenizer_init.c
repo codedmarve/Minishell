@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:06:16 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/04 15:06:18 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:12:35 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ t_token	*init_in_quotes(char *s, int *i, char quote)
 	int		len;
 
 	token = ft_calloc(1, sizeof(t_token));
-	// if (!token)
+	if (!token)
+	{
+		printf("minishell: malloc failed in tokenizer_init\n");
+		g_exit_status = 13;
+		return (NULL);
+	}
 	len = skip_quotes(s, quote);
 	token->string = ft_substr(s, 1, len - 2);
 	token->type = WORD;
@@ -36,14 +41,17 @@ t_token	*init_pipe_or_sep(char *s, int *i, char pipe_or_sep)
 	t_token	*token;
 
 	token = ft_calloc(1, sizeof(t_token));
-// 	if (!token)
-	token->string = ft_calloc(1, sizeof(char)); // not needed since ft_calloc ???!!!
-// if (!token->string)
-//	token->quote_type = NO_Q; // NOT NEEDED since ft_calloc
+	if (!token)
+	{
+		printf("minishell: malloc failed in tokenizer_init\n");
+		g_exit_status = 13;
+		return (NULL);
+	}
+	token->string = ft_calloc(1, sizeof(char));
 	if (pipe_or_sep == ' ')
 	{
 		*i += skip_spaces(s);
-		token->type = SEP; // not needed since ft_calloc
+		token->type = SEP;
 	}
 	else
 	{
@@ -63,7 +71,12 @@ t_token	*init_single_redirection(char *s, int *i, char in_or_out)
 	int		len;
 
 	token = ft_calloc(sizeof(t_token), 1);
-	// if (!token)
+	if (!token)
+	{
+		printf("minishell: malloc failed in tokenizer_init\n");
+		g_exit_status = 13;
+		return (NULL);
+	}
 	*i += skip_spaces(&s[*i + 1]) + 1;
 	len = find_end(&s[*i], " <>|");
 	token->string = ft_substr(s, *i, len);
@@ -87,7 +100,12 @@ t_token	*init_double_redirection(char *s, int *i, char in_or_out)
 	int		len;
 
 	token = ft_calloc(1, sizeof(t_token));
-	// if (!token)
+	if (!token)
+	{
+		printf("minishell: malloc failed in tokenizer_init\n");
+		g_exit_status = 13;
+		return (NULL);
+	}
 	*i += skip_spaces(&s[*i + 2]) + 2;
 	len = find_end(&s[*i], " <>|");
 	token->string = ft_substr(s, *i, len);
@@ -111,7 +129,12 @@ t_token	*init_word(char *s, int *i)
 	int		len;
 
 	token = ft_calloc(1, sizeof(t_token));
-	// if (!token)
+	if (!token)
+	{
+		printf("minishell: malloc failed in tokenizer_init\n");
+		g_exit_status = 13;
+		return (NULL);
+	}
 	len = find_end(&s[*i], " '\"<>|");
 	token->string = ft_substr(s, *i, len);
 	token->type = WORD;
