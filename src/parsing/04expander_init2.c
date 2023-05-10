@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:38 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/10 12:13:40 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:23:08 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*create_var_from_token(char *token, t_idx *idx)
 	var = malloc(ft_strlen(token) + 1);
 	if (!token)
 	{
-		printf("minishell: malloc failed in expander\n");
+		printf("minishell: malloc failed in expander_init2\n");
 		g_exit_status = 13;
 		return (NULL);
 	}
