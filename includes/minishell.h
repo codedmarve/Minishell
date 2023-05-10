@@ -29,8 +29,8 @@ int		g_exit_status;
 
 typedef struct s_envp
 {
-	char			*envp_key;
-	char			*envp_value;
+	char			*key;
+	char			*value;
 	int				sorted;
 	struct s_envp	*next;
 }					t_envp;
@@ -77,7 +77,7 @@ typedef struct s_data
 	char		*input;
 	t_token		*token_lst;
 	t_envp		*env_lst;
-	t_cmdGroup	*cmdGroup; // * 
+	t_cmdGroup	*cmdgroup; // * 
 }	t_data;
 
 enum	e_quote_types
@@ -224,7 +224,7 @@ char	*ft_strdup1(const char *str);
 
 // builtins
 void	ft_pwd(void);
-void	ft_cd(char **str);
+void	ft_cd(t_data *data, char **str);
 void	ft_echo(char **s);
 int		export(t_data *data, char **var);
 void	ft_unset(t_data *data, char **key);

@@ -19,14 +19,14 @@ void	ft_env(t_data *data, char **str)
 	if (arrlen(str) > 1)
 	{
 		printf("env: '%s': No such file or directory\n", str[1]);
-		g_exit_status = 0;
+		g_exit_status = 127;
 		return ;
 	}
 	tmp = data->env_lst;
 	while (tmp)
 	{
-		printf("%s=", tmp->envp_key);
-		printf("%s\n", tmp->envp_value);
+		printf("%s=", tmp->key);
+		printf("%s\n", tmp->value);
 		tmp = tmp->next;
 	}
 	g_exit_status = 0;

@@ -19,4 +19,5 @@ void	ft_pwd()
 	str = ft_calloc(1000, sizeof(char));
 	printf("%s\n", getcwd(str, 500));
 	free(str);
+	g_exit_status = 0;
 }

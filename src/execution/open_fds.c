@@ -109,7 +109,7 @@ int	init_fds(t_data *data)
 {
 	t_cmdGroup *group;
 
-	group = data->cmdGroup;
+	group = data->cmdgroup;
 	while (group)
 	{
 		group->outfile = 1;

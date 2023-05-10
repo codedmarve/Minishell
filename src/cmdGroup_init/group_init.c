@@ -75,9 +75,9 @@ t_token	*add_group(t_data *data, t_token *token)
 		tok = tok->next;
 	}
 	group->cmd = ft_split(group->str, '\n');
-	if (data->cmdGroup == NULL)
-		return ((data->cmdGroup = group), tok);
-	tmp = data->cmdGroup;
+	if (data->cmdgroup == NULL)
+		return ((data->cmdgroup = group), tok);
+	tmp = data->cmdgroup;
 	while (tmp->next)
 		tmp = tmp->next;
 	group->prev = tmp;

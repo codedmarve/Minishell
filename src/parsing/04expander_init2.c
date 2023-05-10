@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   04expander_init2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*   By: moduwole <moduwole@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:38 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/09 14:51:24 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:09:26 by moduwole         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ char	*find_envp_value(t_envp *env_lst, char *var_name)
 {
 	while (env_lst != NULL)
 	{
-		if (ft_strcmp(env_lst->envp_key, var_name) == 0)
-			return (env_lst->envp_value);
+		if (ft_strcmp(env_lst->key, var_name) == 0)
+			return (env_lst->value);
 		env_lst = env_lst->next;
 	}
 	return (NULL);

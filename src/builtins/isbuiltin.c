@@ -45,7 +45,7 @@ void	execbn(t_data *data, t_cmdGroup *group)
 	if (!ft_strncmp(str[0], "echo", 4) && ft_strlen(str[0]) == 4)
 		ft_echo(str);
 	if (!ft_strncmp(str[0], "cd", 2) && ft_strlen(str[0]) == 2)
-		ft_cd(str);
+		ft_cd(data, str);
 	if (!ft_strncmp(str[0], "pwd", 3) && ft_strlen(str[0]) == 3)
 		ft_pwd();
 	if (!ft_strncmp(str[0], "export", 6) && ft_strlen(str[0]) == 6)

@@ -53,11 +53,11 @@ t_envp	*create_envp_node(char **data)
 	if (!element)
 		return (NULL);
 	element->sorted = 0;
-	element->envp_key = data[0];
+	element->key = data[0];
 	if (data[1] == NULL)
-		element->envp_value = NULL;
+		element->value = NULL;
 	else
-		element->envp_value = data[1];
+		element->value = data[1];
 	element->next = NULL;
 	return (element);
 }

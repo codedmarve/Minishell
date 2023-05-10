@@ -12,26 +12,39 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_cd(char **str)
+void	cd_home(t_data *data)
 {
+	t_envp	*ptr;
+
+	ptr = data->env_lst;
+	while (ptr && !(!ft_strncmp(ptr->key, "HOME", 4)
+		&& ft_strlen(ptr->key) == 4))
+		ptr = ptr->next;
+	if (!ptr || chdir(ptr->value))
+	{
+		if (!ptr)
+			printf("-bash: cd: HOME not set\n");
+		else
+			printf("-bash: cd: %s: %s\n", ptr->value, strerror(errno));
+		g_exit_status = 1;
+	}
+	else
+		g_exit_status = 0;
+}
+
+void	ft_cd(t_data *data, char **str)
+{
+	g_exit_status = 0;
 	if (arrlen(str) > 2)
 	{
 		printf("-bash: cd: too many arguments\n");
 		g_exit_status = 1;
-		return ;
 	}
-	if (arrlen(str) == 1)
-	{
-		if (chdir("/home"))
-			printf("This feature is only Linux compactible\n");
-		g_exit_status = 0;
-		return ;
-	}
-	if (chdir(str[1]))
+	else if (arrlen(str) == 1)
+		cd_home(data);
+	else if (chdir(str[1]))
 	{
 		printf("-bash: cd: %s: %s\n", str[1], strerror(errno));
 		g_exit_status = 1;
-		return ;
 	}
-	g_exit_status = 0;
 }

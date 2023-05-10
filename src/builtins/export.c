@@ -59,14 +59,14 @@ void	export_print(t_data *data)
 		min = set_min(data);
 		while (tmp2)
 		{
-			if (!issmaller(min->envp_key, tmp2->envp_key)
+			if (!issmaller(min->key, tmp2->key)
 				&& !tmp2->sorted)
 				min = tmp2;
 			tmp2 = tmp2->next;
 		}
 		min->sorted = 1;
-		printf("declare -X %s=", min->envp_key);
-		printf("\"%s\"\n", min->envp_value);
+		printf("declare -X %s=", min->key);
+		printf("\"%s\"\n", min->value);
 		tmp = tmp->next;
 	}
 }
@@ -78,14 +78,14 @@ int	is_update(t_data *data, char *key, char *value)
 	ptr = data->env_lst;
 	while (ptr)
 	{
-		if (!ft_strncmp(ptr->envp_key, key, ft_strlen(key))
-			&& ft_strlen(ptr->envp_key) == ft_strlen(key))
+		if (!ft_strncmp(ptr->key, key, ft_strlen(key))
+			&& ft_strlen(ptr->key) == ft_strlen(key))
 		{
-			if (!(!ft_strncmp(ptr->envp_value, value, ft_strlen(value))
-				&& ft_strlen(ptr->envp_value) == ft_strlen(value)))
+			if (!(!ft_strncmp(ptr->value, value, ft_strlen(value))
+				&& ft_strlen(ptr->value) == ft_strlen(value)))
 			{
-				free(ptr->envp_value);
-				ptr->envp_value = ft_strdup(value);
+				free(ptr->value);
+				ptr->value = ft_strdup(value);
 			}
 			return (1);
 		}
@@ -100,24 +100,22 @@ int	export(t_data *data, char **var)
 	char	*ptr;
 	char	*tmp;
 
+	g_exit_status = 0;
 	if (arrlen(var) == 1)
+		return (export_print(data), reset(data), 1);
+	ptr = ft_strchr(var[1], '=');
+	if (!ptr)
+		return (0);
+	if (var[1][0] == '=')
 	{
-		export_print(data);
-		reset(data);
+		g_exit_status = 1;
+		return (printf("-bash: export: '%s': not a valid identifier\n", ptr), 0);
 	}
-	else
-	{
-		ptr = ft_strchr(var[1], '=');
-		if (!ptr)
-			return (0);
-		if (ptr[0] == '=')
-			return (printf("-bash: export: '%s' not a valid identifier\n", ptr), 0);
-		tmp = ft_strdup2(var[1], ptr - var[1]);
-		str = ft_split(var[1], '\0');
-		if (!is_update(data, tmp, ptr + 1))
-			envplist_handler(&data->env_lst, str);
-		free(tmp);
-		ft_clarr(str);
-	}
+	tmp = ft_strdup2(var[1], ptr - var[1]);
+	str = ft_split(var[1], '\0');
+	if (!is_update(data, tmp, ptr + 1))
+		envplist_handler(&data->env_lst, str);
+	free(tmp);
+	ft_clarr(str);
 	return (1);
 }

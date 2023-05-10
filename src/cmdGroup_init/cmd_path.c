@@ -17,8 +17,8 @@ t_envp	*pathfinder(t_data *data)
 	t_envp	*env;
 
 	env = data->env_lst;
-	while (env && !(!ft_strncmp(env->envp_key, "PATH", 4)
-			&& ft_strlen(env->envp_key) == 4))
+	while (env && !(!ft_strncmp(env->key, "PATH", 4)
+			&& ft_strlen(env->key) == 4))
 			env = env->next;
 	return (env);
 }
@@ -56,11 +56,11 @@ void	get_cmdpath(t_data *data)
 	t_cmdGroup	*group;
 
 	path = NULL;
-	group = data->cmdGroup;
+	group = data->cmdgroup;
 	env = pathfinder(data);
 	if (!env)
 		return ;
-	path = ft_split(env->envp_value, ':');
+	path = ft_split(env->value, ':');
 	while (group)
 	{
 		add_path(group, path);

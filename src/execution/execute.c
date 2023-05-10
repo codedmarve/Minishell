@@ -31,7 +31,7 @@ void	out_handler(t_cmdGroup *group)
 	if (!isbuiltin(group))
 		close(group->pipe[0]);
 	if (group->next && group->outfile == 1
-		&& access(group->cmd[0], X_OK) == 0)
+		&& (access(group->cmd[0], X_OK) == 0 || isbuiltin(group)))
 		dup2(group->pipe[1], STDOUT_FILENO);
 	if (group->outfile > 1)
 	{
@@ -74,10 +74,10 @@ void	execute(t_data *data)
 	int			stdin;
 	int			stdout;
 
-	group = data->cmdGroup;
+	group = data->cmdgroup;
 	while (group)
 	{
-		sig_noninteractive(); /////////////
+		sig_noninteractive();
 		if (isbuiltin(group))
 		{
 			stdin = dup(STDIN_FILENO);
@@ -93,6 +93,5 @@ void	execute(t_data *data)
 			pclose_pipes(group);
 		group = group->next;
 	}
-	parent_wait(data->cmdGroup);
-//	sig_interactive(); /////////////
+	parent_wait(data->cmdgroup);
 }
