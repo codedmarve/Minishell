@@ -227,7 +227,7 @@ void	ft_pwd(void);
 void	ft_cd(t_data *data, char **str);
 void	ft_echo(char **s);
 int		export(t_data *data, char **var);
-void	ft_unset(t_data *data, char **key);
+int		ft_unset(t_data *data, char **key);
 void	ft_env(t_data *data, char **str);
 int		isbuiltin(t_cmdGroup *group);
 void	execbn(t_data *data, t_cmdGroup *group);

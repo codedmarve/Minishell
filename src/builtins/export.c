@@ -106,10 +106,10 @@ int	export(t_data *data, char **var)
 	ptr = ft_strchr(var[1], '=');
 	if (!ptr)
 		return (0);
-	if (var[1][0] == '=')
+	if (var[1][0] == '=' || var[1][0] == '?' || var[1][0] == '-')
 	{
 		g_exit_status = 1;
-		return (printf("-bash: export: '%s': not a valid identifier\n", ptr), 0);
+		return (printf("-minishell: export: '%s': not a valid identifier\n", var[1]), 0);
 	}
 	tmp = ft_strdup2(var[1], ptr - var[1]);
 	str = ft_split(var[1], '\0');

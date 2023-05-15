@@ -48,9 +48,6 @@ int	here_doc(char *delimeter)
 	else
 	{
 		sig_parent_heredoc2();
-		//sig_parent_heredoc();
-		//sig_interactive();
-		//sig_noninteractive();
 		waitpid(pid, &chexit, 0);
 		if (WIFEXITED(chexit))
 			return (1);
@@ -71,7 +68,7 @@ void	outfile_handler(t_cmdGroup *group)
 			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		if (group->outfile == -1)
 		{
-			printf("-bash: %s: %s\n", outs->str, strerror(errno));
+			printf("-minishell: %s: %s\n", outs->str, strerror(errno));
 			g_exit_status = 1;
 			return ;
 		}
@@ -96,7 +93,7 @@ int	infile_handler(t_cmdGroup *group)
 			group->infile = open(ins->str, O_RDONLY);
 		if (group->infile == -1)
 		{
-			printf("-bash: %s: %s\n", ins->str, strerror(errno));
+			printf("-minishell: %s: %s\n", ins->str, strerror(errno));
 			g_exit_status = 1;
 			return (1);
 		}
@@ -118,7 +115,7 @@ int	init_fds(t_data *data)
 				return (0);
 		if (group->outs)
 			outfile_handler(group);
-		pipe(group->pipe);  // error check?
+		pipe(group->pipe);
 		group = group->next;
 	}
 	return (1);
