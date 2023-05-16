@@ -41,7 +41,7 @@ int	run_minishell(t_data *data)
 		return (exec_free(data), 0);
 	execute(data);
 	exec_free(data);
-	return (1);
+	return (0);
 }
 
 void	minishell_loop(t_data *data)
