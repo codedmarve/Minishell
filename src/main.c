@@ -52,8 +52,8 @@ void	minishell_loop(t_data *data)
 		data->input = readline("minishell$ ");
 		if (!data->input)
 		{
-			exit_free(data);
 			write(1, "exit\n", 5);
+			exit_free(data);
 			exit(0);
 		}
 		if (ft_strlen(data->input) > 0)
