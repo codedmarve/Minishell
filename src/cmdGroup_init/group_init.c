@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	insert_end_outs(t_token *token, t_cmdGroup *group)
+void	insert_end_outs(t_token *token, t_cmdgroup *group)
 {
 	t_outs	*new;
 	t_outs	*tmp;
@@ -34,7 +34,7 @@ void	insert_end_outs(t_token *token, t_cmdGroup *group)
 	tmp->next = new;
 }
 
-void	insert_end_ins(t_token *token, t_cmdGroup *group)
+void	insert_end_ins(t_token *token, t_cmdgroup *group)
 {
 	t_ins	*new;
 	t_ins	*tmp;
@@ -59,15 +59,15 @@ void	insert_end_ins(t_token *token, t_cmdGroup *group)
 t_token	*add_group(t_data *data, t_token *token)
 {
 	t_token		*tok;
-	t_cmdGroup	*tmp;
-	t_cmdGroup	*group;
+	t_cmdgroup	*tmp;
+	t_cmdgroup	*group;
 
 	tok = token;
-	group = ft_calloc(sizeof(t_cmdGroup), 1);
+	group = ft_calloc(sizeof(t_cmdgroup), 1);
 	while (tok && tok->type != PIPE)
 	{
 		if (tok->type == WORD)
-			group->str = ft_strjoin2(group->str, tok->string, '\n'); // cat -n tmp
+			group->str = ft_strjoin2(group->str, tok->string, '\n');
 		else if (tok->type == IN_RED || tok->type == HERE_DOC)
 			insert_end_ins(tok, group);
 		else if (tok->type == OUT_RED || tok->type == APP_RED)

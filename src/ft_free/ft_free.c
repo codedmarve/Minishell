@@ -40,9 +40,9 @@ void	free_outs(t_outs **ptr)
 	}
 }
 
-void	free_cmdGroup(t_data *data)
+void	free_cmdgroup(t_data *data)
 {
-	t_cmdGroup	*tmp;
+	t_cmdgroup	*tmp;
 
 	tmp = data->cmdgroup;
 	while (tmp)
@@ -72,7 +72,6 @@ void	exit_free(t_data *data)
 	{
 		free(env->key);
 		free(env->value);
-
 		data->env_lst = env->next;
 		free(env);
 		env = data->env_lst;
@@ -86,5 +85,5 @@ void	exec_free(t_data *data)
 	unlink("here_doc.txt");
 	free(data->input);
 	free_token_lst(&data->token_lst);
-	free_cmdGroup(data);
+	free_cmdgroup(data);
 }

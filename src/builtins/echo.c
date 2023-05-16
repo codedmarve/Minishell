@@ -14,9 +14,9 @@
 
 void	ft_echo(char **s)
 {
-	int	i;
+	int		i;
 	char	**str;
-	
+
 	i = 0;
 	if (arrlen(s) == 1)
 	{

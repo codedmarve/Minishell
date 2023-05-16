@@ -1,6 +1,0 @@
-
-https://github.com/maiadegraaf/minishell
-
-https://github.com/toni-schmitt/minishell#lexer
-If some form of wrong syntax gets detected, Invalid Syntax at token is printed and the error value $? is set to 258
-If there was an invalid command used, command not found is printed and the error value $? is set to 127

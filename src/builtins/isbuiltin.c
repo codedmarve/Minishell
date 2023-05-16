@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	isbuiltin(t_cmdGroup *group)
+int	isbuiltin(t_cmdgroup *group)
 {
 	char	**str;
 
@@ -34,8 +34,7 @@ int	isbuiltin(t_cmdGroup *group)
 	return (0);
 }
 
-
-void	execbn(t_data *data, t_cmdGroup *group)
+void	execbn(t_data *data, t_cmdgroup *group)
 {
 	char	**str;
 

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void unset_free(t_envp *ptr)
+void	unset_free(t_envp *ptr)
 {
 	free(ptr->key);
 	free(ptr->value);
@@ -32,8 +32,8 @@ int	check(char **key)
 
 int	ft_unset(t_data *data, char **key)
 {
-	t_envp *ptr;
-	t_envp *ptr2;
+	t_envp	*ptr;
+	t_envp	*ptr2;
 
 	ptr = data->env_lst;
 	g_exit_status = 0;

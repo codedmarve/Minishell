@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:04:29 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/04 15:04:31 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:16:35 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int	early_err(t_data *data)
 	input = data->input;
 	if ((ft_strlen(data->input) == 0))
 		return (-1);
-	else if (spaces_err(input) == -1)	
+	else if (spaces_err(input) == -1)
 		return (-1);
 	else if ((quotes_err(input) == -1)
 		|| (pipes_err(input) == -1)
 		|| (spec_char_err(input) == -1)
 		|| (redirection_err(input) == -1))
-		return (-1); // and update global variable
+		return (-1);
 	return (0);
 }

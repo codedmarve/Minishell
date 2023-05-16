@@ -1,6 +1,0 @@
-
-
-if you installed it with brew it should be 
-/usr/local/opt/readline/lib
-or I think this should work 
-find / -type d -name readline

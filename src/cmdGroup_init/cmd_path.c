@@ -23,7 +23,7 @@ t_envp	*pathfinder(t_data *data)
 	return (env);
 }
 
-void	add_path(t_cmdGroup *group, char **paths)
+void	add_path(t_cmdgroup *group, char **paths)
 {
 	int		i;
 	char	**str;
@@ -53,7 +53,7 @@ void	get_cmdpath(t_data *data)
 {
 	t_envp		*env;
 	char		**path;
-	t_cmdGroup	*group;
+	t_cmdgroup	*group;
 
 	path = NULL;
 	group = data->cmdgroup;

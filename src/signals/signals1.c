@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 12:17:09 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/09 12:17:10 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:11:18 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,17 @@ void	ignore_ctrl_bslash(void)
 void	ctrl_c_interactive(int sig)
 {
 	(void)sig;
-
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-// /// @brief default signal flow
-// /// ctrl-backslash is ignored
-// /// ctrl-C displays new prompt
-// /// @param  
-void	sig_interactive(void) // DEFAULT STATE
+/// @brief default signal flow
+/// ctrl-backslash is ignored
+/// ctrl-C displays new prompt
+/// @param  
+void	sig_interactive(void)
 {
 	struct sigaction	sa;
 
@@ -45,12 +44,9 @@ void	sig_interactive(void) // DEFAULT STATE
 	sigaction(SIGINT, &sa, NULL);
 }
 
-/////////////////////////////////////////////
-
 void	ctrl_c_ctrl_bslash_noninteractive(int sig)
 {
 	(void)sig;
-
 	if (sig == SIGQUIT)
 		write(1, "quit", 4);
 	write(1, "\n", 1);

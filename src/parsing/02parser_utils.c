@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:04:33 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/04 15:42:40 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/10 12:17:35 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	remove_consequtive_quotes(char *input)
 	{
 		if (!in_q && ((input[i] == '"' && input[i + 1] == '"')
 				|| (input[i] == '\'' && input[i + 1] == '\'')))
-            i += 2;
+			i += 2;
 		else
 		{
 			if (input[i] == '"' || input[i] == '\'')
@@ -58,39 +58,38 @@ void	free_token_lst(t_token **token_lst)
 		free(*token_lst);
 		*token_lst = tmp;
 	}
-	// free(token_lst) here???
 }
 
-void	print_full_token_data(t_data *data)
-{
-	t_token	*tmp;
-	int		i;
+// void	print_full_token_data(t_data *data)
+// {
+// 	t_token	*tmp;
+// 	int		i;
 
-	tmp = data->token_lst;
-	i = 0;
-	while (tmp)
-	{
-		printf("TOK %i:%s TOK_TYPE:%d\n",
-			i, tmp->string, tmp->type);
-		// printf("TOK %i:%s TOK_TYPE:%d QUOT:%d\n",
-		// 	i, tmp->string, tmp->type, tmp->quote_type);
-		i++;
-		tmp = tmp->next;
-	}
-}
+// 	tmp = data->token_lst;
+// 	i = 0;
+// 	while (tmp)
+// 	{
+// 		printf("TOK %i:%s TOK_TYPE:%d\n",
+// 			i, tmp->string, tmp->type);
+// 		// printf("TOK %i:%s TOK_TYPE:%d QUOT:%d\n",
+// 		// 	i, tmp->string, tmp->type, tmp->quote_type);
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// }
 
-void	print_token_string(t_data *data)
-{
-	t_token	*tmp;
-	int		i;
+// void	print_token_string(t_data *data)
+// {
+// 	t_token	*tmp;
+// 	int		i;
 
-	tmp = data->token_lst;
-	i = 0;
-	while (tmp)
-	{
-		printf("%s ", tmp->string);
-		i++;
-		tmp = tmp->next;
-	}
-	printf("\n");
-}
+// 	tmp = data->token_lst;
+// 	i = 0;
+// 	while (tmp)
+// 	{
+// 		printf("%s ", tmp->string);
+// 		i++;
+// 		tmp = tmp->next;
+// 	}
+// 	printf("\n");
+// }

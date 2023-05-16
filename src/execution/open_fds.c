@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int here_doc2(char *delimeter)
+int	here_doc2(char *delimeter)
 {
 	char	*str;
 	int		fd;
@@ -42,7 +42,6 @@ int	here_doc(char *delimeter)
 	pid = fork();
 	if (pid == 0)
 	{
-		// sig_heredoc();
 		here_doc2(delimeter);
 	}
 	else
@@ -55,7 +54,7 @@ int	here_doc(char *delimeter)
 	return (0);
 }
 
-void	outfile_handler(t_cmdGroup *group)
+void	outfile_handler(t_cmdgroup *group)
 {
 	t_outs	*outs;
 
@@ -63,12 +62,14 @@ void	outfile_handler(t_cmdGroup *group)
 	while (outs)
 	{
 		if (outs->append)
-			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_APPEND, 0777);
+			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_APPEND,
+					0777);
 		else
-			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			group->outfile = open(outs->str, O_WRONLY | O_CREAT | O_TRUNC,
+					0777);
 		if (group->outfile == -1)
 		{
-			printf("-minishell: %s: %s\n", outs->str, strerror(errno));
+			printf("minishell: %s: %s\n", outs->str, strerror(errno));
 			g_exit_status = 1;
 			return ;
 		}
@@ -76,7 +77,7 @@ void	outfile_handler(t_cmdGroup *group)
 	}
 }
 
-int	infile_handler(t_cmdGroup *group)
+int	infile_handler(t_cmdgroup *group)
 {
 	t_ins	*ins;
 
@@ -93,7 +94,7 @@ int	infile_handler(t_cmdGroup *group)
 			group->infile = open(ins->str, O_RDONLY);
 		if (group->infile == -1)
 		{
-			printf("-minishell: %s: %s\n", ins->str, strerror(errno));
+			printf("minishell: %s: %s\n", ins->str, strerror(errno));
 			g_exit_status = 1;
 			return (1);
 		}
@@ -104,7 +105,7 @@ int	infile_handler(t_cmdGroup *group)
 
 int	init_fds(t_data *data)
 {
-	t_cmdGroup *group;
+	t_cmdgroup	*group;
 
 	group = data->cmdgroup;
 	while (group)

@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	pclose_pipes(t_cmdGroup *group)
+void	pclose_pipes(t_cmdgroup *group)
 {
 	if (group->prev)
 	{
@@ -21,9 +21,9 @@ void	pclose_pipes(t_cmdGroup *group)
 	}
 }
 
-void	parent_wait(t_cmdGroup *group)
+void	parent_wait(t_cmdgroup *group)
 {
-	t_cmdGroup	*tmp;
+	t_cmdgroup	*tmp;
 	int			exit;
 
 	exit = 0;

@@ -14,7 +14,7 @@
 
 int	issmaller(char *str, char *str2)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str2)
@@ -32,9 +32,9 @@ int	issmaller(char *str, char *str2)
 	return (1);
 }
 
-t_envp *set_min(t_data *data)
+t_envp	*set_min(t_data *data)
 {
-	t_envp *tmp;
+	t_envp	*tmp;
 
 	tmp = data->env_lst;
 	while (tmp)
@@ -48,9 +48,9 @@ t_envp *set_min(t_data *data)
 
 void	export_print(t_data *data)
 {
-	t_envp *tmp;
-	t_envp *tmp2;
-	t_envp *min;
+	t_envp	*tmp;
+	t_envp	*tmp2;
+	t_envp	*min;
 
 	tmp = data->env_lst;
 	while (tmp)
@@ -82,7 +82,7 @@ int	is_update(t_data *data, char *key, char *value)
 			&& ft_strlen(ptr->key) == ft_strlen(key))
 		{
 			if (!(!ft_strncmp(ptr->value, value, ft_strlen(value))
-				&& ft_strlen(ptr->value) == ft_strlen(value)))
+					&& ft_strlen(ptr->value) == ft_strlen(value)))
 			{
 				free(ptr->value);
 				ptr->value = ft_strdup(value);
@@ -109,7 +109,8 @@ int	export(t_data *data, char **var)
 	if (var[1][0] == '=' || var[1][0] == '?' || var[1][0] == '-')
 	{
 		g_exit_status = 1;
-		return (printf("-minishell: export: '%s': not a valid identifier\n", var[1]), 0);
+		return (printf("minishell: export: '%s': not a valid identifier\n",
+				var[1]), 0);
 	}
 	tmp = ft_strdup2(var[1], ptr - var[1]);
 	str = ft_split(var[1], '\0');

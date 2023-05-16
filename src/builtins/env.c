@@ -14,11 +14,11 @@
 
 void	ft_env(t_data *data, char **str)
 {
-	t_envp *tmp;
+	t_envp	*tmp;
 
 	if (arrlen(str) > 1)
 	{
-		printf("env: '%s': No such file or directory\n", str[1]);
+		printf("minishell: env: '%s': No such file or directory\n", str[1]);
 		g_exit_status = 127;
 		return ;
 	}

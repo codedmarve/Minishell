@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   envplist_handler.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/16 10:32:54 by dgoremyk          #+#    #+#             */
+/*   Updated: 2023/05/16 10:32:56 by dgoremyk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
@@ -22,7 +33,7 @@ char	*ft_strdup2(const char *str, int len)
 void	envplist_handler(t_envp **head, char **envp)
 {
 	int		i;
-	char 	*ptr;
+	char	*ptr;
 	char	**envp_pair;
 
 	i = 0;

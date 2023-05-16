@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-void	in_handler(t_cmdGroup *group)
+void	in_handler(t_cmdgroup *group)
 {
 	if (group->prev && group->prev->outfile == 1
 		&& group->infile == 0 && group->prev->cmd
@@ -26,7 +26,7 @@ void	in_handler(t_cmdGroup *group)
 		dup2(group->infile, STDIN_FILENO);
 }
 
-void	out_handler(t_cmdGroup *group)
+void	out_handler(t_cmdgroup *group)
 {
 	if (!isbuiltin(group))
 		close(group->pipe[0]);
@@ -41,7 +41,7 @@ void	out_handler(t_cmdGroup *group)
 	close(group->pipe[1]);
 }
 
-void	in_out_handler(t_cmdGroup *group)
+void	in_out_handler(t_cmdgroup *group)
 {
 	if (group->infile == -1 || group->outfile == -1
 		|| !group->cmd || !group->cmd[0])
@@ -54,7 +54,7 @@ void	in_out_handler(t_cmdGroup *group)
 	in_handler(group);
 }
 
-void	child_process(t_cmdGroup *group)
+void	child_process(t_cmdgroup *group)
 {
 	if (!group->cmd)
 		return ;
@@ -63,14 +63,14 @@ void	child_process(t_cmdGroup *group)
 	{
 		in_out_handler(group);
 		if (execve(group->cmd[0], group->cmd, NULL) == -1)
-			printf("%s: command not found\n", group->cmd[0]);
+			printf("minishell: %s: command not found\n", group->cmd[0]);
 		exit(127);
 	}
 }
 
 void	execute(t_data *data)
 {
-	t_cmdGroup	*group;
+	t_cmdgroup	*group;
 	int			stdin;
 	int			stdout;
 
