@@ -60,34 +60,3 @@ int	main(int ac, char **av, char **envp)
 	minishell_loop(data);
 	return (0);
 }
-
-// int	main(int ac, char **av, char **envp)
-// {
-// 	t_data	*data;
-
-// 	welcome(ac, av);
-// 	data = ft_calloc(1, sizeof(t_data));
-// 	if (!data)
-// 		return (printf("Error: malloc failure (main)"), 1);
-// 	g_exit_status = 0;
-// 	envplist_handler(&data->env_lst, envp);
-// 	while (1)
-// 	{
-// 		sig_interactive();
-// 		data->input = readline("minishell$ ");
-// 		if (!data->input)
-// 		{
-// 			exit_free(data);
-// 			write(1, "exit\n", 5);
-// 			exit(0);
-// 		}
-// 		if (ft_strlen(data->input) > 0)
-// 		{
-// 			add_history(data->input);
-// 			run_minishell(data);
-// 		}
-// 		else
-// 			free(data->input);
-// 	}
-// 	return (0);
-// }
