@@ -104,6 +104,7 @@ typedef struct s_idx
 
 // main.c
 void	welcome(int argc, char **argv);
+int		run_minishell(t_data *data);
 void	minishell_loop(t_data *data);
 int		main(int ac, char **av, char **envp);
 
@@ -200,9 +201,6 @@ void	free_cmdgroup(t_data *data);
 void	exit_free(t_data *data);
 void	exec_free(t_data *data);
 //---------------PARSING-----------------//
-// 00run_minishell.c
-int		run_minishell(t_data *data);
-
 // 01early_err.c
 int		early_err(t_data *data);
 

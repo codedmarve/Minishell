@@ -6,7 +6,7 @@
 /*   By: dgoremyk <dgoremyk@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:01:50 by dgoremyk          #+#    #+#             */
-/*   Updated: 2023/05/10 12:17:05 by dgoremyk         ###   ########.fr       */
+/*   Updated: 2023/05/16 10:59:28 by dgoremyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	expand_token_lst(t_data *data)
 	tmp = data->token_lst;
 	while (tmp != NULL)
 	{
-		if (tmp->quote_type != S_Q && dollar_in_str(tmp->string))
+		if (tmp->type != HERE_DOC && tmp->quote_type != S_Q
+			&& dollar_in_str(tmp->string))
 		{
 			expanded_string = expand_token(tmp->string, data);
 			if (expanded_string != NULL)
@@ -71,32 +72,3 @@ void	expand_token_lst(t_data *data)
 		tmp = tmp->next;
 	}
 }
-
-// char	*expand_token(char *token, t_data *data)
-// {
-// 	char	*exp;
-// 	t_idx	idx;
-
-// 	exp = malloc(MAX_TOKEN_SIZE);
-// //	if (!token)
-// 	idx.i = 0;
-// 	idx.j = 0;
-// 	while (token[idx.i] != '\0')
-// 	{
-// 		if (token[idx.i] == '$')
-// 		{
-// 			if (token[idx.i + 1] == '?')
-// 				init_exit_status(&exp, &idx);
-// 			else if ( token[idx.i + 1] == '$')
-// 				init_single_dollar(&exp, &idx);
-// 			else if (ft_isalnum(token[idx.i + 1]) || token[idx.i + 1] == '_')
-// 				init_env_var(&exp, &idx, token, data);
-// 			else
-// 				copy_token_char(&exp, &idx, token[idx.i++]);
-// 		}
-// 		else
-// 			copy_token_char(&exp, &idx, token[idx.i++]);
-// 	}
-// 	exp[idx.j] = '\0';
-// 	return (exp);
-// }

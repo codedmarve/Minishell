@@ -25,6 +25,25 @@ void	welcome(int argc, char **argv)
 		"\033[0m");
 }
 
+int	run_minishell(t_data *data)
+{
+	if (!ft_strncmp(data->input, "exit", 4) && ft_strlen(data->input) == 4)
+		exit_free(data);
+	if (early_err(data) == -1)
+	{
+		g_exit_status = 2;
+		return (-1);
+	}
+	parser(data);
+	cmd_init(data);
+	get_cmdpath(data);
+	if (!init_fds(data))
+		return (exec_free(data), 0);
+	execute(data);
+	exec_free(data);
+	return (1);
+}
+
 void	minishell_loop(t_data *data)
 {
 	while (1)
